@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid-system</title>
+    <link rel="stylesheet" href="static/css/reset.css">
+    <style>
+        .grid-container{
+            display: grid;
+            width: 100vw;
+            height:100%;
+            background-color:  #555;
+            grid-auto-columns: minmax(auto,200px) auto; 
+            /* media1uey */
+            grid-template-areas:
+                        "header header"
+                        "sideBar contents"
+                        "footer footer";
+            grid-gap: 4.5rem 0.5rem;
+            gap: 4.5rem 0.5rem;
+        }
+        .grid-item{
+            background-color: rgb(98, 83, 112);
+            border: 1px solid white;
+            color: white;
+        }
+
+        .header{ grid-area: header;
+                width: 100vw;
+                 height: 60px;   
+                 position: fixed;
+                }   
+        .sideBar{ 
+                grid-area: sideBar; 
+                position: fixed;
+                /* width: 12rem; */
+                height: 100vh;
+                opacity: 30%;
+                z-index: 1;
+                }
+
+        /* 펼쳤을때 */
+        @media(max-width:281px){
+            .sideBar{
+                width: 6rem;
+                height: 100vh;
+            }
+        }
+        @media(min-width:281px) and (max-width:340px){
+            .sideBar{
+                width: 7rem;
+                height: 100vh;
+            }
+        }
+
+        @media(min-width:340px) and (max-width:361px){
+            .sideBar{
+                width: 8rem;
+                height: 100vh;
+            }
+        }
+
+        @media(min-width:361px) and (max-width:450px){
+            .sideBar{
+                width: 9rem;
+                height: 100vh;
+            }
+        }
+
+        @media(min-width:500px) and (max-width:1024px){
+            .sideBar{
+                width: 12rem;
+                height: 100vh;
+                }
+        }
+
+        @media(min-width:1024px){
+            .sideBar{
+                width: 12rem;
+                height: 100vh;
+                }
+        }
+
+        .contents{ grid-area: contents;
+                   height: 100vh;
+                     }
+        .hideSideBar{
+            width: 1rem;
+        }
+        .hideSideBar + .contents{
+            width: 100vw;
+        }
+
+        .wideMode{
+            grid-gap: 4.5rem 0rem;
+            gap: 4.5rem 0rem;
+        }
+
+        .footer{ grid-area: footer;
+            position: fixed;
+            bottom: -50px;
+            left: calc(50% - 2.5rem);
+            height: 5rem;
+            width: 5rem;
+            border-radius: 50%;
+            z-index: 1;
+
+            text-align: center;
+            line-height: 3rem;
+            font-size: 0.9rem;
+         }
+
+         .footer:hover{ grid-area: footer;
+            bottom: 0px;
+         }
+
+        /* 나중에 클래스 알고리즘 정리  */
+    </style>
+</head>
+<body>
+    <div class="grid-container wideMode">
+        <div class="grid-item header header-container">
+            <div>FixedBar</div>
+        </div>
+        <div class="grid-item sideBar hideSideBar">B</div>
+        <div class="grid-item contents">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque exercitationem fuga accusantium illum labore fugiat odit facere totam ab eos, et harum eveniet dignissimos nihil quae magni quia provident veritatis.</div>
+        <div class="grid-item footer">
+        <div>CONTACT</div>
+        <div class="footer-container">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita incidunt aperiam facere, sequi rerum eius quasi sint dolorem atque alias? Sit odio doloribus quae minima adipisci neque officiis aperiam eaque.</div>
+    </div>
+    </div>
+</body>
+<script>
+    const sideBar = document.querySelector
+</script>
+<script src="./static/js/sideBar-opt.js"></script>
+</html>
+
