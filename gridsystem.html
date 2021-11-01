@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grid-system</title>
     <link rel="stylesheet" href="static/css/reset.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons"
+      rel="stylesheet">
     <style>
         .grid-container{
             display: grid;
@@ -31,6 +33,7 @@
                 width: 100vw;
                  height: 60px;   
                  position: fixed;
+                 z-index: 2;
                 }   
         .sideBar{ 
                 grid-area: sideBar; 
@@ -40,6 +43,11 @@
                 opacity: 30%;
                 z-index: 1;
                 }
+        .headline {
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            transform: scale(1.5);
+        }
 
         /* 펼쳤을때 */
         @media(max-width:281px){
@@ -71,7 +79,7 @@
 
         @media(min-width:500px) and (max-width:1024px){
             .sideBar{
-                width: 12rem;
+                width: 11.5rem;
                 height: 100vh;
                 }
         }
@@ -87,7 +95,7 @@
                    height: 100vh;
                      }
         .hideSideBar{
-            width: 1rem;
+            width: 0rem;
         }
         .hideSideBar + .contents{
             width: 100vw;
@@ -123,8 +131,9 @@
     <div class="grid-container wideMode">
         <div class="grid-item header header-container">
             <div>FixedBar</div>
+            <span class="material-icons headline">view_headline</span>
         </div>
-        <div class="grid-item sideBar hideSideBar">B</div>
+        <div class="grid-item sideBar hideSideBar"></div>
         <div class="grid-item contents">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque exercitationem fuga accusantium illum labore fugiat odit facere totam ab eos, et harum eveniet dignissimos nihil quae magni quia provident veritatis.</div>
         <div class="grid-item footer">
         <div>CONTACT</div>
@@ -132,9 +141,6 @@
     </div>
     </div>
 </body>
-<script>
-    const sideBar = document.querySelector
-</script>
-<script src="./static/js/sideBar-opt.js"></script>
+<script src="./static/js/sideBar.js"></script>
 </html>
 
