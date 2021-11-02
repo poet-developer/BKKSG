@@ -19,7 +19,8 @@
             grid-template-areas:
                         "header header"
                         "sideBar contents"
-                        "footer footer";
+                        "footer footer"
+                        "footer-container footer-container";
             grid-gap: 4.5rem 0.5rem;
             gap: 4.5rem 0.5rem;
         }
@@ -39,6 +40,7 @@
                 grid-area: sideBar; 
                 position: fixed;
                 /* width: 12rem; */
+                top: 4rem;
                 height: 100vh;
                 opacity: 30%;
                 z-index: 1;
@@ -97,6 +99,10 @@
         .hideSideBar{
             width: 0rem;
         }
+        .hideSideBar ul{
+            position: absolute;
+            left: 1000px;
+        }
         .hideSideBar + .contents{
             width: 100vw;
         }
@@ -108,20 +114,36 @@
 
         .footer{ grid-area: footer;
             position: fixed;
-            bottom: -50px;
+            bottom: 13rem;
             left: calc(50% - 2.5rem);
-            height: 5rem;
+            height: 2.5rem;
             width: 5rem;
-            border-radius: 50%;
+            border-top-left-radius: 7rem;
+            border-top-right-radius: 7rem;
+             /* 100px of height + 10px of border */
+            border: 1px solid snow;
+            border-bottom: 0;
             z-index: 1;
 
             text-align: center;
             line-height: 3rem;
             font-size: 0.9rem;
+            z-index: 2;
          }
-
-         .footer:hover{ grid-area: footer;
-            bottom: 0px;
+         .footer-container{
+             position: fixed;
+             bottom:0;
+             width: 100vw;
+             height: 10rem;
+             background-color: rgb(30, 82, 124);
+             color: azure;
+             padding: 1.5rem;
+             border-radius: 20px;
+             /* multi columns  */
+             -moz-column-count: 3;
+            -webkit-column-count: 3;
+            column-count: 3;
+            z-index: 2;
          }
 
         /* 나중에 클래스 알고리즘 정리  */
@@ -133,12 +155,22 @@
             <div>FixedBar</div>
             <span class="material-icons headline">view_headline</span>
         </div>
-        <div class="grid-item sideBar hideSideBar"></div>
+        <div class="grid-item sideBar hideSideBar">
+            <ul>
+                <li>A</li>
+                <li>B</li>
+                <li>C</li>
+            </ul>
+        </div>
         <div class="grid-item contents">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque exercitationem fuga accusantium illum labore fugiat odit facere totam ab eos, et harum eveniet dignissimos nihil quae magni quia provident veritatis.</div>
         <div class="grid-item footer">
         <div>CONTACT</div>
-        <div class="footer-container">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita incidunt aperiam facere, sequi rerum eius quasi sint dolorem atque alias? Sit odio doloribus quae minima adipisci neque officiis aperiam eaque.</div>
-    </div>
+        </div>
+        <div class="footer-container">
+            <p><h4>1D</h4><div>Poetdeveloper</div></p>
+            <p><h4>2D</h4><div>IROLIM</div></p>
+            <p><h4>3D</h4><div>SOYO</div></p>
+        </div>
     </div>
 </body>
 <script src="./static/js/sideBar.js"></script>

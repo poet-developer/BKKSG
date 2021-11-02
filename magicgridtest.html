@@ -35,5 +35,17 @@
         <div class="item10"></div>
     </div>
 </body>
-<script src="static/js/magicGrid.js"></script>
+<script src="https://unpkg.com/magic-grid/dist/magic-grid.min.js"></script>
+<script>
+    let magicGrid = new MagicGrid({
+    container: '.container',
+    animate: true,
+    gutter: 12,
+    static: true,
+    useMin: true
+    });
+
+    magicGrid.listen();
+</script>
+<!-- <script src="static/js/magicGrid.js"></script> -->
 </html>
