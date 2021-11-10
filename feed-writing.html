@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feed - Writing</title>
+    <link rel="stylesheet" href="static/css/reset.css">
+    <style>
+        .f-w-container{
+            height: 1000px;
+            background-color: #9999;
+            margin: 0 auto;
+            padding: 1rem 0;
+        }
+        .f-w-item{
+            width: 100%;
+            height: 150px;
+            margin-bottom: 1rem;
+            background-color: rgb(110, 109, 109);
+            display: flex;
+            align-items: center;
+
+            background-size: cover;
+            background-position:center;
+            background-repeat: no-repeat;
+
+            border-radius: 1rem;
+        }
+
+        .text-sq{
+            display: flex;
+            align-items: center;
+            padding-top:0.2rem;
+            width:100%;
+            height:40%;
+            background-color: rgba(0,0,0, 0.3)
+        }
+        
+        @media(min-width:900px){
+            .f-w-container{
+                width: 70%;
+            }
+        }
+        @media(max-width:900px){
+            .f-w-container{
+                width: 90%;
+            }
+        }
+        a{
+            text-decoration: none;
+        }
+        h2{
+            font-size: 2.5rem;
+            padding: 0 2rem;
+            color:white;
+        }
+
+        span{  
+            overflow: hidden;
+            text-overflow:ellipsis;
+            /* display: -webkit-box; */
+            white-space: nowrap;
+            /* word-wrap: break-word;
+            
+            -webkit-line-clamp: 3;
+            -webkit-line-orient: vertical; */
+
+            line-height: 1.7rem;
+            max-height: 5rem;
+            flex: 0 1 auto;
+            font-size: 1.2rem;
+            margin: 0 2rem 0 0;
+
+            color: whitesmoke;
+        }
+    </style>
+</head>
+<body>
+    <div class="f-w-container">
+        <a href="#"><div class="f-w-item" style="background-image:url('static/img/img1.png');"><div class="text-sq"><h2>Title</h2><span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum totam illum quaerat, consectetur, explicabo delectus in iusto, fuga maxime nulla voluptatem ad natus! Modi sint accusantium rem sit necessitatibus delectus, earum nobis quos corporis dolor dicta ullam error impedit voluptatibus accusamus optio, sed natus. Beatae incidunt, fuga vitae laboriosam amet esse impedit dolor quis. Alias reiciendis recusandae, dignissimos, cupiditate aliquid quis quos quae est explicabo, accusamus sint repudiandae optio vitae. Obcaecati architecto magnam eum facere placeat quisquam tempore. Atque error nulla accusantium excepturi rem eveniet culpa aperiam ullam totam quas hic, architecto velit sunt perferendis suscipit tempore. Nostrum, fuga? Amet.Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, enim!</span></div></div></a>
+        <a href="#"><div class="f-w-item"><h2>Title</h2><span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit minima quas et ducimus ipsam voluptatem alias, saepe tempora impedit! Officiis.Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, enim!</span></div></a>
+        <a href="#"><div class="f-w-item"><h2>Title</h2><span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, enim!</span></div></a>
+    </div>
+
+    <!-- 글자수 제한만들기 -->
+    <!-- 배경이 명도가 어두울경우, 밝을경우 글자수 달라지기 -->
+</body>
+</html>

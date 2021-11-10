@@ -6,173 +6,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grid-system</title>
     <link rel="stylesheet" href="static/css/reset.css">
+    <link rel="stylesheet" href="static/css/gridsystem.css">
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons"
       rel="stylesheet">
+      <link rel="stylesheet" href="">
     <style>
-        .grid-container{
-            display: grid;
-            width: 100vw;
-            height:100%;
-            background-color:  #555;
-            grid-auto-columns: minmax(auto,200px) auto; 
-            /* media1uey */
-            grid-template-areas:
-                        "header header"
-                        "sideBar contents"
-                        "footer footer"
-                        "footer-container footer-container";
-            grid-gap: 4.5rem 0.5rem;
-            gap: 4.5rem 0.5rem;
-        }
-        .grid-item{
-            background-color: rgb(98, 83, 112);
-            border: 1px solid white;
-            color: white;
-        }
-
-        .header{ grid-area: header;
-                width: 100vw;
-                 height: 60px;   
-                 position: fixed;
-                 z-index: 2;
-                }   
-        .sideBar{ 
-                grid-area: sideBar; 
-                position: fixed;
-                /* width: 12rem; */
-                top: 4rem;
-                height: 100vh;
-                opacity: 30%;
-                z-index: 1;
-                }
+                    /* <<GRID SYSTEM>> 
+                    "header header"
+                    "sideBar contents"
+                    "footerBtn footerBtn"
+                    "footer-container footer-container"
+                    */
         .headline {
             display: inline-block;
             padding: 0.2rem 1rem;
             transform: scale(1.5);
         }
+         #contact{
+            position: relative;
+            left: -0.9rem;
+            transform: rotate(-45deg);
+            font-size: 0.8rem;
+            font-weight: bold;
+         }
 
-        /* 펼쳤을때 */
-        @media(max-width:281px){
-            .sideBar{
-                width: 6rem;
-                height: 100vh;
-            }
-        }
-        @media(min-width:281px) and (max-width:340px){
-            .sideBar{
-                width: 7rem;
-                height: 100vh;
-            }
-        }
-
-        @media(min-width:340px) and (max-width:361px){
-            .sideBar{
-                width: 8rem;
-                height: 100vh;
-            }
-        }
-
-        @media(min-width:361px) and (max-width:450px){
-            .sideBar{
-                width: 9rem;
-                height: 100vh;
-            }
-        }
-
-        @media(min-width:500px) and (max-width:1024px){
-            .sideBar{
-                width: 11.5rem;
-                height: 100vh;
-                }
-        }
-
-        @media(min-width:1024px){
-            .sideBar{
-                width: 12rem;
-                height: 100vh;
-                }
-        }
-
-        .contents{ grid-area: contents;
-                   height: 100vh;
-                     }
-        .hideSideBar{
-            width: 0rem;
-        }
-        .hideSideBar ul{
-            position: absolute;
-            left: 1000px;
-        }
-        .hideSideBar + .contents{
-            width: 100vw;
-        }
-
-        .wideMode{
-            grid-gap: 4.5rem 0rem;
-            gap: 4.5rem 0rem;
-        }
-
-        .footer{ grid-area: footer;
+         #bottom-line{
             position: fixed;
-            bottom: 13rem;
-            left: calc(50% - 2.5rem);
-            height: 2.5rem;
-            width: 5rem;
-            border-top-left-radius: 7rem;
-            border-top-right-radius: 7rem;
-             /* 100px of height + 10px of border */
-            border: 1px solid snow;
-            border-bottom: 0;
-            z-index: 1;
-
-            text-align: center;
-            line-height: 3rem;
-            font-size: 0.9rem;
-            z-index: 2;
+            bottom: -1.8rem;
+            width:100%;
+            height: 2rem;
+            background-color: rgb(30, 82, 124);
+            border: none;
          }
+
          .footer-container{
-             position: fixed;
-             bottom:0;
-             width: 100vw;
-             height: 10rem;
-             background-color: rgb(30, 82, 124);
-             color: azure;
-             padding: 1.5rem;
-             border-radius: 20px;
-             /* multi columns  */
-             -moz-column-count: 3;
-            -webkit-column-count: 3;
-            column-count: 3;
-            z-index: 2;
+            display: flex;
+            justify-content: space-around;
+            gap: 2rem;
+            
          }
 
-        /* 나중에 클래스 알고리즘 정리  */
+         .dimension{
+             flex: 1 1 100px;
+             
+         }
+
     </style>
 </head>
-<body>
+<body style="background-color:#555;">
     <div class="grid-container wideMode">
-        <div class="grid-item header header-container">
+        <header class="grid-item header header-container">
             <div>FixedBar</div>
             <span class="material-icons headline">view_headline</span>
-        </div>
+        </header>
         <div class="grid-item sideBar hideSideBar">
             <ul>
-                <li>A</li>
-                <li>B</li>
-                <li>C</li>
+                <li>A</li><li>B</li><li>C</li>
             </ul>
         </div>
         <div class="grid-item contents">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque exercitationem fuga accusantium illum labore fugiat odit facere totam ab eos, et harum eveniet dignissimos nihil quae magni quia provident veritatis.</div>
-        <div class="grid-item footer">
-        <div>CONTACT</div>
-        </div>
-        <div class="footer-container">
-            <p><h4>1D</h4><div>Poetdeveloper</div></p>
-            <p><h4>2D</h4><div>IROLIM</div></p>
-            <p><h4>3D</h4><div>SOYO</div></p>
-        </div>
+            <footer class="grid-item footerBtn">
+                <div id="contact">CONTACT</div>
+            </footer>
+            <div id="bottom-line"></div>
+            <div class="grid-item footer-container">
+                <div class="dimension 1D"><h2>| 1D</h2><br>
+                <ul><li>| poetDeveloper <p>: Full Stack Web Developer</p></li>
+                </ul>
+                </div>
+                <div class="dimension 2D"><h2>| 2D</h2><br>
+                    <ul><li>| 林이로 / IROLIM<p>: Poet & 2D Visual</p></li><br><li>| Out.spider <p>: Writer</p></li></ul></div>
+                <div class="dimension 3D"><h2>| 3D & EXTRA</h2><br><ul><li>| SOYO <p>: 3D Visual</p></li></ul></div>
+            </div>
     </div>
 </body>
 <script src="./static/js/sideBar.js"></script>
+<script src="./static/js/contact_footer.js"></script>
 </html>
 
+<!-- This is Inital version. -->

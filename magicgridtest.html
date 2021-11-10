@@ -5,42 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .container div{
+        .f-p-container div{
             width: 300px;
-            height: 500px;
-            background-color: antiquewhite;
+            height: 300px;
+            /* background-color: antiquewhite; */
             display: flex;
             justify-content: center;
             align-items: center;
+            /* border-radius: 8px; */
+        }
+
+        .f-p-container a {
+            background-size: cover;
+            background-position:center;
+            background-repeat: no-repeat;
             border-radius: 8px;
         }
 
-        .container .item1 { height: 200px; }
-        .container .item4 { height: 800px; }
-        .container .item6 { height: 600px; }
-        .container .item11 { height: 400px; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="item1"></div>
-        <div class="item2"></div>
-        <div class="item3"></div>
-        <div class="item4"></div>
-        <div class="item5"></div>
-        <div class="item6"></div>
-        <div class="item7"></div>
-        <div class="item8"></div>
-        <div class="item9"></div>
-        <div class="item10"></div>
+    <div class="f-p-container">
+        <a href="#" style="background-image: url('./static/img/img1.png');"><div class="f-p-item1"></div></a>
+        <a href="#"><div class="f-p-item2"></div></a>
+        <a href="#"><div class="f-p-item3"></div></a>
+        <a href="#"><div class="f-p-item4"></div></a>
+        <a href=""><div class="f-p-item5"></div></a>
+        <a href=""><div class="f-p-item6"></div></a>
+        <a href=""><div class="f-p-item7"></div></a>
+        <a href=""><div class="f-p-item8"></div></a>
+        <a href=""><div class="f-p-item9"></div></a>
+        <a href=""><div class="f-p-item10"></div></a>
     </div>
 </body>
 <script src="https://unpkg.com/magic-grid/dist/magic-grid.min.js"></script>
 <script>
     let magicGrid = new MagicGrid({
-    container: '.container',
+    container: '.f-p-container',
     animate: true,
-    gutter: 12,
+    gutter: 20,
     static: true,
     useMin: true
     });

@@ -6,7 +6,6 @@
         sideBar.classList.toggle('hideSideBar');
     });
     window.addEventListener('resize',function(){
-        console.log(window.innerWidth);
         if(window.innerWidth>1024){
             sideBar.classList.remove('hideSideBar');
             gridContainer.classList.remove('wideMode');
