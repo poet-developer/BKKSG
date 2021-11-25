@@ -56,10 +56,10 @@
         }
 
         span{  
-            overflow: hidden;
-            text-overflow:ellipsis;
+            /* overflow: hidden;
+            text-overflow:ellipsis; */
             /* display: -webkit-box; */
-            white-space: nowrap;
+            /* white-space: nowrap; */
             /* word-wrap: break-word;
             
             -webkit-line-clamp: 3;
@@ -77,12 +77,23 @@
 </head>
 <body>
     <div class="f-w-container">
-        <a href="#"><div class="f-w-item" style="background-image:url('static/img/img1.png');"><div class="text-sq"><h2>Title</h2><span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum totam illum quaerat, consectetur, explicabo delectus in iusto, fuga maxime nulla voluptatem ad natus! Modi sint accusantium rem sit necessitatibus delectus, earum nobis quos corporis dolor dicta ullam error impedit voluptatibus accusamus optio, sed natus. Beatae incidunt, fuga vitae laboriosam amet esse impedit dolor quis. Alias reiciendis recusandae, dignissimos, cupiditate aliquid quis quos quae est explicabo, accusamus sint repudiandae optio vitae. Obcaecati architecto magnam eum facere placeat quisquam tempore. Atque error nulla accusantium excepturi rem eveniet culpa aperiam ullam totam quas hic, architecto velit sunt perferendis suscipit tempore. Nostrum, fuga? Amet.Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, enim!</span></div></div></a>
-        <a href="#"><div class="f-w-item"><h2>Title</h2><span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit minima quas et ducimus ipsam voluptatem alias, saepe tempora impedit! Officiis.Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, enim!</span></div></a>
-        <a href="#"><div class="f-w-item"><h2>Title</h2><span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, enim!</span></div></a>
+        <a href="#"><div class="f-w-item" style="background-image:url('static/img/img1.png');"><div class="text-sq"><h2>Title</h2><span class="f-w-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum totam illum quaerat, consectetur, explicabo delectus in iusto, fuga maxime nulla voluptatem ad natus! Modi sint accusantium rem siculpa aperiam ullam totam quas hic, architecto velit sunt perferendis suscipit tempore. Nostrum, fuga? Amet.Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, enim!</span></div></div></a>
+        <a href="#"><div class="f-w-item"><h2>Title</h2><span class="f-w-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit minima quas et ducimus ipsam voluptatem alias, saepe tempora impedit! Officiis.Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, enim!</span></div></a>
+        <a href="#"><div class="f-w-item"><h2>Title</h2><span class="f-w-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, enim! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quam voluptates minus obcaecati in, molestias eaque aliquid assumenda reprehenderit atque, harum modi ipsam non dolore amet illum itaque debitis ut blanditiis vero recusandae similique mollitia aperiam. Tempora, laudantium ratione, vel quibusdam cum excepturi aliquid quo dicta nostrum officiis enim sint id architecto mollitia amet? Nulla unde reiciendis dolores cupiditate placeat, tenetur veritatis iste qui sint perferendis voluptatibus accusantium odio eveniet nobis commodi dicta eius! Sapiente culpa distinctio alias, ullam ea velit. Accusantium voluptatibus voluptate, ex dolore similique necessitatibus laboriosam magnam officiis aperiam. Non ullam minus cupiditate mollitia quia voluptates illo officia.</span></div></a>
     </div>
 
     <!-- 글자수 제한만들기 -->
     <!-- 배경이 명도가 어두울경우, 밝을경우 글자수 달라지기 -->
 </body>
+<script src="./static/js/MultiClamp.min.js"></script>
+<script>
+    let feedDescArray = document.querySelectorAll('.f-w-desc'); 
+    for(var  i =0; i<feedDescArray.length; i++){
+        new MultiClamp(document.querySelectorAll('.f-w-desc')[i], {
+        ellipsis: '...',
+        clamp: 3
+    });
+    }
+    
+</script>
 </html>

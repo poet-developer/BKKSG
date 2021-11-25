@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Canvas Title</title>
+     <style>
+          .c{
+               background: #eee;
+          }
+     </style>
+</head>
+<body>
+     <canvas class="c">이 브라우저는 캔버스를 지원하지 않습니다.</canvas>
+     <script>
+          const cv = document.querySelector('.c');
+          const ctx = cv.getContext('2d');
+          const OrbitIndex = { first: 2, final: 11 }
+
+          
+          const orbitInterval = 66;
+
+          if(window.innerWidth<550 || window.innerHeight<700){
+               cv.width = 800;
+               cv.height = 800;
+          }else{
+               cv.width = window.innerWidth;
+               cv.height = window.innerHeight;
+          }
+          let centerPos = {
+               x : cv.width/2,
+               y : cv.height/2,
+          }
+
+          const planetPosX = [];
+          const planetPosY = [];
+          const planetOrginPosX = [];
+          const planetOrginPosY = [];
+
+          const mercuryInfo = {
+               index : 'left',
+               speed : {
+                    x : 1,
+                    y : 1
+               }
+          }
+
+          let timeid;
+
+          // function windowResizeHandler(){
+          //      centerPos.x = window.innerWidth/2;
+          //      centerPos.y = window.innerHeight/2;
+
+          //      cv.width = window.innerWidth;
+          //      cv.height = window.innerHeight;  
+
+          //      getPlanetPos(orbitInterval);
+               
+          //      draw(); 
+          // }
+
+          function getPlanetPos(interval){
+               for(var i=OrbitIndex.first; i<OrbitIndex.final; i++){
+                         planetPosX[i-1] = centerPos.x - interval*i/2;
+                         planetPosY[i-1] = centerPos.y - interval*i/2;
+
+                         planetOrginPosX[i-1] = centerPos.x - interval*i/2;
+                         planetOrginPosY[i-1] = centerPos.y - interval*i/2;
+                    }
+                    let Mercury = setPlanetPosToRandom(planetPosX[1],planetPosY[1]);
+                    planetPosX[1] = Mercury.x;
+                    planetPosY[1] = Mercury.y;
+                    mercuryInfo.index = Mercury.corner;
+          }
+
+          function setPlanetPosToRandom(planetPosXArray,planetPosYArray){
+               let randomOption = {
+                    first : Math.random() < 0.5,
+                    second : Math.random() < 0.5
+               }
+               let mercuryPosX = Math.floor(Math.random() * ((planetPosXArray + orbitInterval*2)- planetPosXArray)) + planetPosXArray;
+               let mercuryPosY = Math.floor(Math.random() * ((planetPosYArray + orbitInterval*2)- planetPosYArray)) + planetPosYArray;
+               if(randomOption.first){
+                    if(randomOption.second){
+                         return {x : mercuryPosX, y: planetPosYArray, corner: 'top' }
+                    }else{
+                         return {x : mercuryPosX, y: planetPosYArray+orbitInterval*2, corner: 'bottom'}
+                    }
+               }else{
+                    if(randomOption.second){
+                         return {x : planetPosXArray, y: mercuryPosY, corner: 'left' }
+                    }else{
+                         return {x : planetPosXArray+orbitInterval*2, y: mercuryPosY, corner: 'right' }
+                    }
+               }
+               
+          }
+
+          // min <= number < max (max 값 불포함)
+          // Math.floor(Math.random() * (max - min)) + min
+          
+          const SolarSystem = {
+               orbit : function(ctx,interval){
+                    ctx.fillRect(centerPos.x-interval/2,centerPos.y-interval/2,interval,interval);
+                    for(var i=OrbitIndex.first; i<OrbitIndex.final; i++){
+                         if(i === 6){ i++;} 
+                         ctx.strokeRect(centerPos.x-interval*i/2,centerPos.y-interval*i/2,interval*i,interval*i);
+                    }
+               },
+               }
+
+          const PaintPlanet = {
+               mercury : function(interval){
+
+                    ctx.fillRect(planetPosX[1]-5,planetPosY[1]-5,10,10);
+                    switch(mercuryInfo.index){
+                         case 'left':
+                              planetPosY[1] = planetPosY[1] + mercuryInfo.speed.y;
+                              if(planetPosY[1] === planetOrginPosY[1]+interval*2){
+                                   mercuryInfo.speed.y = 0;
+                                   mercuryInfo.speed.x = 1;
+                                   mercuryInfo.index = 'bottom';
+                              }
+                         break;
+
+                         case 'bottom':
+                              planetPosX[1] = planetPosX[1] + mercuryInfo.speed.x;
+                                   if(planetPosX[1] === planetOrginPosX[1]+interval*2){
+                                        mercuryInfo.speed.x = 0;
+                                        mercuryInfo.speed.y = 1;
+                                        mercuryInfo.index = 'right';
+                                   }
+                         break;
+
+                         case 'right':
+                              planetPosY[1] = planetPosY[1] - mercuryInfo.speed.y;
+                                   if(planetPosY[1] === planetOrginPosY[1]){
+                                        mercuryInfo.speed.x = 1;
+                                        mercuryInfo.speed.y = 0;
+                                        mercuryInfo.index = 'top';
+                                   }
+                         break;
+
+                         case 'top':
+                              planetPosX[1] = planetPosX[1] - mercuryInfo.speed.x;
+                                   if(planetPosX[1] === planetOrginPosX[1]){
+                                        mercuryInfo.speed.x = 0;
+                                        mercuryInfo.speed.y = 1;
+                                        mercuryInfo.index = 'left';
+                                   }
+                         break;
+
+                         default:
+                          mercuryInfo.index = 'left';
+                          break;
+                         
+                    }
+               }
+          }
+
+          function draw(){
+               ctx.clearRect(0,0,cv.width,cv.height);
+               SolarSystem.orbit(ctx,orbitInterval);
+               
+               PaintPlanet.mercury(orbitInterval);
+               
+               timeId = requestAnimationFrame(draw);
+               
+          }
+
+          
+
+          // window.addEventListener('resize',windowResizeHandler);
+          getPlanetPos(orbitInterval);
+          draw();
+
+          window.addEventListener('click',()=>{
+               cancelAnimationFrame(timeId);
+          })
+          
+
+          
+     </script>
+</body>
+</html>
+
+<!-- PlanetIndex
+1. Mercury -->
+
+
+<!-- ------------------TO DO LIST------------------
+
+1. Responsive Canvas image Rendering. -->
