@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>CRUD</title>
+     <style>
+          th, td{
+               border: black 1px solid;
+               padding: 0.5rem;
+          }
+
+          .imgSample {
+               background-image: url('../tmp/test.png');
+               background-position: center;
+               background-repeat: no-repeat;
+               background-size: contain;
+
+               width: 300px;
+               height: auto;
+          }
+     </style>
+</head>
+<body>
+          <p>
+          CREATE:
+          <select name = "tyoe" id = "type"  onchange="selectBoxChange(value);">
+               <option value="" >-----</option>
+               <%- JSON.stringify(type) %>
+          <!-- type: html.TYPE(types) -->
+          </select>
+          </p>
+          <!-- 만들기 형식을 소환 <javaScript>-->
+          <div class="format"></div>
+          <!-- multiple옵션 추가로 컨트롤 / 쉬프트 키로 다중 선택 가능  -->
+          <table class = 'admin-table' data-admin="contents">
+               <tr>
+                    <th>id</th>
+                    <th>type</th>
+                    <th>author</th>
+                    <th>title</th>
+                    <th>desc</th>
+                    <th>image</th>
+                    <th>update</th>
+                    <th>delete</th>
+               </tr>
+               <% for (var i =0; i<contents.length; i++) { %>
+                    <tr>
+                         <td><%= contents[i].id %></td>
+                         <td><%= contents[i].topic %></td>
+                         <td><%= contents[i].nickname %></td>
+                         <td><%= contents[i].title %></td>
+                         <td><%= contents[i].description %></td>
+                         <td><%= contents[i].url %></td>
+                         <td><a href="/admin/update?id=<%=contents[i].id%>"><button>update</button></a></td>
+                         <td><form action="/admin" method="POST">
+                              <input type="hidden" name="id" value= <%= contents[i].id %>>
+                              <input type="submit" value="delete">
+                              </form>
+                         </td>
+                    </tr>
+               <% } %>  
+          </table>
+          <!-- <img style = 'width: 300px; height: auto;', src="sample.png" alt=""> -->
+          <!-- <div class="imgSample"></div> -->
+     <script>
+          
+          
+          const type = document.getElementById('type');
+          const format =  document.querySelector('.format');
+          const createHtml = `<%- JSON.stringify(html) %>` 
+          // html: html.CRUD.create(profiles)
+          function selectBoxChange(value){
+               if(value === 'poem'){
+                    format.innerHTML = createHtml.replace(/\"/g, "");
+               }else{
+                    format.innerHTML = ``;
+               }
+          }
+
+          const datatype = document.querySelector('.admin-table');
+     </script>
+</body>
+</html>
+

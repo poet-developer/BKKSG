@@ -1,0 +1,33 @@
+{
+  "name": "bkksg",
+  "version": "1.0.0",
+  "description": "bkksg",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/poet-developer/BKKSG.git"
+  },
+  "keywords": [
+    "bkksg"
+  ],
+  "author": "poetDeveloper",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/poet-developer/BKKSG/issues"
+  },
+  "homepage": "https://github.com/poet-developer/BKKSG#readme",
+  "devDependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-generator": "^4.16.1",
+    "mysql": "^2.18.1",
+    "prettier": "2.5.1"
+  },
+  "dependencies": {}
+}

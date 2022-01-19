@@ -5,11 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sidebar</title>
     <link rel="stylesheet" href="static/css/reset.css">
+    <link rel="stylesheet" href="static/css/basicCss.css">
     <style>
+        body{
+            background: rgb(36, 36, 36);
+        }
         .sidebar-menu-container{
             width:50%;
             height:100vh;
-            background-color: #9999; 
+            background-color: teal;
             padding: 2rem 0;
         }
 
@@ -18,7 +22,8 @@
             flex-direction: column;
             padding: 1.2rem 1.5rem;
             margin: 1rem 0;
-            /* background-color: turquoise; */
+            font-family: 'koreanMain';
+            color: whitesmoke;
         }
         
         .sidebar-menu-item a {
@@ -29,8 +34,10 @@
         .sidebar-menu-item a:hover{ visibility: hidden; }
 
         .sidebar-menu-item a:hover::before{
+            font-size: 1.1rem;
             visibility: visible;
-            color: teal;
+            color: gold;
+            font-family: 'English-main';
         }
         #si-jogak a:hover::before{ content: "SHI-JOGAK"; }
         #geul-jogak a:hover::before{ content: "GEUL-JOGAK"; }
@@ -38,19 +45,42 @@
         #jogak-jogak a:hover::before{ content: "JOGAK-JOGAK"; }
 
         .sidebar-menu-item span {
+            font-family: 'English-main';
             color:whitesmoke;
             font-size: 0.7rem;
-            margin-top: 0.2rem;
+            margin-top: 0.4rem;
+        }
+
+        .font{
+            font-size: 4rem;
+            position: fixed;
+            margin: 0 auto;
+            left: 50%;
+            margin : 1rem;
+            color: whitesmoke;
+            
+        }
+        h1, h2{
+            font-family: 'koreanMain';
+            
+        }
+        .font h3 {
+            font-family: 'englishMain';
         }
     </style>
 </head>
 <body>
+    <div class="font">
+    <h1>비 껴 서 기</h1>
+    <h2>ㅂ ㄲ ㅅ ㄱ</h2>
+    <h3>B K K S G</h3>
+    </div>
+    <ul class="sidebar-menu-container">
+        <li class="sidebar-menu-item" id="si-jogak"><a href="#">시조각</a><span>POEM</span></li>
+        <li class="sidebar-menu-item" id="geul-jogak"><a href="#">글조각</a><span>ESSAY</span></li>
+        <li class="sidebar-menu-item" id="geurim-jogak"><a href="#">그림조각</a><span>VISUAL</span></li>
+        <li class="sidebar-menu-item" id="jogak-jogak"><a href="#">조각조각</a><span>PHYSICAL</span></li>
+    </ul>
 </body>
 </html>
 
-<ul class="sidebar-menu-container">
-    <li class="sidebar-menu-item" id="si-jogak"><a href="#">시조각</a><span>POEM</span></li>
-    <li class="sidebar-menu-item" id="geul-jogak"><a href="#">글조각</a><span>ESSAY</span></li>
-    <li class="sidebar-menu-item" id="geurim-jogak"><a href="#">그림조각</a><span>VISUAL</span></li>
-    <li class="sidebar-menu-item" id="jogak-jogak"><a href="#">조각조각</a><span>PHYSICAL</span></li>
-</ul>

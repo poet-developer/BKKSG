@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+</head>
+<body>
+     <form method="POST" action="/">
+          Title :<input type="text" name="title" value= '<%= contents[0].title %>' required><br> Author : 
+          <select class="authorList">
+               <option value="">----</option>
+               <%- JSON.stringify(options) %>
+          </select><br>
+          <p>
+          Contents<br>
+          <textarea name="desc" id="" cols="30" rows="10"><%= contents[0].description %></textarea></p>
+          <br>
+          <input type="submit">
+     </form>
+     <script>
+          // 기존 작성자 옵션이 먼저 선택지에 뜨게함 
+          const options = document.querySelectorAll('.optionList');
+          for(var i =0; i < options.length; i++){
+               if(options[i].value === '<%=contents[0].nickname%>'){
+                    options[i].setAttribute("selected","");
+                    options[i].selected = true;
+               }
+          }
+          /* fin */
+     </script>
+</body>
+</html>
