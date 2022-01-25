@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CREATE</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <form style="display: inline-block;"  action='/admin/img_process' method= 'get'>
+     <strong><%=file_name %></strong>이미지를 구글에 업로드 할까요?
+      <input type ='hidden' name= 'name' value = '<%= file_name %>'>
+      <input type ='hidden' name= 'title' value = '<%= info.title %>'>
+      <input type ='hidden' name= 'author' value = '<%= info.author %>'>
+      <input type ='hidden' name= 'type' value = '<%= info.type %>'>
+      <input type ='hidden' name= 'desc' value = '<%= info.desc %>'>
+      <input type = 'submit' value = "YES">
+      </form>
+      <form style="display: inline-block;" action='/admin' method= 'get'>
+      <input type = 'submit' value = "NO">
+   </form>
+   제목: <%= info.title %>
+   제목: <%= info.author %>
+   제목: <%= info.type %>
+   제목: <%= info.desc %>
+</form>
+  </body>
+</html>

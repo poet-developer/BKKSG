@@ -1,3 +1,5 @@
+-- Main DB is Content Table. 
+
 CREATE DATABASE bkksg default CHARACTER SET UTF8;
 
 ALTER SCHEMA bkksg DEFAULT CHARACTER SET utf8 ;
@@ -16,8 +18,8 @@ INSERT INTO author VALUES (2,'IROLIM',now());
 
 CREATE TABLE image (
   id int(11) NOT NULL AUTO_INCREMENT,
-  name varchar(20) NOT NULL,
-  url varchar(255) NOT NULL,
+  file_name varchar(20) NOT NULL,
+  drive_id varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -29,16 +31,15 @@ CREATE TABLE content (
   id int(11) NOT NULL AUTO_INCREMENT,
   title varchar(50) NOT NULL,
   description TEXT,
-  image_id INT(11) DEFAULT NULL,
   type_id INT(11) DEFAULT NULL,
   profile_id INT(11) DEFAULT NULL,
   created_at DATETIME NOT NULL,
   PRIMARY KEY (`id`)
 );
 
-INSERT INTO content VALUES (1,'test','bla bla bla',1,1,1,now());
-INSERT INTO content VALUES (2,'helloWorld','Hello, World!',2,2,2,now());
-INSERT INTO content VALUES (3,'merry','christmas!',3,3,2,now());
+INSERT INTO content VALUES (1,'test','bla bla bla',1,1,now());
+INSERT INTO content VALUES (2,'helloWorld','Hello, World!',2,2,now());
+INSERT INTO content VALUES (3,'merry','christmas!',3,2,now());
 
 CREATE TABLE profile (
   id int(11) NOT NULL AUTO_INCREMENT,
