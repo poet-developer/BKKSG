@@ -5,43 +5,41 @@ import Home from './page/Home'
 import Admin from './page/Admin'
 import axios from 'axios'
 
+
 class Bkksg extends Component {
-     
      constructor(props) {
           super(props);
           this.state = {
-
           }
      }
      
      componentDidMount(){
           console.log('didMount');
-          this.getAxios();
+          this.getAxiosforAdmin();
      }
 
-     getAxios(){
+     getAxiosforAdmin(){
           axios.get('/admin')
           .then(res => { this.setState({
-               contentData : res.data
-          })})
+               data :
+                {
+                 content :  res.data.contents,
+                 type : res.data.types,
+                 profile : res.data.profiles
+               }
+          })
+     })
           .catch(console.log);
           // admin contet list 불러옴.
      }
 
-     send = () =>{
-          const data = "Hello, I'm from React."
-          axios.post('/admi/create_react', {data})
-          .then('Suceess')
-          .catch(console.log);
-     }
-
      render(){
-          
+          // this.send();
      return(
           <Router>
                <Routes>
                     <Route path='' element = {<Home/>}/>
-                    <Route path='admin' element = {this.state.contentData ? <Admin contentData = {this.state.contentData}/> : ''}/>
+                    <Route path='admin' element = {this.state.data ? <Admin content = {this.state.data.content} type = {this.state.data.type} profile = {this.state.data.profile}/> : ''}/>
                </Routes>
           </Router>
      )

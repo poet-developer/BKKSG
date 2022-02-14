@@ -1,5 +1,5 @@
-import { Component } from 'react';
-import { Create } from '../Component/crud/Create'
+import { Component } from 'react'
+import { CalledForm } from '../Component/crud/CalledForm'
 
 class Admin extends Component{
      constructor(props){
@@ -8,10 +8,12 @@ class Admin extends Component{
                mode : 'admin',
           }
      }
+     
      render(){
           let lists;
-          if(this.props.contentData){
-               const content = this.props.contentData;
+          // props로 데이터 받아옴
+          if(this.props.content){
+               const content = this.props.content;
                lists = content.map(list => {
                     return    <tbody key = {list.id}>
                               <tr>
@@ -30,6 +32,7 @@ class Admin extends Component{
                               </tbody>
                })   
                }
+          
           return(
                <div className="admin">
                <h2>ADMIN</h2>
@@ -47,12 +50,9 @@ class Admin extends Component{
                </thead>
                {lists}
                </table><br/>
-               {/* CREATE 모드 들어가기 */}
-               <Create mode = {this.state.mode} chaingingMode = {function(){
-                    this.setState({
-                         mode : 'create'
-                    })
-               }.bind(this)}></Create>
+               <hr/>
+               {/* 모드 들어가기 */}
+               <CalledForm type = {this.props.type} profile = {this.props.profile}></CalledForm>
           </div>
           )
      }

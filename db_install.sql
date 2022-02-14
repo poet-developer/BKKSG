@@ -33,7 +33,7 @@ CREATE TABLE content (
   description TEXT,
   type_id INT(11) DEFAULT NULL,
   profile_id INT(11) DEFAULT NULL,
-  created_at DATETIME NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 );
 

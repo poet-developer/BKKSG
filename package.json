@@ -24,10 +24,11 @@
   "homepage": "https://github.com/poet-developer/BKKSG#readme",
   "devDependencies": {
     "ejs": "^3.1.6",
-    "express": "^4.17.1",
     "express-generator": "^4.16.1",
-    "mysql": "^2.18.1",
     "prettier": "2.5.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "express": "^4.17.2",
+    "mysql": "^2.18.1"
+  }
 }
