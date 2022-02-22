@@ -14,28 +14,20 @@ const storage = multer.diskStorage({
   },
 });
 const uploadTool = multer({ storage: storage });
-const controller = require("./crud.controller");
-router.get("/", controller.crud);
-
+const contentController = require("./content_controller");
+const projectController = require("./project_controller");
+// admin home _ READ
+router.get("/", contentController.contentList);
+router.get("/read", contentController.read);
+router.get("/read_project", projectController.projectList);
 // WYSWYG image upload url
 router.post("/axios_process", uploadTool.single('imgInfo'), (req, res, next) => {
   console.log('파일정보',req.file);
   console.log('파일이름',req.file.filename);
 })
 
-router.get("/update", controller.update);
-router.get("/create",(req, res)=>{
-  db.query("SELECT * FROM type", (error0, types) => {
-    if (error0) throw error0;
-    db.query("SELECT * FROM profile", (error1, profiles) => {
-      if (error1) throw error1;
-      res.render("create", {
-        types : types,
-        profiles : profiles
-      });
-    });
-  })
-});
+router.get("/update", contentController.update);
+
 
 //사용 중지
 // multer: uploadTool.array("avatar")
@@ -60,18 +52,25 @@ router.post("/create_process",(req, res) => {
   //      }
   //   }
   // }
-  db.query("INSERT INTO content (title, description, type_id, profile_id) VALUES (?, ?, ?, ?)", [info.title, info.desc, info.type, info.author] ,(err, result) => {
+  db.query("INSERT INTO content (title, description, type_id, profile_id, project_id) VALUES (?, ?, ?, ?, ?)", [info.title, info.desc, info.type, info.author, info.project] ,(err, result) => {
     if (err) throw err;
     console.log('Uploded Contents!');
   });
+
   
   // console.log('제목 :' + info.title);
   // console.log('글쓴이 :' + info.author);
   // console.log('장르 :' + info.type);
   // console.log('내용 :' + info.desc);
-  res.redirect('/admin')
+  
+  // res.redirect('/admin')
 });
 
+router.post("/project/create_process",projectController.create);
+router.post("/project/update_process",projectController.update);
+router.post("/project/delete_process",projectController.delete);
+router.post("/update_process",contentController.update)
+router.post("/delete_process",contentController.delete)
 router.get("/img_process", (req, res) => {
   // googleDrive.uploadFile
   const targetFileName = req.query.name;

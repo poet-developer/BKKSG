@@ -14,8 +14,8 @@ class Bkksg extends Component {
      }
      
      componentDidMount(){
-          console.log('didMount');
           this.getAxiosforAdmin();
+          
      }
 
      getAxiosforAdmin(){
@@ -25,7 +25,8 @@ class Bkksg extends Component {
                 {
                  content :  res.data.contents,
                  type : res.data.types,
-                 profile : res.data.profiles
+                 profile : res.data.profiles,
+                 project :  res.data.projects
                }
           })
      })
@@ -34,12 +35,11 @@ class Bkksg extends Component {
      }
 
      render(){
-          // this.send();
      return(
           <Router>
                <Routes>
                     <Route path='' element = {<Home/>}/>
-                    <Route path='admin' element = {this.state.data ? <Admin content = {this.state.data.content} type = {this.state.data.type} profile = {this.state.data.profile}/> : ''}/>
+                    <Route path='admin' element = {this.state.data ? <Admin content = {this.state.data.content} type = {this.state.data.type} profile = {this.state.data.profile} project = {this.state.data.project}/> : ''}/>
                </Routes>
           </Router>
      )

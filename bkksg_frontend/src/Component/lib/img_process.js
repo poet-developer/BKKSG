@@ -1,4 +1,7 @@
 import axios from 'axios'
+import { useNavigate } from "react-router-dom";
+
+
 
 function sendImgToServer(file){
      let formData = new FormData();

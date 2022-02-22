@@ -1,5 +1,4 @@
 import {Component} from 'react';
-import axios from 'axios'
 
 class Preview extends Component{
 
@@ -10,17 +9,18 @@ class Preview extends Component{
           }
      }
 
-     createMarkup() {
-          return {__html: this.props.data};
-        }
 
      render(){
           return(
                <div className = "Preview">
-               <h2>Preview</h2>
+               <h1>Preview</h1>
+               
+               <label>
+               <h2>제목 : {this.props.data.title}</h2>
                <div dangerouslySetInnerHTML={{__html: this.props.data.desc }} />
-               </div>
-          )
+               </label>
+               </div> 
+               )
      }
 }
 
