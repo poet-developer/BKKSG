@@ -1,9 +1,8 @@
 import { Component } from 'react'
 import axios from 'axios'
-import Preview from './Preview'
 import Update from './Update'
 import Create from './Create'
-import Project from './Project'
+import Preview from './Preview'
 
 class Admin extends Component{
      constructor(props){
@@ -14,6 +13,7 @@ class Admin extends Component{
           this.readPreviewProcess = this.readPreviewProcess.bind(this);
           this.createProcess = this.createProcess.bind(this);
           this.deleteProcess =  this.deleteProcess.bind(this);
+          this.btnHandler =  this.btnHandler.bind(this);
      }
      // read
      readPreviewProcess(id, mode){
@@ -27,11 +27,11 @@ class Admin extends Component{
                          data :
                               {
                               id : id,
-                              author : res.data.nickname,
-                              type :  res.data.topic,
+                              author : res.data.profile_id,
+                              type :  res.data.type_id,
                               title : res.data.title,
                               desc : res.data.description,
-                              project : res.data.project
+                              cover_src : res.data.cover_src,
                          }
                     })
                })
@@ -39,32 +39,17 @@ class Admin extends Component{
           } 
      }
 
-     createBtn(_text){
-          if(!_text){
-            _text = 'CREATE';
-          }else{
-            _text = '다시 만들기'
-          }
 
-          return (
-               <button onClick = {function (e) {
-                 e.preventDefault();
-                 this.setState({
-                   mode : 'create'
-                 })
-               }.bind(this)}>{_text}</button>
-               )
-     }
-
-     createProcess(data){
+     createProcess(){
           console.log('승인');
-          axios.post('/admin/create_process', data)
-                     .then(                                               
+          axios.post('/admin/create_process', this.state.formData, this.state.config)
+                     .then(                                
                        this.setState({
                        mode : ''
                        })
+                       //Float a popup
                      )
-                     .catch('업로드 실패')
+                     .catch(console.log('업로드 실패'))
                      .finally(
                        window.location.replace("/admin")
                      );
@@ -74,10 +59,17 @@ class Admin extends Component{
           console.log('삭제', id);
           axios.post('/admin/delete_process', {id})
           .then(window.location.replace("/admin"))
-          .catch(console.log)
+          .catch(console.log('삭제 실패'))
           .finally(
                window.location.replace("/admin")
              );
+     }
+
+     btnHandler(e){
+          e.preventDefault();
+          this.setState({
+          mode : e.target.dataset.mode
+          });
      }
      
      render(){
@@ -86,7 +78,7 @@ class Admin extends Component{
           if(this.props.content){
                const content = this.props.content;
                contentList = content.map(list => {
-                    return    <tbody key = {list.id-1}>
+                    return    <tbody key = {list.id}>
                               <tr>
                               <td> </td>
                               <td>{list.topic} </td>
@@ -95,7 +87,6 @@ class Admin extends Component{
                                    e.preventDefault();
                                    this.readPreviewProcess(list.id, 'read')
                               }} href = '/'>{list.title}</a></td>
-                              <td>{list.project} </td> 
                               </tr>
                               </tbody>
                })   
@@ -104,6 +95,7 @@ class Admin extends Component{
           return(
                <div className="admin">
                <h2><a href='/admin'>ADMIN</a></h2>
+               <h4>** Contents</h4>
                <table data-admin="contents">
                <thead>                                             
                <tr>
@@ -111,62 +103,60 @@ class Admin extends Component{
                     <th>type</th>
                     <th>author</th>
                     <th>title</th>
-                    <th>project</th>
                </tr>
                </thead>
                {contentList}
                </table>
                <hr/>
-               <Project data = {this.props.project}></Project>
+               
                <br/>
                {/* 'create'모드 만드는 버튼 */}
-               <button onClick = {function (e) {
-                 e.preventDefault();
-                 this.setState({
-                   mode : 'create'
-                 })
-               }.bind(this)}>CONTENT</button>
+               <button data-mode = 'create' onClick = {this.btnHandler}>CONTENT</button>
                <hr/>
                {/* 모드 들어가기 */}
                {
                     this.state.mode === "create"
                     //Create Mode : Draft
-               ? <Create profile = {this.props.profile} type = {this.props.type} project = {this.props.project} handleSubmit = {function(author, type, title, desc, project){
-                    console.log(author, type, title, desc, project);
+               ? <Create profile = {this.props.profile} type = {this.props.type} submitHandler = {function(formData, config){
+                    let pre_data = []
+                    for (var value of formData.values()) {
+                         pre_data.push(value);
+                      }
                     this.setState({
                     mode : 'preview',
                     pre_data : {
-                    author, type, title, desc, project
-                    }
+                         author : pre_data[0],
+                         type: pre_data[1], 
+                         title: pre_data[2], 
+                         desc: pre_data[3]
+                    },
+                    formData,
+                    config
                     })
                }.bind(this)}></Create>
                : ''
                }
 
-               {this.state.mode === "preview" && this.state.pre_data //Preview Mode
+               {this.state.mode === "preview" && this.state.formData //Preview Mode
                ? <div>
+               
                <button onClick = {function(e){
                  e.preventDefault();
                  const _confrimed = window.confirm('업로드 할까요?');
                    if(_confrimed){
-                     // 데이터 전송.
-                     this.createProcess(this.state.pre_data);
+                     this.createProcess();
                    }else{
                      console.log('거부');
                    }
                }.bind(this)}>데이터저장</button>
-                    <Preview data = {this.state.pre_data} ></Preview>
+                    <Preview data = {this.state.pre_data} profile = {this.props.profile}></Preview>
              </div>
              : ''
                }
 
                { this.state.data && this.state.mode === 'read' //Read Mode
                ?<div>
-                <button onClick = {function(){
-                                   this.setState({
-                                        mode : 'update'
-                                   });
-                              }.bind(this)}>update</button>
+                <button data-mode = 'update' onClick = {this.btnHandler}>update</button>
                <form onSubmit={function(e){
                     e.preventDefault();
                     const _confrimed = window.confirm('삭제 할까요?');
@@ -179,13 +169,13 @@ class Admin extends Component{
                     <input type="hidden" name="id" value= {this.state.id} />
                     <input type='submit' value='Delete'/>
                </form>
-               <Preview data = {this.state.data} type = {this.props.type} profile = {this.props.profile} id={this.state.id}></Preview>
+               <Preview data = {this.state.data} profile = {this.props.profile}></Preview>
                </div>
                : ''
                }
 
-               { this.state.data && this.state.mode === 'update' //Read Mode
-               ? <Update data = {this.state.data} type = {this.props.type} profile = {this.props.profile} project = {this.props.project}></Update>
+               { this.state.data && this.state.mode === 'update' //Update Mode
+               ? <Update data = {this.state.data} type = {this.props.type} profile = {this.props.profile}></Update>
                : ''
                }
           </div>

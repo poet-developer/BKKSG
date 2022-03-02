@@ -143,7 +143,7 @@ module.exports = {
     async function getFile(drive) {
 
       try {
-        const fileId = '1EUTJ35oElSuNnOpG-catsr35Y4yWX0WA';
+        const fileId = '.';
         const dest = fs.createWriteStream('/tmp/photo.png');
         const response = await drive.files.get({
           fileId: fileId,

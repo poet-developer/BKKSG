@@ -1,6 +1,3 @@
-const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
-const session = require("express-session");
 const passport = require("passport"),
   LocalStrategy = require("passport-local").Strategy;
 const db = require("./lib/db");

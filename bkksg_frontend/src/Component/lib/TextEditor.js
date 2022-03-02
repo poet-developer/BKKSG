@@ -1,42 +1,122 @@
-import { Component } from 'react'
+import React, { Component } from 'react'
 import { Editor } from '@tinymce/tinymce-react';
 
 class TextEditor extends Component{
      constructor(props){
           super(props)
           this.state = {
-               mode :''
+               //create or update
+               mode :this.props.mode,
+               coverType : '',
+               isOpenInput: false
           }
           
       this.checkMode = (mode) => {
-           this.setState({
-               mode : mode
-           })
+           if(mode === 'update'){
+                this.setState({
+                     isOpenInput : true
+                })
+                this.openInput(this.props.genre,mode);
+           }
+          //  console.log(mode);
           }
+          
+          this.openInput = this.openInput.bind(this); // binding using 2 variables.
+          this.closeInput = this.closeInput.bind(this);
+          this.changeInput = this.changeInput.bind(this);
      }
      
      componentDidMount(){
           this.checkMode(this.props.mode);
      }
+
+     changeInput(e){
+          let _coverValue = e.target.value;
+          let _coverInput;
+
+          if(_coverValue == 1 || _coverValue == 2){
+                    _coverInput = <input type = 'color' name ='c'/>
+          }else if(_coverValue == 3 || _coverValue == 4){
+                    _coverInput = <input type = 'file' name ='c'/>
+               }       
+          
+
+          this.setState({
+               isOpenInput: true,
+               coverType : _coverInput,
+           })
+     }
+
+     openInput(e){
+          let _coverValue;
+          let _coverInput;
+          let _UPDATE = 'update';
+          let _CREATE = 'create';
+          let _mode = this.state.mode;
+          console.log(e);
+          
+          if(_mode === _CREATE){
+              _coverValue = e.target.value;
+              console.log('value',typeof(_coverValue));
+          }else{
+               _coverValue = e;
+               console.log('value',typeof(_coverValue));
+          }
+          // According to this mode,  e'Value is gonna be changed. 
+          if(_coverValue == 1){
+               if(_mode === _UPDATE){
+                    _coverInput = <input type = 'color' name ='c' defaultValue ={this.props.c} />
+               }else{
+                    _coverInput = <input type = 'color' name ='c'/>
+               }
+          }else if(_coverValue == 2){
+               if(_mode === _UPDATE){
+                    _coverInput = <input type = 'color' name ='c' defaultValue ={this.props.c}/>
+               }else{
+                    _coverInput = <input type = 'color' name ='c'/>
+               }
+          }else if(_coverValue == 3){
+               if(_mode === _UPDATE){
+                    _coverInput = <label><em>* Current | {this.props.c}</em> <br/><label>Change | <input type = 'file' name ='c'/></label></label>
+               }else{
+                    _coverInput = <input type = 'file' name ='c'/>
+               }       
+          }else if(_coverValue == 4){
+               if(_mode === _UPDATE){
+                    _coverInput = <label><em>* Current | {this.props.c}</em> <br/><label>Change | <input type = 'file' name ='c'/></label></label>
+               }else{
+                    _coverInput = <input type = 'file' name ='c'/>
+               }  
+          }
+
+          // 선택 옵션 받아옴.
+          this.setState({
+              isOpenInput: true,
+              coverType : _coverInput,
+          })
+      }
+   
+      closeInput(){
+          this.setState({
+              isOpenInput: false,
+          })
+      }
      
      render(){
           let selectProfile;
           let selectType;
-          let selectProject;
           let _selectedAuthor;
           let _selectedType;
-          let _selectedProject;
+          let _mode =  this.state.mode;
           const UPDATE = 'update'
+          const apiKey = process.env.REACT_APP_TINY_EDITOR
 
-          // let _imginfo;
-
-          
           // 작가 선택 옵션
           selectProfile = this.props.profileList.map((author) => {
-               if(this.state.mode === UPDATE){
-                    if(author.nickname === this.props.author){
+               if(_mode === UPDATE){
+                    if(author.id === this.props.author){
                          _selectedAuthor = author.id;
-                    }
+                    } // filtering target.
                }
                return (
                     <option key={author.id} value={author.id}>
@@ -47,63 +127,51 @@ class TextEditor extends Component{
           
           // 장르 선택 옵션
           selectType = this.props.typeList.map((genre) => {
-               if(this.state.mode === UPDATE){
-                    if(genre.topic === this.props.genre){
+               if(_mode === UPDATE){
+                    if(genre.id === this.props.genre){
                          _selectedType = genre.id;
-                    }
+                    } // filtering target.
                }
                return (
-                    <option key={genre.id} value={genre.id}>
+                    <option key={genre.id} value={genre.id} >
                     {genre.topic}
                </option>
                );
           });
           
-          // 프로젝트 선택 옵션
-          selectProject = this.props.projectList.map((project) => {
-               if(this.state.mode === UPDATE){
-                    if(project.project === this.props.project){
-                         _selectedProject = project.id;
-                    }
-               }
-               return (
-               <option key={project.id} value={project.id}>
-                    {project.project}
-               </option>
-               );
-          });
           return(
-               
-          <form onSubmit = {this.props.handleSubmit}>
+          
+          <label>
+          <form onSubmit = {this.props.submitHandler}>
           {/* 작가  */}
           {
-          this.state.mode === UPDATE
-          ? <input type='hidden' name='id' value = {this.props.id}/>
-          : ''
+               _mode === UPDATE
+               ? <input type='hidden' name='id' value = {this.props.id}/>
+               : ''
           }
           <div>
             <label>Title :
-          { this.state.mode === UPDATE
+          { _mode === UPDATE
           ?
-            <input type="text" name="title" 
-            onChange={this.props.handleChange}
+          <input type="text" name="title" 
+            onChange={this.props.changeHandler}
             defaultValue={this.props.title}
             />
-          :
-          <input type="text" name="title" placeholder="title" required
+            :
+            <input type="text" name="title" placeholder="title" required
                />
           }
             </label>
             <label>Author :
             <select required name="author" value={
-                 this.state.mode === UPDATE 
-               ? _selectedAuthor
-               : undefined
-            } onChange={
-               this.state.mode === UPDATE
-               ? this.props.handleChange
-               : undefined
-            }>
+                 _mode === UPDATE 
+                 ? _selectedAuthor
+                 : undefined
+               } onChange={
+                    _mode === UPDATE
+                    ? this.props.changeHandler
+                    : undefined
+               }>
               <option key="" value="">
                 SELECT
               </option>
@@ -112,63 +180,55 @@ class TextEditor extends Component{
             </label>
             <label>Type : 
             <select required name="type" value={
-                 this.state.mode === UPDATE
-               ? _selectedType
-               : undefined
-            } onChange={
-               this.state.mode === UPDATE
-               ? this.props.handleChange
-               : undefined
-            }>
+                 _mode === UPDATE
+                 ? _selectedType
+                 : undefined
+               } onChange={
+                    _mode === UPDATE
+                    ? function(e){
+                         this.props.changeHandler(e);
+                         this.changeInput(e)
+                    }.bind(this) // update mode
+                    : this.openInput // create mode
+               }>
               <option key="" value="">
                 SELECT
               </option>
               {selectType}
             </select>
-            </label>
-            <label>Project
-            <select required name="project" value={
-                 this.state.mode === UPDATE 
-               ? _selectedProject
-               : undefined
-            } onChange={
-               this.state.mode === UPDATE
-               ? this.props.handleChange
-               : undefined
-            }>
-              <option key="" value="">
-                SELECT
-              </option>
-              {selectProject}
-            </select>
-            </label>
+            </label><br/>
+          {/* 여기 업테이트 모드에 맞춰서 수정해보기  */}
+            {this.state.isOpenInput
+          ? <label>Cover: <br/>{this.state.coverType}</label>
+          : ''
+           }
           </div>
           <br/>
           <Editor
-            apiKey="8eb86dp439y3p9j037qkkzyjbjyxmnnau7a1t6axgtbwru4z"
+            apiKey= {apiKey}
             initialValue={
-                    this.state.mode === UPDATE
-                    ? this.props.initialValue
-                    : "<em>멋진 글 부탁해요!</em>"}
+                 _mode === UPDATE
+                 ? this.props.initialValue
+                 : "<em>멋진 글 부탁해요!</em>"}
             init={{
-              width: 1000,
-              height: 500,
-              menubar: true,
-          //     selector: 'textarea', 
-              plugins: [
-                'advlist autolink lists link image', 
-                'charmap print preview anchor help',
-                'searchreplace visualblocks code insertdatetime', 'media table paste wordcount'
-              ],
-              toolbar:
-                'undo redo | formatselect | bold italic | \
+                 width: 1000,
+                 height: 500,
+                 menubar: true,
+                 //     selector: 'textarea', 
+                 plugins: [
+                      'advlist autolink lists link image', 
+                      'charmap print preview anchor help',
+                      'searchreplace visualblocks code insertdatetime', 'media table paste wordcount'
+                    ],
+                    toolbar:
+                    'undo redo | formatselect | bold italic | \
                 alignleft aligncenter alignright | \
                 bullist numlist outdent indent | help',
                 
-              content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
-              a11y_advanced_options: true,
-
-              file_picker_callback: function(callback, value, meta) {
+                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+                a11y_advanced_options: true,
+                
+                file_picker_callback: function(callback, value, meta) {
                // Provide file and text for the link dialog
                if (meta.filetype == 'file') {
                  callback('mypage.html', {text: 'My text'});
@@ -184,16 +244,17 @@ class TextEditor extends Component{
                  callback('movie.mp4', {source2: 'alt.ogg', poster: 'image.jpg'});
                }
              }
-                }}
+          }}
             onChange={this.props.handleEditorChange}
           />
           {/* 이미지 html */}
           {/* {_imginfo} */}
           <input type="submit" value={
-               this.state.mode === UPDATE 
+               _mode === UPDATE 
                ? "고치기"
                : "만들기"} />
           </form>
+           </label>
           )
      }
 }

@@ -31,16 +31,16 @@ CREATE TABLE content (
   id int(11) NOT NULL AUTO_INCREMENT,
   title varchar(50) NOT NULL,
   description TEXT,
+  cover_src varchar(70) NOT NULL,
   type_id INT(11) DEFAULT NULL,
   profile_id INT(11) DEFAULT NULL,
-  project_id INT(11) DEFAULT NULL,
   created_at DATE DEFAULT (current_date),
   PRIMARY KEY (`id`)
 );
 
-INSERT INTO content VALUES (1,'test','bla bla bla',1,1,2,(current_date));
-INSERT INTO content VALUES (2,'helloWorld','Hello, World!',2,2,3,(current_date));
-INSERT INTO content VALUES (3,'merry','christmas!',3,2,3,(current_date));
+INSERT INTO content VALUES (1,'test','bla bla bla','50',1,1,(current_date));
+INSERT INTO content VALUES (2,'helloWorld','Hello, World!','20',2,2,(current_date));
+INSERT INTO content VALUES (3,'merry','christmas!','200',1,2,(current_date));
 
 CREATE TABLE profile (
   id int(11) NOT NULL AUTO_INCREMENT,
@@ -63,16 +63,5 @@ CREATE TABLE type (
 INSERT INTO type VALUES (1,'poem');
 INSERT INTO type VALUES (2,'essay');
 INSERT INTO type VALUES (3,'visual');
-INSERT INTO type VALUES (4,'physical');
+INSERT INTO type VALUES (4,'project');
 
-CREATE TABLE project (
-  id int(11) NOT NULL AUTO_INCREMENT,
-  project varchar(50) NOT NULL,
-  project_desc TEXT,
-  created_at DATE DEFAULT (current_date),
-  PRIMARY KEY (`id`)
-);
-
-INSERT INTO project VALUES (1,'', '', (current_date));
-INSERT INTO project VALUES (2,'BlueHour', '졸업작품', (current_date));
-INSERT INTO project VALUES (3,'오늘도 꽃은 피어라', '시집', (current_date));
