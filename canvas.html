@@ -337,8 +337,7 @@
           );
           ctx.lineTo(_cometCenterPos.x, _cometCenterPos.y);
           ctx.lineTo(_cometCenterPos.x, _cometCenterPos.y + tailHeight);
-        }
-        if (position === "left") {
+        }else if (position === "left") {
           ctx.moveTo(
             _cometCenterPos.x + tailHeight / 2,
             _cometCenterPos.y - tailHeight / 2

@@ -5,9 +5,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 
 const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
 const adminRouter = require("./routes/admin");
-const testRouter = require("./routes/test");
 const app = express();
 
 // view engine setup
@@ -22,7 +20,6 @@ app.use(express.static(path.join(__dirname, "tmp")));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
 app.use("/static", express.static("public"));
 app.use("/tmp", express.static("tmp"));
 

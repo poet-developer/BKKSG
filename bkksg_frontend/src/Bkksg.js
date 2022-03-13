@@ -1,8 +1,8 @@
 import { Component } from 'react';
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
 // import {Subject, TOC, Content, Tail}  from './Component/Test';
-import Home from './page/Home'
-import Admin from './page/Admin'
+import Home from '../src/Component/page/Home'
+import Admin from '../src/Component/page/Admin'
 import axios from 'axios'
 
 

@@ -3,6 +3,7 @@ import axios from 'axios'
 import Update from './Update'
 import Create from './Create'
 import Preview from './Preview'
+import styled from 'styled-components'
 
 class Admin extends Component{
      constructor(props){
@@ -14,7 +15,10 @@ class Admin extends Component{
           this.createProcess = this.createProcess.bind(this);
           this.deleteProcess =  this.deleteProcess.bind(this);
           this.btnHandler =  this.btnHandler.bind(this);
+     
      }
+
+     
      // read
      readPreviewProcess(id, mode){
           if(id){
@@ -74,6 +78,10 @@ class Admin extends Component{
      
      render(){
           let contentList;
+          const Content = styled.div`
+          {
+               border : 1px solid black;
+          }`;
           // props로 데이터 받아옴
           if(this.props.content){
                const content = this.props.content;
@@ -94,6 +102,7 @@ class Admin extends Component{
 
           return(
                <div className="admin">
+                    <Content>
                <h2><a href='/admin'>ADMIN</a></h2>
                <h4>** Contents</h4>
                <table data-admin="contents">
@@ -107,6 +116,7 @@ class Admin extends Component{
                </thead>
                {contentList}
                </table>
+               </Content>
                <hr/>
                
                <br/>
@@ -128,7 +138,8 @@ class Admin extends Component{
                          author : pre_data[0],
                          type: pre_data[1], 
                          title: pre_data[2], 
-                         desc: pre_data[3]
+                         desc: pre_data[3],
+                         cover_src : pre_data[4]
                     },
                     formData,
                     config

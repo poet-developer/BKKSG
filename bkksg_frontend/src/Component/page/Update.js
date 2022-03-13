@@ -1,9 +1,8 @@
 import { Component } from 'react'
 import axios from 'axios'
-import TextEditor from '../Component/lib/TextEditor'
+import TextEditor from '../lib/TextEditor'
 
 // 바로 컨텐트 수정부분을 마우스로 누르면 맨 처음 글자로 단이 움직임
-
 
 class Update extends Component{
      constructor(props){

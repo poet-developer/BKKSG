@@ -1,28 +1,16 @@
-import React  from "react";
-import TextEditor from '../Component/lib/TextEditor'
+import React, { useState }  from "react";
+import TextEditor from '../lib/TextEditor'
 
-// WYSWYG
-class Create extends React.Component{
-  constructor(props){
-    super(props);
-    this.state = {
-        mode : '',
-        resent_id :''
-    };
+// Function Component
+export default (props) => {
+  const [desc, setDesc] = useState('')
 
-    this.submitHandler = this.submitHandler.bind(this);
-    this.handleEditorChange = this.handleEditorChange.bind(this);
-  }
-
-  handleEditorChange = (e) => {
+  const handleEditorChange = (e) => {
     console.log('Content was updated:', e.target.getContent());
-    this.setState({
-      desc : e.target.getContent()
-    })
+    setDesc(e.target.getContent())
   }
 
-
-  submitHandler(e){
+  const submitHandler = (e) => {
     // Send Selected Data for Preview.
     e.preventDefault();
     let color, coverImg;
@@ -39,21 +27,16 @@ class Create extends React.Component{
                 formData.append('author', e.target.author.value);
                 formData.append('type', e.target.type.value);
                 formData.append('title', e.target.title.value)
-                formData.append('desc', this.state.desc)
+                formData.append('desc', desc)
                 formData.append('color',color)
                 // An img file's to been used to middleware must be at the end.
                 formData.append('coverImg', coverImg);
-    this.props.submitHandler(
+    props.submitHandler(
       formData,config
     ); 
   }
-
-  render(){
     
     return(
-        <TextEditor typeList ={this.props.type} profileList ={this.props.profile} handleEditorChange= {this.handleEditorChange} submitHandler = {this.submitHandler} mode = 'create' isOpenPopup ={this.state.isOpenPopup}></TextEditor>
+        <TextEditor typeList ={props.type} profileList ={props.profile} handleEditorChange= {handleEditorChange} submitHandler = {submitHandler} mode = 'create'></TextEditor>
     );
-  }
 }
-
-export default Create;

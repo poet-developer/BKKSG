@@ -1,18 +1,6 @@
-import {Component} from 'react';
-
-class Preview extends Component{
-
-     constructor(props){
-          super(props);
-          this.state = {
-               mode : ''
-          }
-     }
-
-
-     render(){
-          const _data = this.props.data
-          const _author = this.props.profile[_data.author-1].nickname;
+export default (props) => {
+          const _data = props.data
+          const _author = props.profile[_data.author-1].nickname;
           return(
                <div className = "Preview">
                <h1>Preview</h1>
@@ -30,7 +18,5 @@ class Preview extends Component{
                </label>
                </div> 
                )
-     }
+     
 }
-
-export default Preview
