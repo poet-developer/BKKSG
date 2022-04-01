@@ -4,16 +4,16 @@ const googleDrive = require("../lib/drive");
 const multer = require("multer");
 const db = require("../lib/db");
 const img_controller = require("../lib/img.controller");
-const PATH_TMP = "./bkksg_backend/tmp/";
-const PATH_COVER = "./bkksg_backend/public/images/covers/";
-const storageTmp = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, PATH_TMP); // cb 콜백함수를 통해 전송된 파일 저장 디렉토리 설정
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname); // cb 콜백함수를 통해 전송된 파일 이름 설정
-  },
-});
+// const PATH_TMP = "./bkksg_backend/tmp/";
+const PATH_COVER = "public/images/covers/";
+// const storageTmp = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, PATH_TMP); // cb 콜백함수를 통해 전송된 파일 저장 디렉토리 설정
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, file.originalname); // cb 콜백함수를 통해 전송된 파일 이름 설정
+//   },
+// });
 
 const storageCover = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -29,10 +29,9 @@ const storageCover = multer.diskStorage({
     }else if(file.mimetype === 'image/png'){
       _dataType = '.png'
     } // set data type to file.
-
-    _c = req.body.title + timestamp().toString() + _dataType
+    _c = `${req.body.title}_${timestamp().toString()}_${_dataType}`
     // Id, type , dataType
-    // console.log('미들웨어:',req.body);
+    console.log('파일관하여:',file);
     cb(null, _c); 
     // save a file named by the project's title.
   },
@@ -40,16 +39,16 @@ const storageCover = multer.diskStorage({
 
 const uploadCoverTool = multer({ storage: storageCover });
 
-const uploadTool = multer({ storage: storageTmp });
+// const uploadTool = multer({ storage: storageTmp });
 const contentController = require("./content_controller");
 // admin home _ READ
 router.get("/", contentController.contentList);
 router.get("/read", contentController.read);
-// WYSWYG image upload url
-router.post("/axios_process", uploadTool.single('imgInfo'), (req, res, next) => {
-  console.log('파일정보',req.file);
-  console.log('파일이름',req.file.filename);
-})
+router.get("/getType", contentController.getTypeContent);
+// router.post("/axios_process", uploadTool.single('imgInfo'), (req, res, next) => {
+//   console.log('파일정보',req.file);
+//   console.log('파일이름',req.file.filename);
+// })
 
 router.post("/create_process", uploadCoverTool.single('coverImg'),contentController.create);
 router.post("/update_process",uploadCoverTool.single('coverImg'),contentController.update)

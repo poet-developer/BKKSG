@@ -53,14 +53,11 @@ class TextEditor extends Component{
           let _UPDATE = 'update';
           let _CREATE = 'create';
           let _mode = this.state.mode;
-          console.log(e);
-          
+
           if(_mode === _CREATE){
               _coverValue = e.target.value;
-              console.log('value',typeof(_coverValue));
           }else{
                _coverValue = e;
-               console.log('value',typeof(_coverValue));
           }
           // According to this mode,  e'Value is gonna be changed. 
           if(_coverValue == 1){
@@ -197,7 +194,6 @@ class TextEditor extends Component{
               {selectType}
             </select>
             </label><br/>
-          {/* 여기 업테이트 모드에 맞춰서 수정해보기  */}
             {this.state.isOpenInput
           ? <label>Cover: <br/>{this.state.coverType}</label>
           : ''

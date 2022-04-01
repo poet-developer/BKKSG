@@ -16,12 +16,12 @@ app.use(logger("dev"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "tmp")));
+// app.use(express.static(path.join(__dirname, "tmp")));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
+// app.use("/", indexRouter);
 app.use("/static", express.static("public"));
-app.use("/tmp", express.static("tmp"));
+// app.use("/tmp", express.static("tmp"));
 
 //관리자 권한 첫 페이지.
 app.use("/admin", adminRouter);

@@ -5,20 +5,22 @@ const { file } = require("googleapis/build/src/apis/file");
 const TMP_PATH = './tmp'
 const fs = require('fs')
 const path = require("path");
+const { query } = require("express");
 async function googleApiOAuth2() {
   const initPromise = await googleDrive.loadList();
   return initPromise;
 }
-// 패턴3_오늘도 꽃은 피어라.png
 module.exports = {
   contentList: (req, res) => {
+    // query = `SELECT content.id,content.title,content.description,nickname,topic,cover_src FROM content LEFT JOIN profile ON content.profile_id = profile.author_id JOIN type ON content.type_id = type.id LIMIT ${_limit} OFFSET ${_offset}`;
+    // console.log(typeof(info.offset))
     // 이 기능은 admin 홈으로 쓰이며, preview, update 항목의 기존 내용을 불러올 때, 즉 정보를 읽을때 사용.
     db.query("SELECT * FROM type", (error0, types) => {
       if (error0) throw error0;
       db.query("SELECT * FROM profile", (error1, profiles) => { 
         if (error1) throw error1;
           db.query(
-              `SELECT content.id,content.title,content.description,nickname,topic FROM content LEFT JOIN profile ON content.profile_id = profile.author_id JOIN type ON content.type_id = type.id`,
+            `SELECT content.id,content.title,content.description,nickname,topic,cover_src FROM content LEFT JOIN profile ON content.profile_id = profile.author_id JOIN type ON content.type_id = type.id`,
               (error2, contents) => {
             if (error2) throw error2;
             // tmp 파일 조사 후 다 살아있으면, skip.
@@ -32,13 +34,14 @@ module.exports = {
         });
   },
   
-  create: (req, res) => {
+  create: (req, res, next) => {
     const info = req.body;
     let _c;
-    if(info.type == 1 || info.type == 2){
+    console.log('프로세스로 넘어옴',info)
+    if(info.type === '1' || info.type === '2'){
       _c = info.color
-    }else{
-      _c = getMostRecentFile('./bkksg_backend/public/images/covers').file;
+    }else if(info.type === '3' || info.type === '4'){
+      _c = getMostRecentFile('public/images/covers').file;
     }
     db.query("INSERT INTO content (title, description, cover_src, type_id, profile_id) VALUES (?, ?, ?, ?, ?)", [info.title, info.desc, _c , info.type, info.author] ,(err, result) => {
       if (err) throw err;
@@ -53,15 +56,15 @@ module.exports = {
     if(info.type == 1 || info.type == 2){
       _c = info.color
     }else{
-      _c = getMostRecentFile('./bkksg_backend/public/images/covers').file;
+      _c = getMostRecentFile('public/images/covers').file;
     }
-
+    console.log(info)
     db.query(`UPDATE content SET title=?, description=?, cover_src=?, type_id=?, profile_id=? WHERE id =?`,[info.title, info.desc, _c, info.type, info.author, info.id],function(error,result){
       if(error){
         throw error;
       }
       if(result){
-        console.log('수정됨');
+        console.log('fixed.');
       }
     });
   },
@@ -73,7 +76,7 @@ module.exports = {
         throw error;
       }
       if(result){
-        console.log('DELETE');
+        console.log('deleted.');
       }
     });
   },
@@ -85,11 +88,26 @@ module.exports = {
         res.send(content[0]);
     });
   },
-}
 
-function timestamp(){ 
-  function pad(n) {return n<10 ? "0"+n : n} d=new Date();
-  year = d.getFullYear().toString();return year.substring(2, 4)+ pad(d.getMonth()+1)+ pad(d.getDate())+ pad(d.getHours())+ pad(d.getMinutes())+ pad(d.getSeconds()) 
+  getTypeContent : (req, res) => {
+    const info = req.query;
+    let _query;
+    
+    if(info.mode === 'home'){
+      _query = `SELECT content.id,content.title,content.description,nickname,topic,cover_src FROM content LEFT JOIN profile ON content.profile_id = profile.author_id JOIN type ON content.type_id = type.id`
+    }else{
+      _query = `SELECT content.id,content.title,content.description,nickname,topic,cover_src FROM content LEFT JOIN profile ON content.profile_id = profile.author_id JOIN type ON content.type_id = type.id WHERE topic = ?`
+    }
+
+    db.query(
+      _query,[info.mode],
+      (err, contents) => {
+        if (err) throw err;
+        res.send(
+          {contents}
+        );
+      });
+  }
 }
 
 const getMostRecentFile = (dir) => {

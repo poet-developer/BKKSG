@@ -7,6 +7,7 @@ const LogoContainer = styled.div`
      position : relative;
      width: 200px;
      height: 60px;
+     margin-left: 3.1rem;
 `;
 
 // Logo animation
@@ -56,7 +57,7 @@ function HeaderLogo(props) {
           canvas = canvasRef.current;
           ctx = canvas.getContext("2d");
           requestAnimationFrame(drawLogo); 
-     })
+     },[]);
 
      return (
           <LogoContainer>

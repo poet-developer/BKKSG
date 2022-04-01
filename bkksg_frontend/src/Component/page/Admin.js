@@ -4,25 +4,39 @@ import Update from './Update'
 import Create from './Create'
 import Preview from './Preview'
 import styled from 'styled-components'
+import Pagination from '../UI/Pagination'
 
 class Admin extends Component{
      constructor(props){
           super(props);
           this.state = {
                mode : 'admin',
+               posts : [],
+               limit : 10,
+               page : 1,
+               offset: 1,
+               formData : '',
+               config : ''
           }
           this.readPreviewProcess = this.readPreviewProcess.bind(this);
           this.createProcess = this.createProcess.bind(this);
           this.deleteProcess =  this.deleteProcess.bind(this);
           this.btnHandler =  this.btnHandler.bind(this);
-     
+          this.setPage = this.setPage.bind(this);
      }
 
-     
+     // componentDidMount(){
+     //      this.props.pagination(this.state.page);
+     // }
+
+     setPage(page) {
+          this.setState({page : page})
+     }
+
      // read
      readPreviewProcess(id, mode){
           if(id){
-               axios.get('/admin/read',{
+               axios.get('/admin/read', {
                     params : {id}
                })
                .then(res => {
@@ -47,7 +61,7 @@ class Admin extends Component{
      createProcess(){
           console.log('승인');
           axios.post('/admin/create_process', this.state.formData, this.state.config)
-                     .then(                                
+                     .then(                        
                        this.setState({
                        mode : ''
                        })
@@ -77,7 +91,9 @@ class Admin extends Component{
      }
      
      render(){
+          let offset = (this.state.page - 1)*this.state.limit;
           let contentList;
+          let _cover_src;
           const Content = styled.div`
           {
                border : 1px solid black;
@@ -85,7 +101,8 @@ class Admin extends Component{
           // props로 데이터 받아옴
           if(this.props.content){
                const content = this.props.content;
-               contentList = content.map(list => {
+               if(this.state.page){
+               contentList = content.slice(offset, offset + this.state.limit).map(list => {
                     return    <tbody key = {list.id}>
                               <tr>
                               <td> </td>
@@ -97,9 +114,10 @@ class Admin extends Component{
                               }} href = '/'>{list.title}</a></td>
                               </tr>
                               </tbody>
-               })   
+                    })   
+                   }
                }
-
+               // this.props.pagination((this.state.page - 1)*this.state.limit, (this.state.page - 1)*this.state.limit+this.state.limit);
           return(
                <div className="admin">
                     <Content>
@@ -116,6 +134,12 @@ class Admin extends Component{
                </thead>
                {contentList}
                </table>
+               <Pagination
+               total={this.state.posts.length}
+               limit={this.state.limit}
+               page={this.state.page}
+               setPage={this.setPage}
+               />
                </Content>
                <hr/>
                
@@ -132,6 +156,13 @@ class Admin extends Component{
                     for (var value of formData.values()) {
                          pre_data.push(value);
                       }
+                      if(pre_data[1] === '3' || pre_data[1] === '4'){
+                         _cover_src = pre_data[5]
+                      }
+                      if(pre_data[1] === '1' || pre_data[1] === '2'){
+                         _cover_src = pre_data[4]
+                      }
+                      console.log('크리', formData);
                     this.setState({
                     mode : 'preview',
                     pre_data : {
@@ -139,7 +170,7 @@ class Admin extends Component{
                          type: pre_data[1], 
                          title: pre_data[2], 
                          desc: pre_data[3],
-                         cover_src : pre_data[4]
+                         cover_src : _cover_src
                     },
                     formData,
                     config

@@ -14,10 +14,9 @@ export default (props) => {
     // Send Selected Data for Preview.
     e.preventDefault();
     let color, coverImg;
-    console.log(e.target.c.type)
     if(e.target.c.type === 'color'){
       color = e.target.c.value;
-    }else{
+    }else if(e.target.c.type === 'file'){
       coverImg = e.target.c.files[0];
     }
     const formData = new FormData();
