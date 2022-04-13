@@ -1,3 +1,10 @@
+import styled from 'styled-components'
+
+const Img = styled.img`
+ max-width: 50vw;
+`
+
+
 export default (props) => {
           const _data = props.data
           const _author = props.profile[_data.author-1].nickname;
@@ -6,7 +13,7 @@ export default (props) => {
                <h1>Preview</h1>
                <label>Cover:<br/> 
                { _data.type == 3 || _data.type == 4
-               ? <img src = {'/images/covers/'+_data.cover_src}/>
+               ? <Img src = {'/images/covers/'+_data.cover_src}/>
                : <input type='color' value ={_data.cover_src} readOnly/>
                }
                </label>

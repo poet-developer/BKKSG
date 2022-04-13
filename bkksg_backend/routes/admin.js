@@ -4,44 +4,30 @@ const googleDrive = require("../lib/drive");
 const multer = require("multer");
 const db = require("../lib/db");
 const img_controller = require("../lib/img.controller");
-// const PATH_TMP = "./bkksg_backend/tmp/";
-const PATH_COVER = "public/images/covers/";
-// const storageTmp = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, PATH_TMP); // cb 콜백함수를 통해 전송된 파일 저장 디렉토리 설정
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, file.originalname); // cb 콜백함수를 통해 전송된 파일 이름 설정
-//   },
-// });
+const { v4:uuid } = require('uuid');
+const mime = require("mime-types");
+const PATH_COVER = "./public/images/covers/";
 
 const storageCover = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, PATH_COVER); // cb 콜백함수를 통해 전송된 파일 저장 디렉토리 설정
   },
   filename: function (req, file, cb) {
-    let _c
-    let _dataType;
-    if(file.mimetype === 'image/jpeg'){
-      _dataType = '.jpeg'
-    }else if(file.mimetype === 'image/jpg'){
-      _dataType = '.jpg'
-    }else if(file.mimetype === 'image/png'){
-      _dataType = '.png'
-    } // set data type to file.
-    _c = `${req.body.title}_${timestamp().toString()}_${_dataType}`
-    // Id, type , dataType
-    console.log('파일관하여:',file);
-    cb(null, _c); 
+    // Id, dataType
+    console.log('정보추출:',req.body);
+    let _id;
+    if(req.body.img_id){
+      _id  = req.body.img_id
+    }else{
+      _id = `${uuid()}.${mime.extension(file.mimetype)}`
+    }
+    cb(null, _id); 
     // save a file named by the project's title.
   },
 });
 
 const uploadCoverTool = multer({ storage: storageCover });
-
-// const uploadTool = multer({ storage: storageTmp });
 const contentController = require("./content_controller");
-// admin home _ READ
 router.get("/", contentController.contentList);
 router.get("/read", contentController.read);
 router.get("/getType", contentController.getTypeContent);
@@ -102,10 +88,10 @@ router.get('/delete/process', (req, res) => {
 module.exports = router;
 
 // get a Current Time.
-function timestamp(){ 
-  function pad(n) {return n<10 ? "0"+n : n} d=new Date();
-  year = d.getFullYear().toString();return year.substring(2, 4)+ pad(d.getMonth()+1)+ pad(d.getDate())+ pad(d.getHours())+ pad(d.getMinutes())+ pad(d.getSeconds()) 
-}
+// function timestamp(){ 
+//   function pad(n) {return n<10 ? "0"+n : n} d=new Date();
+//   year = d.getFullYear().toString();return year.substring(2, 4)+ pad(d.getMonth()+1)+ pad(d.getDate())+ pad(d.getHours())+ pad(d.getMinutes())+ pad(d.getSeconds()) 
+// }
 
 /* <MYSQL CMD>> */
 

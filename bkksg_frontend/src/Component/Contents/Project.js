@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from "react";
+import React, {useState} from "react";
 import Header from '../UI/Header'
 import Sidebar from '../UI/Sidebar';
 import Footer from '../UI/Footer';
@@ -21,14 +21,17 @@ const GridContainer = styled.div`
 //width 
 
 
-const Project = () => {
+const Project = (props) => {
      const [isOpen, setIsOpen] = useState(false);
+     const {themeMode, themeHandler} = props;
+
 
           return(
                <GridContainer>
-                    <Header isOpen = {isOpen} setIsOpen = {setIsOpen}/>
+                    <Header themeHandler= {themeHandler} 
+                    isOpen = {isOpen} setIsOpen = {setIsOpen}/>
                     <Sidebar pullUp = {isOpen ? true : false} setIsOpen = {setIsOpen}/>
-                    <ImgContent pullUp = {isOpen ? true : false} mode = 'project'/>
+                    <ImgContent themeMode = {themeMode} pullUp = {isOpen ? true : false} mode = 'project'/>
                     <Footer/>
                </GridContainer>
           )

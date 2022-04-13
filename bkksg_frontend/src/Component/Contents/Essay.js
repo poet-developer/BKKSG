@@ -19,13 +19,16 @@ const GridContainer = styled.div`
                 
 `
 
-const Essay = () => {
-     const [isOpen, setIsOpen] = useState(false)
+const Essay = (props) => {
+     const [isOpen, setIsOpen] = useState(false);
+     const {themeMode, themeHandler} = props;
+
           return(
                <GridContainer>
-                    <Header isOpen = {isOpen} setIsOpen = {setIsOpen}/>
+                    <Header themeHandler= {themeHandler}
+                    isOpen = {isOpen} setIsOpen = {setIsOpen}/>
                     <Sidebar pullUp = {isOpen ? true : false} setIsOpen = {setIsOpen}/>
-                    <TextContent pullUp = {isOpen ? true : false} mode = 'essay'/>
+                    <TextContent themeMode = {themeMode} pullUp = {isOpen ? true : false} mode = 'essay'/>
                     <Footer/>
                </GridContainer>
           )

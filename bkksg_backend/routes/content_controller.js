@@ -5,27 +5,22 @@ const { file } = require("googleapis/build/src/apis/file");
 const TMP_PATH = './tmp'
 const fs = require('fs')
 const path = require("path");
-const { query } = require("express");
+
 async function googleApiOAuth2() {
   const initPromise = await googleDrive.loadList();
   return initPromise;
 }
 module.exports = {
   contentList: (req, res) => {
-    // query = `SELECT content.id,content.title,content.description,nickname,topic,cover_src FROM content LEFT JOIN profile ON content.profile_id = profile.author_id JOIN type ON content.type_id = type.id LIMIT ${_limit} OFFSET ${_offset}`;
-    // console.log(typeof(info.offset))
     // 이 기능은 admin 홈으로 쓰이며, preview, update 항목의 기존 내용을 불러올 때, 즉 정보를 읽을때 사용.
     db.query("SELECT * FROM type", (error0, types) => {
       if (error0) throw error0;
       db.query("SELECT * FROM profile", (error1, profiles) => { 
         if (error1) throw error1;
           db.query(
-            `SELECT content.id,content.title,content.description,nickname,topic,cover_src FROM content LEFT JOIN profile ON content.profile_id = profile.author_id JOIN type ON content.type_id = type.id`,
+            `SELECT content.id,content.title,content.description,nickname,topic,cover_src FROM content LEFT JOIN profile ON content.profile_id = profile.author_id JOIN type ON content.type_id = type.id `,
               (error2, contents) => {
             if (error2) throw error2;
-            // tmp 파일 조사 후 다 살아있으면, skip.
-            // tmp 파일 조사 후 없으면, 다운
-            // img_controller.updateTmpDir(TMP_PATH, img_controller.inspectingTmpDir, googleDrive.downloadFile);
               res.send(
                 {contents, types, profiles}
               );
@@ -37,7 +32,7 @@ module.exports = {
   create: (req, res, next) => {
     const info = req.body;
     let _c;
-    console.log('프로세스로 넘어옴',info)
+    console.log('프로세스로 넘어옴',info);
     if(info.type === '1' || info.type === '2'){
       _c = info.color
     }else if(info.type === '3' || info.type === '4'){
@@ -52,11 +47,13 @@ module.exports = {
   update: (req, res) => {
     const info = req.body;
     let _c;
-    console.log(typeof(info.type))
+    console.log(info);
     if(info.type == 1 || info.type == 2){
-      _c = info.color
+      _c = info.color;
     }else{
-      _c = getMostRecentFile('public/images/covers').file;
+      _c = info.img_id;
+      console.log(_c);
+      //목록에서 찾기.
     }
     console.log(info)
     db.query(`UPDATE content SET title=?, description=?, cover_src=?, type_id=?, profile_id=? WHERE id =?`,[info.title, info.desc, _c, info.type, info.author, info.id],function(error,result){
@@ -94,9 +91,9 @@ module.exports = {
     let _query;
     
     if(info.mode === 'home'){
-      _query = `SELECT content.id,content.title,content.description,nickname,topic,cover_src FROM content LEFT JOIN profile ON content.profile_id = profile.author_id JOIN type ON content.type_id = type.id`
+      _query = `SELECT content.id,content.title,content.description,nickname,topic,cover_src,public FROM content LEFT JOIN profile ON content.profile_id = profile.author_id JOIN type ON content.type_id = type.id ORDER BY content.id DESC`
     }else{
-      _query = `SELECT content.id,content.title,content.description,nickname,topic,cover_src FROM content LEFT JOIN profile ON content.profile_id = profile.author_id JOIN type ON content.type_id = type.id WHERE topic = ?`
+      _query = `SELECT content.id,content.title,content.description,nickname,topic,cover_src,public FROM content LEFT JOIN profile ON content.profile_id = profile.author_id JOIN type ON content.type_id = type.id WHERE topic = ? ORDER BY content.id DESC`
     }
 
     db.query(

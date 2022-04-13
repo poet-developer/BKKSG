@@ -1,8 +1,9 @@
 import React from "react";
 import styled, {ThemeProvider} from "styled-components";
-import theme from '../lib/theme';
+import theme from '../lib/night';
 import IndexList from './Index'
 import { CgChevronRight, CgChevronLeft } from "react-icons/cg";
+import '../../static/css/basicCss.css'
 
 const SidebarGrid = styled.div`
      grid-area : sidebar;
@@ -42,8 +43,10 @@ const OpenSideButton = styled.div`
     padding : 0.4rem 0 0 0;
     cursor: pointer;
     transform : scale(2);
-    transition :1s;
     color: ${theme.colors.main};
+    &:hover {
+      color: ${theme.colors.logo};
+    }
 `
 
 const Sidebar = (props) => {

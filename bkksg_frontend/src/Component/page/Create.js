@@ -2,7 +2,7 @@ import React, { useState }  from "react";
 import TextEditor from '../lib/TextEditor'
 
 // Function Component
-export default (props) => {
+const Create =  (props) => {
   const [desc, setDesc] = useState('')
 
   const handleEditorChange = (e) => {
@@ -20,9 +20,6 @@ export default (props) => {
       coverImg = e.target.c.files[0];
     }
     const formData = new FormData();
-               const config = {
-                    headers: {'Content-type': 'multipart/form-data'}
-                }
                 formData.append('author', e.target.author.value);
                 formData.append('type', e.target.type.value);
                 formData.append('title', e.target.title.value)
@@ -30,12 +27,23 @@ export default (props) => {
                 formData.append('color',color)
                 // An img file's to been used to middleware must be at the end.
                 formData.append('coverImg', coverImg);
-    props.submitHandler(
-      formData,config
-    ); 
+                try{
+                  const config = {
+                    headers: {'Content-Type': 'multipart/form-data'}
+                  }
+                  props.submitHandler(
+                    formData,config
+                  ); 
+                } catch(err){
+                  console.log(err);
+                  alert('fail!');
+                }
+    
   }
     
     return(
         <TextEditor typeList ={props.type} profileList ={props.profile} handleEditorChange= {handleEditorChange} submitHandler = {submitHandler} mode = 'create'></TextEditor>
     );
 }
+
+export default Create

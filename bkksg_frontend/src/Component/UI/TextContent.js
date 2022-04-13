@@ -1,6 +1,7 @@
-import React, {useState , useEffect, useRef} from "react";
+import React, {useState , useEffect} from "react";
 import styled from "styled-components";
-import theme from '../lib/theme';
+import night from '../lib/night';
+import day from '../lib/day';
 import Masonry from 'react-masonry-css';
 import "../../static/css/masonry.css";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -13,7 +14,7 @@ const Layout = styled.div`
   height: 100%;
   width: 100vw;
   z-index: 2;
-  background-color: ${theme.colors.main};
+  background-color: ${props => props.backgroundMode ? day.colors.main : night.colors.main};
   display : flex;
   justify-content: center;
   margin-top : -3rem;
@@ -28,6 +29,7 @@ const Content =  styled.nav`
   padding-top: 4rem;
   padding-left: ${props => props.pullUp ? '3rem' : '0'};
   margin-right: ${props => props.pullUp ? '7rem' : '0'};
+  
 `
 // the Second big container
 
@@ -35,6 +37,7 @@ const TextContent = (props) => {
   const [cards, setImage] = useState([]);
   const [page, setPage] = useState(1);
   const [more, setMore] = useState(true);
+  const {mode, pullUp, themeMode} = props;
   let allCovers = [];
   let preCovers;
   let breakpointColumnsObj ={
@@ -46,13 +49,13 @@ const TextContent = (props) => {
   
   useEffect(() => {
     fetchImages();
-  }, []);
+  }, [])
 
 
   const fetchImages = (count = 10) => {
     axios
          .get('/admin/getType',{
-           params : {mode: props.mode}
+           params : {mode: mode}
          })
          .then((res) => {
               allCovers = res.data.contents.map((content) => {
@@ -80,8 +83,8 @@ const TextContent = (props) => {
     
   return (
             <>
-             <Layout>
-               <Content pullUp = {props.pullUp} mode = {props.mode}>
+             <Layout backgroundMode = {themeMode}>
+               <Content pullUp = {pullUp} mode = {mode}>
                 <InfiniteScroll
                   dataLength={cards.length}
                   next={fetchImages}
@@ -92,7 +95,7 @@ const TextContent = (props) => {
                       className="my-masonry-grid"
                       columnClassName="my-masonry-grid_column">
                       {cards.map((card) => (
-                          <Card key={cards.indexOf(card)} data = {card} mode = {props.mode}></Card>
+                          <Card key={cards.indexOf(card)} data = {card} mode = {mode}></Card>
                       ))}
                   </Masonry>
                 </InfiniteScroll>

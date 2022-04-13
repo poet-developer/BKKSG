@@ -33,7 +33,7 @@ class TextEditor extends Component{
      changeInput(e){
           let _coverValue = e.target.value;
           let _coverInput;
-
+          
           if(_coverValue == 1 || _coverValue == 2){
                     _coverInput = <input type = 'color' name ='c'/>
           }else if(_coverValue == 3 || _coverValue == 4){
@@ -60,6 +60,7 @@ class TextEditor extends Component{
                _coverValue = e;
           }
           // According to this mode,  e'Value is gonna be changed. 
+          
           if(_coverValue == 1){
                if(_mode === _UPDATE){
                     _coverInput = <input type = 'color' name ='c' defaultValue ={this.props.c} />
@@ -74,13 +75,16 @@ class TextEditor extends Component{
                }
           }else if(_coverValue == 3){
                if(_mode === _UPDATE){
-                    _coverInput = <label><em>* Current | {this.props.c}</em> <br/><label>Change | <input type = 'file' name ='c'/></label></label>
+                    _coverInput = <label><em>* Current | {this.props.c}</em> 
+                    <input type ='hidden' name = 'img_id' value = {this.props.c}/>
+                    <br/><label>Change | <input type = 'file' name ='c'/></label></label>
                }else{
                     _coverInput = <input type = 'file' name ='c'/>
                }       
           }else if(_coverValue == 4){
                if(_mode === _UPDATE){
-                    _coverInput = <label><em>* Current | {this.props.c}</em> <br/><label>Change | <input type = 'file' name ='c'/></label></label>
+                    _coverInput = <label><em>* Current | {this.props.c}</em>
+                    <input type ='hidden' name = 'img_id' value = {this.props.c}/> <br/><label>Change | <input type = 'file' name ='c'/></label></label>
                }else{
                     _coverInput = <input type = 'file' name ='c'/>
                }  
@@ -158,7 +162,8 @@ class TextEditor extends Component{
             <input type="text" name="title" placeholder="title" required
                />
           }
-            </label>
+          
+          </label>
             <label>Author :
             <select required name="author" value={
                  _mode === UPDATE 
@@ -193,15 +198,28 @@ class TextEditor extends Component{
               </option>
               {selectType}
             </select>
-            </label><br/>
+            </label>
             {this.state.isOpenInput
           ? <label>Cover: <br/>{this.state.coverType}</label>
           : ''
            }
+
+          <label> Public :
+          { _mode === UPDATE
+          ?
+          <input type="checkbox" name="public" 
+            onChange={this.props.changeHandler}
+            defaultChecked={this.props.public}
+            />
+            :
+            <input type="checkbox" name="public" defaultChecked={true} required/>
+          }
+          </label>
+
           </div>
           <br/>
           <Editor
-            apiKey= {apiKey}
+            apiKey = {apiKey}
             initialValue={
                  _mode === UPDATE
                  ? this.props.initialValue
@@ -226,17 +244,17 @@ class TextEditor extends Component{
                 
                 file_picker_callback: function(callback, value, meta) {
                // Provide file and text for the link dialog
-               if (meta.filetype == 'file') {
+               if (meta.filetype === 'file') {
                  callback('mypage.html', {text: 'My text'});
                }
            
                // Provide image and alt text for the image dialog
-               if (meta.filetype == 'image') {
+               if (meta.filetype === 'image') {
                  callback('myimage.jpg', {alt: 'My alt text'});
                }
            
                // Provide alternative source and posted for the media dialog
-               if (meta.filetype == 'media') {
+               if (meta.filetype === 'media') {
                  callback('movie.mp4', {source2: 'alt.ogg', poster: 'image.jpg'});
                }
              }

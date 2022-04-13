@@ -8,8 +8,6 @@ class Update extends Component{
      constructor(props){
           super(props);
           const _data = this.props.data;
-          // const blocksFromHTML = convertFromHTML(_data.desc);
-          console.log(_data);
           this.state = {
                          id : _data.id,
                          author: _data.author,
@@ -17,6 +15,7 @@ class Update extends Component{
                          title: _data.title,
                          desc : _data.desc,
                          saved_desc : _data.desc,
+                         public : _data.public,
                          c : _data.cover_src
                }
           this.changeHandler = this.changeHandler.bind(this);
@@ -26,7 +25,6 @@ class Update extends Component{
 
      changeHandler(e){
           let _value = e.target.value;
-          console.log('값',_value);
           if(e.target){
                this.setState({[e.target.name] : _value });
           }
@@ -39,37 +37,46 @@ class Update extends Component{
           })
         }
 
-     submitHandler(e){
+        async submitHandler(e){
                const _confrimed = window.confirm('수정 할까요?');
                e.preventDefault();
-               let color, coverImg;
+               let color, coverImg, imgId;
                if(e.target.c.type === 'color'){
                     color = e.target.c.value;
                   }else{
                     coverImg = e.target.c.files[0];
+                    imgId = e.target.img_id.value;
                }
-
                const formData = new FormData();
+               
+               formData.append('author', e.target.author.value);
+               formData.append('type', e.target.type.value);
+               formData.append('title', e.target.title.value);
+               formData.append('desc', this.state.saved_desc);
+               formData.append('id', e.target.id.value);
+               formData.append('img_id', imgId);
+               formData.append('color',color);
+               // An img file's to been used to middleware must be at the end.
+               formData.append('coverImg', coverImg);
                const config = {
                     headers: {'Content-type': 'multipart/form-data'}
-                }
-
-                formData.append('author', e.target.author.value);
-                formData.append('type', e.target.type.value);
-                formData.append('title', e.target.title.value)
-                formData.append('desc', this.state.saved_desc)
-                formData.append('id', e.target.id.value)
-                formData.append('color',color)
-                // An img file's to been used to middleware must be at the end.
-                formData.append('coverImg', coverImg);
+                    }
                if(_confrimed){
-                              axios.post('/admin/update_process',formData, config)
-                              .then(console.log)
+                    try{
+
+                              await axios.post('/admin/update_process',formData, config)
+                              .then(alert('Updated!'))
                               .catch(console.log)
-                              .finally(window.location.replace("/admin"));
+                              .finally(window.location.replace("/centre/admin"));
                               // Float a popup
+                              
+                    }catch(err){
+                         console.log(err);
+                         alert('fail!');
+                    }
                }else{
                     console.log('거부');
+
                }
      }
 
@@ -78,8 +85,8 @@ class Update extends Component{
      render(){
           return(
                <label> <h4>Update Your Content!</h4>
-               <a href='/admin'>Back to Admin</a>
-               <TextEditor title= {this.state.title} author= {this.state.author} genre = {this.state.type} initialValue = {this.state.desc} typeList= {this.props.type} profileList ={this.props.profile} id ={this.state.id} handleEditorChange= {this.handleEditorChange} submitHandler = {this.submitHandler} changeHandler={this.changeHandler} mode = 'update' c = {this.state.c} ></TextEditor>
+               <a href='/centre/admin'>Back to Admin</a>
+               <TextEditor title= {this.state.title} author= {this.state.author} genre = {this.state.type} initialValue = {this.state.desc} typeList= {this.props.type} profileList ={this.props.profile} id ={this.state.id} public = {this.state.public}handleEditorChange= {this.handleEditorChange} submitHandler = {this.submitHandler} changeHandler={this.changeHandler} mode = 'update' c = {this.state.c} ></TextEditor>
                </label>
           )
      }

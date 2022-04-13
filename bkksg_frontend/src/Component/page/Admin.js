@@ -11,6 +11,7 @@ class Admin extends Component{
           super(props);
           this.state = {
                mode : 'admin',
+               user: null,
                posts : [],
                limit : 10,
                page : 1,
@@ -25,31 +26,28 @@ class Admin extends Component{
           this.setPage = this.setPage.bind(this);
      }
 
-     // componentDidMount(){
-     //      this.props.pagination(this.state.page);
-     // }
-
      setPage(page) {
           this.setState({page : page})
      }
 
-     // read
      readPreviewProcess(id, mode){
           if(id){
                axios.get('/admin/read', {
                     params : {id}
                })
                .then(res => {
+                    let _data = res.data;
                     this.setState({
                          mode : mode,
                          data :
                               {
                               id : id,
-                              author : res.data.profile_id,
-                              type :  res.data.type_id,
-                              title : res.data.title,
-                              desc : res.data.description,
-                              cover_src : res.data.cover_src,
+                              author : _data.profile_id,
+                              type :  _data.type_id,
+                              title : _data.title,
+                              desc : _data.description,
+                              public : _data.public,
+                              cover_src : _data.cover_src,
                          }
                     })
                })
@@ -58,9 +56,8 @@ class Admin extends Component{
      }
 
 
-     createProcess(){
-          console.log('승인');
-          axios.post('/admin/create_process', this.state.formData, this.state.config)
+     async createProcess(){
+          await axios.post('/admin/create_process', this.state.formData, this.state.config)
                      .then(                        
                        this.setState({
                        mode : ''
@@ -69,8 +66,9 @@ class Admin extends Component{
                      )
                      .catch(console.log('업로드 실패'))
                      .finally(
-                       window.location.replace("/admin")
+                       window.location.replace("/centre/admin")
                      );
+                     alert('Uploaded!');
      }
 
      deleteProcess(id){
@@ -79,7 +77,7 @@ class Admin extends Component{
           .then(window.location.replace("/admin"))
           .catch(console.log('삭제 실패'))
           .finally(
-               window.location.replace("/admin")
+               window.location.replace("/centre/admin")
              );
      }
 
@@ -89,6 +87,7 @@ class Admin extends Component{
           mode : e.target.dataset.mode
           });
      }
+
      
      render(){
           let offset = (this.state.page - 1)*this.state.limit;
@@ -117,11 +116,11 @@ class Admin extends Component{
                     })   
                    }
                }
-               // this.props.pagination((this.state.page - 1)*this.state.limit, (this.state.page - 1)*this.state.limit+this.state.limit);
           return(
+
                <div className="admin">
+               <h2><a href='/centre/admin'>ADMIN</a></h2>
                     <Content>
-               <h2><a href='/admin'>ADMIN</a></h2>
                <h4>** Contents</h4>
                <table data-admin="contents">
                <thead>                                             
@@ -162,7 +161,6 @@ class Admin extends Component{
                       if(pre_data[1] === '1' || pre_data[1] === '2'){
                          _cover_src = pre_data[4]
                       }
-                      console.log('크리', formData);
                     this.setState({
                     mode : 'preview',
                     pre_data : {

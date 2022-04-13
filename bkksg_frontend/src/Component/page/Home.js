@@ -1,9 +1,10 @@
-import React, {useState} from "react";
+import React, {useState} from "react"
 import Header from '../UI/Header'
-import Sidebar from '../UI/Sidebar';
-import ImgContent from '../UI/imgContent';
-import Footer from '../UI/Footer';
-import styled from "styled-components";
+import Sidebar from '../UI/Sidebar'
+import ImgContent from '../UI/imgContent'
+import Footer from '../UI/Footer'
+import styled from "styled-components"
+import getTheme from '../lib/getTheme'
 
 
 const GridContainer = styled.div`
@@ -20,15 +21,16 @@ const GridContainer = styled.div`
 `
 
 
-const Home = () => {
-
+const Home = (props) => {
      const [isOpen, setIsOpen] = useState(false);
-        
+     // const [themeMode, setThemeMode] = useState(getTheme);
+     const {themeMode, themeHandler} = props;
           return(
                <GridContainer>
-                    <Header isOpen = {isOpen} setIsOpen = {setIsOpen}/>
+                    <Header themeHandler= {themeHandler} 
+                    isOpen = {isOpen} setIsOpen = {setIsOpen}/>
                     <Sidebar pullUp = {isOpen ? true : false} setIsOpen = {setIsOpen}/>
-                    <ImgContent pullUp = {isOpen ? true : false} mode = 'home'/>
+                    <ImgContent themeMode = {themeMode} pullUp = {isOpen ? true : false} mode = 'home'/>
                     <Footer/>
                </GridContainer>
           )

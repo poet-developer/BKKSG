@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import theme from '../lib/theme';
+import theme from './night';
 
 const Loading = styled.div`
   text-align: center;

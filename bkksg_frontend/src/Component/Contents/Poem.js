@@ -19,13 +19,16 @@ const GridContainer = styled.div`
                 
 `
 
-const Poem = () => {
-     const [isOpen, setIsOpen] = useState(false)
+const Poem = (props) => {
+     const [isOpen, setIsOpen] = useState(false);
+     const {themeMode, themeHandler} = props; //Theme Mode.
+
           return(
                <GridContainer>
-                    <Header isOpen = {isOpen} setIsOpen = {setIsOpen}/>
+                    <Header themeHandler= {themeHandler}
+                    isOpen = {isOpen} setIsOpen = {setIsOpen}/>
                     <Sidebar pullUp = {isOpen ? true : false} setIsOpen = {setIsOpen}/>
-                    <TextContent pullUp = {isOpen ? true : false} mode = 'poem'/>
+                    <TextContent themeMode = {themeMode} pullUp = {isOpen ? true : false} mode = 'poem'/>
                     <Footer/>
                </GridContainer>
           )

@@ -21,13 +21,16 @@ const GridContainer = styled.div`
 
    
 const Visual
- = () => {
-     const [isOpen, setIsOpen] = useState(false)
+ = (props) => {
+     const [isOpen, setIsOpen] = useState(false);
+     const {themeMode, themeHandler} = props;
+
           return(
                <GridContainer>
-                    <Header isOpen = {isOpen} setIsOpen = {setIsOpen}/>
+                    <Header themeHandler= {themeHandler} 
+                    isOpen = {isOpen} setIsOpen = {setIsOpen}/>
                     <Sidebar pullUp = {isOpen ? true : false} setIsOpen = {setIsOpen}/>
-                    <ImgContent pullUp = {isOpen ? true : false} mode = 'visual'/>
+                    <ImgContent themeMode = {themeMode} pullUp = {isOpen ? true : false} mode = 'visual'/>
                     <Footer/>
                </GridContainer>
           )

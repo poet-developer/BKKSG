@@ -1,4 +1,4 @@
-const theme = {
+const night = {
 
       gradient : {
           radial : "radial-gradient(circle, rgba(236,195,202,0.6) 4%, rgba(165,206,218,0.6) 87%)",
@@ -27,4 +27,4 @@ const theme = {
 
 }
 
-export default theme
+export default night
