@@ -3,9 +3,6 @@ import { Outlet, Navigate } from "react-router-dom";
 import Login from '../page/Login'
 import Auth from '../lib/auth'
 
-const returnCentre = () => {
-     return <Navigate to ='/centre/admin'/>
-}
 function Centre(props) {
      // const [auth,setAuth] = useState(null);
      // console.log(auth);
@@ -15,7 +12,6 @@ function Centre(props) {
      }else{
           logined = false;
      }
-     console.log(logined);
   return (
     <>
      {logined

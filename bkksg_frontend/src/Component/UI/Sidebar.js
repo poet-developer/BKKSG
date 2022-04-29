@@ -1,9 +1,8 @@
-import React from "react";
+import React,{useState} from "react";
 import styled, {ThemeProvider} from "styled-components";
-import theme from '../lib/night';
-import IndexList from './Index'
+import theme from '../lib/theme';
+import IndexList from './IndexList'
 import { CgChevronRight, CgChevronLeft } from "react-icons/cg";
-import '../../static/css/basicCss.css'
 
 const SidebarGrid = styled.div`
      grid-area : sidebar;
@@ -11,62 +10,80 @@ const SidebarGrid = styled.div`
      width: 9.3rem;
      top: 3rem;
      margin-top : -4rem;
-     height: 100vh;
-     z-index: 3;
+     height: 110vh;
+     z-index: 31;
      transition: 1s;
-     background:  ${theme.gradient.linear} ;
-     box-shadow:  ${theme.glass.shadow};
-     backdrop-filter: ${theme.glass.filter};
-     -webkit-backdrop-filter: ${theme.glass.filter};
-     border-radius: ${theme.glass.border.radius};
-     border-right:  ${theme.glass.border.line};
+     background: ${props=> props.theme.gradient.linear};
+     -mos-box-shadow: ${props=> props.theme.glass.shadow};
+     -ms-box-shadow: ${props=> props.theme.glass.shadow};
+     -o-box-shadow: ${props=> props.theme.glass.shadow};
+     box-shadow:  ${props=> props.theme.glass.shadow};
+     
+     -mos-backdrop-filter: ${props=> props.theme.glass.filter};
+     -ms-backdrop-filter: ${props=> props.theme.glass.filter};
+     -o-backdrop-filter: ${props=> props.theme.glass.filter};
+     -webkit-backdrop-filter: ${props=> props.theme.glass.filter};
+     backdrop-filter: ${props=> props.theme.glass.filter};
+     
+     border-radius: ${props=> props.theme.glass.border.radius};
+     border-right:  ${props=> props.theme.glass.border.line};
      cursor : pointer;
+
      left: ${props => props.pullUp ? '0' : "-8rem"};
-     @media (max-width:281px){
+     @media (max-width:200px){
        left: -8rem;
       };
-    @media (min-width: ${theme.screen.max}) {
-      left: 0;
+    @media (min-width: ${theme.common.screen.max}) {
+      left: ${props => props.pullUp ? '-8rem' : "0" || '0'};
     };
 `
 
 const OpenSideButton = styled.div`
-    display : inline;
-    position: fixed;
-    right : -0.6rem;
+    position: absolute;
+    left : 7rem;
     top: 50%;
     opacity: 0.7;
-    z-index: 4;
+    z-index: 20;
     cursor : pointer;
-
     margin: 1rem;
     padding : 0.4rem 0 0 0;
     cursor: pointer;
     transform : scale(2);
-    color: ${theme.colors.main};
+    color: ${theme.common.little};
     &:hover {
-      color: ${theme.colors.logo};
+      color: ${theme.common.color};
     }
 `
 
+
 const Sidebar = (props) => {
+  const [isPullup, setPullup] = useState(false);
+  const { themeMode } = props;
   const openSidebarHandler = (e) => {
-    props.setIsOpen(!props.pullUp)
+    setPullup(!isPullup);
   }
+  const resizeHandler = (e) => {
+    setPullup(false);
+  }
+  window.addEventListener('resize',resizeHandler)
 
   return (
-       <ThemeProvider theme={theme}> 
-        <SidebarGrid onClick = {openSidebarHandler} pullUp = {props.pullUp}>
-        <IndexList pullUp = {props.pullUp}></IndexList>
-        <OpenSideButton pullUp = {props.pullUp}>
-            {props.pullUp || window.innerWidth< theme.screen.max 
+    <ThemeProvider theme= {
+      themeMode 
+      ? theme.night
+      : theme.day}>
+        <SidebarGrid onClick = {openSidebarHandler} pullUp = {isPullup}>
+        <IndexList themeMode ={themeMode} pullUp = {isPullup} style = {{position: 'relative'}}></IndexList>
+        <OpenSideButton pullUp = {isPullup}>
+            {isPullup || window.innerWidth< theme.common.screen.max 
             ? <CgChevronLeft/>
             :<CgChevronRight/>
             }
         </OpenSideButton>
+        
           {/* // to be treated as a loop */}
       </SidebarGrid>
-     </ThemeProvider>
+    </ThemeProvider>
   );
 };
 

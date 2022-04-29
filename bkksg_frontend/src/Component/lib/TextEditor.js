@@ -5,20 +5,19 @@ class TextEditor extends Component{
      constructor(props){
           super(props)
           this.state = {
-               //create or update
-               mode :this.props.mode,
+               mode :this.props.mode, //create or update
                coverType : '',
-               isOpenInput: false
+               isOpenInput: false,
+               checked : this.props.public,
           }
           
       this.checkMode = (mode) => {
            if(mode === 'update'){
                 this.setState({
                      isOpenInput : true
-                })
+                }).bind(this);
                 this.openInput(this.props.genre,mode);
            }
-          //  console.log(mode);
           }
           
           this.openInput = this.openInput.bind(this); // binding using 2 variables.
@@ -28,15 +27,16 @@ class TextEditor extends Component{
      
      componentDidMount(){
           this.checkMode(this.props.mode);
+          console.log(this.props.public);
      }
 
      changeInput(e){
-          let _coverValue = e.target.value;
+          let _coverValue = Number(e.target.value);
           let _coverInput;
           
-          if(_coverValue == 1 || _coverValue == 2){
+          if(_coverValue === 1 || _coverValue === 2){
                     _coverInput = <input type = 'color' name ='c'/>
-          }else if(_coverValue == 3 || _coverValue == 4){
+          }else if(_coverValue === 3 || _coverValue === 4){
                     _coverInput = <input type = 'file' name ='c'/>
                }       
           
@@ -55,25 +55,25 @@ class TextEditor extends Component{
           let _mode = this.state.mode;
 
           if(_mode === _CREATE){
-              _coverValue = e.target.value;
+              _coverValue = Number(e.target.value);
           }else{
                _coverValue = e;
           }
           // According to this mode,  e'Value is gonna be changed. 
           
-          if(_coverValue == 1){
+          if(_coverValue === 1){
                if(_mode === _UPDATE){
                     _coverInput = <input type = 'color' name ='c' defaultValue ={this.props.c} />
                }else{
                     _coverInput = <input type = 'color' name ='c'/>
                }
-          }else if(_coverValue == 2){
+          }else if(_coverValue === 2){
                if(_mode === _UPDATE){
                     _coverInput = <input type = 'color' name ='c' defaultValue ={this.props.c}/>
                }else{
                     _coverInput = <input type = 'color' name ='c'/>
                }
-          }else if(_coverValue == 3){
+          }else if(_coverValue === 3){
                if(_mode === _UPDATE){
                     _coverInput = <label><em>* Current | {this.props.c}</em> 
                     <input type ='hidden' name = 'img_id' value = {this.props.c}/>
@@ -81,7 +81,7 @@ class TextEditor extends Component{
                }else{
                     _coverInput = <input type = 'file' name ='c'/>
                }       
-          }else if(_coverValue == 4){
+          }else if(_coverValue === 4){
                if(_mode === _UPDATE){
                     _coverInput = <label><em>* Current | {this.props.c}</em>
                     <input type ='hidden' name = 'img_id' value = {this.props.c}/> <br/><label>Change | <input type = 'file' name ='c'/></label></label>
@@ -104,34 +104,16 @@ class TextEditor extends Component{
       }
      
      render(){
-          let selectProfile;
           let selectType;
-          let _selectedAuthor;
           let _selectedType;
           let _mode =  this.state.mode;
           const UPDATE = 'update'
           const apiKey = process.env.REACT_APP_TINY_EDITOR
-
-          // 작가 선택 옵션
-          selectProfile = this.props.profileList.map((author) => {
-               if(_mode === UPDATE){
-                    if(author.id === this.props.author){
-                         _selectedAuthor = author.id;
-                    } // filtering target.
-               }
-               return (
-                    <option key={author.id} value={author.id}>
-                    {author.nickname}
-               </option>
-               );
-          });
-          
           // 장르 선택 옵션
           selectType = this.props.typeList.map((genre) => {
                if(_mode === UPDATE){
-                    if(genre.id === this.props.genre){
-                         _selectedType = genre.id;
-                    } // filtering target.
+                    if(genre.id === this.props.genre) _selectedType = genre.id;
+                    // filtering target.
                }
                return (
                     <option key={genre.id} value={genre.id} >
@@ -144,7 +126,6 @@ class TextEditor extends Component{
           
           <label>
           <form onSubmit = {this.props.submitHandler}>
-          {/* 작가  */}
           {
                _mode === UPDATE
                ? <input type='hidden' name='id' value = {this.props.id}/>
@@ -159,27 +140,9 @@ class TextEditor extends Component{
             defaultValue={this.props.title}
             />
             :
-            <input type="text" name="title" placeholder="title" required
-               />
+            <input type="text" name="title" placeholder="title" required/>
           }
-          
           </label>
-            <label>Author :
-            <select required name="author" value={
-                 _mode === UPDATE 
-                 ? _selectedAuthor
-                 : undefined
-               } onChange={
-                    _mode === UPDATE
-                    ? this.props.changeHandler
-                    : undefined
-               }>
-              <option key="" value="">
-                SELECT
-              </option>
-              {selectProfile}
-            </select>
-            </label>
             <label>Type : 
             <select required name="type" value={
                  _mode === UPDATE
@@ -200,7 +163,7 @@ class TextEditor extends Component{
             </select>
             </label>
             {this.state.isOpenInput
-          ? <label>Cover: <br/>{this.state.coverType}</label>
+          ? <label><br/>Cover: {this.state.coverType}</label>
           : ''
            }
 
@@ -208,14 +171,19 @@ class TextEditor extends Component{
           { _mode === UPDATE
           ?
           <input type="checkbox" name="public" 
-            onChange={this.props.changeHandler}
-            defaultChecked={this.props.public}
+            onChange={function(e){
+               this.state.checked = !this.props.public;
+               this.props.changeHandler(e);
+          }.bind(this)}
+            defaultChecked={this.state.checked}
+            value={this.state.checked}
             />
             :
-            <input type="checkbox" name="public" defaultChecked={true} required/>
+            <input type="checkbox" name="public" value={this.state.checked} onChange={function(){
+               this.props.publicHandler();
+               }.bind(this)}/>
           }
           </label>
-
           </div>
           <br/>
           <Editor
@@ -228,7 +196,6 @@ class TextEditor extends Component{
                  width: 1000,
                  height: 500,
                  menubar: true,
-                 //     selector: 'textarea', 
                  plugins: [
                       'advlist autolink lists link image', 
                       'charmap print preview anchor help',
@@ -241,23 +208,6 @@ class TextEditor extends Component{
                 
                 content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
                 a11y_advanced_options: true,
-                
-                file_picker_callback: function(callback, value, meta) {
-               // Provide file and text for the link dialog
-               if (meta.filetype === 'file') {
-                 callback('mypage.html', {text: 'My text'});
-               }
-           
-               // Provide image and alt text for the image dialog
-               if (meta.filetype === 'image') {
-                 callback('myimage.jpg', {alt: 'My alt text'});
-               }
-           
-               // Provide alternative source and posted for the media dialog
-               if (meta.filetype === 'media') {
-                 callback('movie.mp4', {source2: 'alt.ogg', poster: 'image.jpg'});
-               }
-             }
           }}
             onChange={this.props.handleEditorChange}
           />

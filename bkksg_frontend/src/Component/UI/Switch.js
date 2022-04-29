@@ -1,5 +1,25 @@
 import React from 'react'
+import styled from 'styled-components'
 import '../../static/css/switch.css'
+
+
+const Label = styled.label`
+@media (max-width: 600px) {
+  margin-right: 1rem;
+};
+@media (min-width: 600px) {
+  margin-right: 2rem;
+};
+@media (min-width: 700px) {
+  margin-right: 3rem;
+};
+@media (min-width: 900px) {
+  margin-right: 4rem;
+};
+@media (min-width: 1200px) {
+  margin-right: 1rem;
+};
+`
 
 const Switch = (props) => {
      const {isChecked, toggleHandler} = props;
@@ -12,11 +32,12 @@ const Switch = (props) => {
               onChange = {toggleHandler}
               id='switch-input'
             />
-            <label
+            <Label
                className='switch-label'
-               htmlFor = 'switch-input'>
+               htmlFor = 'switch-input'
+               >
                  <div className="ball"/>
-            </label>
+            </Label>
           </div>
      )
 }

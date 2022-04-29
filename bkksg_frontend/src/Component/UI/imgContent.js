@@ -1,59 +1,54 @@
 import React, {useState , useEffect} from "react";
-import styled from "styled-components";
-import night from '../lib/night';
-import day from '../lib/day';
+import styled, { ThemeProvider } from "styled-components";
+import theme from '../lib/theme';
 import Masonry from 'react-masonry-css';
 import "../../static/css/masonry.css";
 import InfiniteScroll from "react-infinite-scroll-component";
 import axios from 'axios';
 import Card from './Card';
 import Loader from '../lib/Loader';
+import MasonryInfo from "../lib/MasonryInfo";
 
 const Layout = styled.div`
   grid-area: content;
+  padding: 1rem;
   height: 100%;
   width: 100vw;
   z-index: 2;
-  background-color: ${props => props.backgroundMode ? day.colors.main : night.colors.main};
+  background-color: ${props => props.backgroundMode ? theme.night.colors.main : theme.day.colors.main};
   display : flex;
   justify-content: center;
-  margin-top : -3rem;
+  padding-bottom: 0.5rem;
 `
 //the Biggest Container
 const Content =  styled.nav`
-  flex: 0 1 auto;
+  flex: 0 1 320px;
+  width: 100vw;
   min-height: 100vh;
   height: 100%;
-  transition: 1s;
-  width: 73vw;
-  background-color: rgba(255,255,255,0.3);
-  padding-top: 4rem;
-  padding-left: ${props => props.pullUp ? '3rem' : '0'};
-  margin-right: ${props => props.pullUp ? '6rem' : '0'};
+  margin-left: -1.2rem;
+  background-color: ${props=> props.theme.colors.content};
+  padding-bottom: 0.5rem;
 `
 // the Second big container
 
 const ImgContent = (props) => {
-  const [cards, setImage] = useState([]);
+  const [cards, setCard] = useState([]);
   const [page, setPage] = useState(1);
   const [more, setMore] = useState(true);
-  // const [theme, setTheme] =useState(false);
-  const {mode, pullUp, themeMode} = props;
+  const {mode, themeMode, modalHandler} = props;
+  const loadingTime = 500;
   let allCovers = [];
   let preCovers;
-  let breakpointColumnsObj = {
-      default: 4,
-      1700: 3,
-      1200: 2,
-      900: 1,
-  }
+  let breakpointColumnsObj = MasonryInfo.breakPoint;
+
 
   useEffect(() => {
-    fetchImages();
+    fetchCards();
   }, []);
 
 
-  const fetchImages = (count = 10) => {
+  const fetchCards = (count = MasonryInfo.infiniteCount) => {
     axios
          .get('/admin/getType',{
            params : {mode: mode}
@@ -64,7 +59,6 @@ const ImgContent = (props) => {
                   id: content.id,
                   title : content.title,
                   desc : content.description,
-                  nickname : content.nickname,
                   topic : content.topic,
                   src : content.cover_src
                 }
@@ -72,22 +66,22 @@ const ImgContent = (props) => {
               preCovers = allCovers.slice((page-1)*count,(page-1)*count+count);
 
               setTimeout(()=> {
-                setImage([...cards, ...preCovers]);
+                setCard([...cards, ...preCovers]);
                 setPage(page+1);
                 if(allCovers.length<= (page-1)*count+count){
                   setMore(false);
                 }
-              },1000);
+              },loadingTime);
       });
     };
 
   return (
-            <>
+            <ThemeProvider theme = {themeMode ? theme.night : theme.day}>
              <Layout backgroundMode = {themeMode}>
-               <Content pullUp = {pullUp} mode = {mode}>
+               <Content mode = {mode}>
                 <InfiniteScroll
                   dataLength={cards.length}
-                  next={fetchImages}
+                  next={fetchCards}
                   hasMore={more}
                   loader={<Loader/>}>
                   <Masonry
@@ -95,13 +89,15 @@ const ImgContent = (props) => {
                       className="my-masonry-grid"
                       columnClassName="my-masonry-grid_column">
                       {cards.map((card) => (
-                          <Card key={cards.indexOf(card)} data = {card} mode = {mode}></Card>
+                          <Card themeMode={themeMode} key={cards.indexOf(card)} data = {card} mode = {mode} modalHandler = {function(is){
+                            modalHandler(is);
+                          }}></Card>
                       ))}
                   </Masonry>
                 </InfiniteScroll>
               </Content>
               </Layout>
-            </>
+            </ThemeProvider>
   );
 };
 

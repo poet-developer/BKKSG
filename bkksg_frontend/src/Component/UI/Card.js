@@ -1,8 +1,9 @@
 import React, { useState} from "react";
 import styled, {ThemeProvider} from "styled-components";
-import theme from '../lib/night';
+import theme from '../lib/theme';
 import DetailModal from './DetailModal';
 import VisualModal from './VisualModal';
+import ImageLoader from '../lib/imageLoader'
 import '../../static/css/basicCss.css'
 
 const CoverTextContent = styled.div`
@@ -13,47 +14,54 @@ const CoverTextContent = styled.div`
      width: 20rem;
      height: 7rem;
      border-radius: 1rem;
-     background-color: rgba(255,255,255,0.3) !important;
-     color: ${theme.colors.logo};
+     background-color: ${props => props.theme.colors.card} !important;
+     //버전만들기
+     color: ${theme.common.color};
      cursor: pointer;
-     margin-right: 1rem;
+
+     &:hover{
+          background-color: ${props => props.theme.colors.hover} !important;
+     }
      
 `
 
-const CoverImgContent = styled.figure`
+const CoverImgContent = styled.div`
      display: flex;
      position: relative;
      justify-content: center;
      align-items: center;
      width: 20rem;
      height: ${props => props.topic === 'project' ? '20rem' : ''};
-     color: ${theme.colors.logo};
+     color: ${theme.common.color};
      cursor: pointer;
      margin-left: 0;
      margin-right: 1rem;
+     border-radius: 1rem;
 `
 
-const Section = styled.section`
-     margin: 3rem;
-`
+
 const Label = styled.div`
-position: absolute;
-left: 0;
-width: 4rem;
-height: 7rem;
-border-top-left-radius:     1rem;
-border-bottom-left-radius:  1rem;
-background-color: ${props => props.color} !important;
+     position: absolute;
+     left: 0;
+     width: 4rem;
+     height: 7rem;
+     border-top-left-radius:     1rem;
+     border-bottom-left-radius:  1rem;
+     background-color: ${props => props.color} !important;
 `
 
 const ImgLabel = styled.div`
-position: absolute;
-display: flex;
-align-items: center;
-width: 100%;
-height: 100%;
-background-color: rgba(0,0,0,0.1) !important;
-border-radius: 1rem;
+     position: absolute;
+     display: flex;
+     align-items: center;
+     width: 100%;
+     height: 100%;
+     background-color: rgba(0,0,0,0.3) !important;
+     border-radius: 1rem;
+
+     &:hover{
+     background-color: rgba(0,0,0,0.1) !important;
+     }
 `
 const CardTitle = styled.div`
      position: absolute;
@@ -64,23 +72,11 @@ const CardTitle = styled.div`
      font-family : WONBatang;
 `
 const Topic = styled.div`
+     padding-top: 0.1rem;
      font-size: 1rem;
-     color: gold;
-`
-const Project = styled.img`
-     object-fit: cover;
-     width: 100%;
-     height: 100%;
-     border-radius: 1rem;
+     color: ${props => props.theme.colors.topic};
 `
 
-const Visual = styled.img`
-     object-fit: cover;
-     width: 100%;
-     height: 100%;
-     border-radius: 1rem;
-     margin-bottom: 1rem;
-`
 const windowClickCloseModal = (e, cb) =>{
      if(e.target.classList[0] === 'openModal'){
           cb();
@@ -89,12 +85,11 @@ const windowClickCloseModal = (e, cb) =>{
 
 const Card = (props) => {
 
-const { data, mode } = props;
+const { data, mode, modalHandler, themeMode } = props;
 const [modalOpen, setModalOpen] = useState(false);
 const [visualModal, setvisualOpen] = useState(false);
 const [title, targetTitle] = useState(data.title);
 const [desc, targetDesc] = useState('');
-const [writer, targetWriter] = useState('');
 let _topic;
 
 if(data){
@@ -113,19 +108,20 @@ const openModal = (e) => {
   setModalOpen(true);
   targetTitle(data.title);
   targetDesc(data.desc);
-  targetWriter(data.nickname);
+  modalHandler(true);
 };
 
 const openVisualModal = (e) => {
      setvisualOpen(true);
      targetTitle(data.title);
      targetDesc(data.desc);
-     targetWriter(data.nickname);
+     modalHandler(true);
    };
 
 const closeModal = (e) => {
   setModalOpen(false);
   setvisualOpen(false);
+  modalHandler(false);
 };
 
 
@@ -135,7 +131,10 @@ window.addEventListener('click',(e)=>{
 // Close Modal by clicking window.
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={
+         themeMode
+         ? theme.night
+         : theme.day }>
              {data.topic === 'poem' || data.topic === 'essay'
              ? <CoverTextContent mode = {mode} onClick = {openModal}><Label color = {data.src}></Label><CardTitle>{data.title}<Topic>{_topic}</Topic></CardTitle></CoverTextContent>
              : <CoverImgContent topic = {data.topic} mode = {mode} onClick = {
@@ -146,22 +145,21 @@ window.addEventListener('click',(e)=>{
                          openModal();
                        }
                   }
-                  }><Project src={'/images/covers/'+data.src}/>
+                  }><ImageLoader imageUrl={`https://d2oispwivf10h4.cloudfront.net/w330/${data.src}`}/>
                   <ImgLabel><CardTitle>{title}<Topic>{_topic}</Topic></CardTitle></ImgLabel></CoverImgContent>
              }
           { modalOpen
-               ? <DetailModal open={modalOpen} close={closeModal} header={title} writer = {writer}>
-                    <article>
-                    <Section dangerouslySetInnerHTML={{__html: desc }}></Section>
-                    </article>
+               ? <DetailModal themeMode = {themeMode} open= {modalOpen} close={closeModal} header={title} topic={data.topic}
+               src = {data.src}>
+                    <section dangerouslySetInnerHTML={{__html: desc }}></section>
                </DetailModal>
                :''
           }
 
           { visualModal
-               ? <VisualModal open={visualModal} close={closeModal} header={title} writer = {writer} data = {data.src}>
+               ? <VisualModal themeMode = {themeMode} open={visualModal} close={closeModal} header={title} data = {data.src}>
                     <article>
-                    <Visual src={'/images/covers/'+data.src}/>
+                    <ImageLoader imageUrl={`https://d2oispwivf10h4.cloudfront.net/w330/${data.src}`}/>
                     </article>
                </VisualModal>
                :''

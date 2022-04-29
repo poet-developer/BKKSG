@@ -4,7 +4,7 @@ import Update from './Update'
 import Create from './Create'
 import Preview from './Preview'
 import styled from 'styled-components'
-import Pagination from '../UI/Pagination'
+import Pagination from '../lib/Pagination'
 
 class Admin extends Component{
      constructor(props){
@@ -13,11 +13,12 @@ class Admin extends Component{
                mode : 'admin',
                user: null,
                posts : [],
-               limit : 10,
+               limit : 15,
                page : 1,
                offset: 1,
                formData : '',
-               config : ''
+               config : '',
+               imageURL : ''
           }
           this.readPreviewProcess = this.readPreviewProcess.bind(this);
           this.createProcess = this.createProcess.bind(this);
@@ -30,9 +31,10 @@ class Admin extends Component{
           this.setState({page : page})
      }
 
-     readPreviewProcess(id, mode){
+     async readPreviewProcess(id, mode){
+          try{
           if(id){
-               axios.get('/admin/read', {
+               await axios.get('/admin/read', {
                     params : {id}
                })
                .then(res => {
@@ -42,21 +44,23 @@ class Admin extends Component{
                          data :
                               {
                               id : id,
-                              author : _data.profile_id,
+                              public : _data.public,
                               type :  _data.type_id,
                               title : _data.title,
                               desc : _data.description,
-                              public : _data.public,
                               cover_src : _data.cover_src,
                          }
                     })
                })
                .catch(console.log);
-          } 
+          }
+     }catch(err){
+          throw new Error(err);
+     } 
      }
 
-
      async createProcess(){
+          try{
           await axios.post('/admin/create_process', this.state.formData, this.state.config)
                      .then(                        
                        this.setState({
@@ -64,21 +68,24 @@ class Admin extends Component{
                        })
                        //Float a popup
                      )
-                     .catch(console.log('업로드 실패'))
-                     .finally(
-                       window.location.replace("/centre/admin")
-                     );
                      alert('Uploaded!');
+                     window.location.replace("/centre/admin");
+          }catch(err){
+               console.log(err);
+               throw new Error(err);
+          }
      }
 
-     deleteProcess(id){
-          console.log('삭제', id);
-          axios.post('/admin/delete_process', {id})
-          .then(window.location.replace("/admin"))
-          .catch(console.log('삭제 실패'))
-          .finally(
-               window.location.replace("/centre/admin")
-             );
+     async deleteProcess(id,type,cover_src){
+     try{
+          await axios.post('/admin/delete_process', {id,type,cover_src})
+          .then(alert('deleted.'))
+          .catch(console.log)
+          window.location.replace("/centre/admin");
+     }catch(err){
+          console.log(err);
+          throw new Error(err);
+     }
      }
 
      btnHandler(e){
@@ -100,17 +107,20 @@ class Admin extends Component{
           // props로 데이터 받아옴
           if(this.props.content){
                const content = this.props.content;
+
                if(this.state.page){
                contentList = content.slice(offset, offset + this.state.limit).map(list => {
                     return    <tbody key = {list.id}>
                               <tr>
                               <td> </td>
                               <td>{list.topic} </td>
-                              <td>{list.nickname} </td>
                               <td><a onClick = {(e) => {
                                    e.preventDefault();
                                    this.readPreviewProcess(list.id, 'read')
                               }} href = '/'>{list.title}</a></td>
+                              <td>{list.public === 1
+                              ? 'O'
+                              : 'X'}</td>
                               </tr>
                               </tbody>
                     })   
@@ -127,8 +137,8 @@ class Admin extends Component{
                <tr>
                     <th> / </th>
                     <th>type</th>
-                    <th>author</th>
                     <th>title</th>
+                    <th>public</th>
                </tr>
                </thead>
                {contentList}
@@ -150,21 +160,23 @@ class Admin extends Component{
                {
                     this.state.mode === "create"
                     //Create Mode : Draft
-               ? <Create profile = {this.props.profile} type = {this.props.type} submitHandler = {function(formData, config){
+               ? <Create type = {this.props.type} submitHandler = {function(formData, config){
                     let pre_data = []
                     for (var value of formData.values()) {
                          pre_data.push(value);
                       }
                       if(pre_data[1] === '3' || pre_data[1] === '4'){
-                         _cover_src = pre_data[5]
+                           _cover_src = pre_data[5]
+                           let _fileReader = new FileReader();
+                           _fileReader.readAsDataURL(_cover_src);
+                           _fileReader.onload = e => this.setState({imageURL : e.target.result});
+                         //   debugger;
                       }
-                      if(pre_data[1] === '1' || pre_data[1] === '2'){
-                         _cover_src = pre_data[4]
-                      }
+                      if(pre_data[1] === '1' || pre_data[1] === '2') _cover_src = pre_data[4]
                     this.setState({
                     mode : 'preview',
                     pre_data : {
-                         author : pre_data[0],
+                         public : pre_data[0],
                          type: pre_data[1], 
                          title: pre_data[2], 
                          desc: pre_data[3],
@@ -183,13 +195,10 @@ class Admin extends Component{
                <button onClick = {function(e){
                  e.preventDefault();
                  const _confrimed = window.confirm('업로드 할까요?');
-                   if(_confrimed){
-                     this.createProcess();
-                   }else{
-                     console.log('거부');
-                   }
+                   if(_confrimed)this.createProcess()
+                   else console.log('거부')
                }.bind(this)}>데이터저장</button>
-                    <Preview data = {this.state.pre_data} profile = {this.props.profile}></Preview>
+                    <Preview data = {this.state.pre_data} imgSrc = {this.state.imageURL}></Preview>
              </div>
              : ''
                }
@@ -200,16 +209,13 @@ class Admin extends Component{
                <form onSubmit={function(e){
                     e.preventDefault();
                     const _confrimed = window.confirm('삭제 할까요?');
-                     if(_confrimed){
-                          this.deleteProcess(this.state.data.id)
-                     }else{
-                          console.log('거부');
-                     }
+                     if(_confrimed)this.deleteProcess(this.state.data.id, this.state.data.type, this.state.data.cover_src)
+                     else console.log('거부')
                }.bind(this)}>
                     <input type="hidden" name="id" value= {this.state.id} />
                     <input type='submit' value='Delete'/>
                </form>
-               <Preview data = {this.state.data} profile = {this.props.profile}></Preview>
+               <Preview data = {this.state.data}></Preview>
                </div>
                : ''
                }

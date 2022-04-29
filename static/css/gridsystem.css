@@ -1,7 +1,7 @@
 .grid-container{
     display: grid;
     width: 100vw;
-    height:100%;
+    /* height:100%; */
     
     grid-auto-columns: minmax(auto,200px) auto; 
     grid-template-areas:
@@ -27,7 +27,7 @@
     grid-area: sideBar; 
     position: absolute;
     top: 4rem;
-    height: 170vh;
+    height: 100vh;
     z-index: 3;
     transition: 1s;
  }
@@ -56,10 +56,6 @@
     left: calc(50% - 2rem);
     height: 5rem;
     width: 5rem;
-    border-left: 60px solid transparent;
-    border-right: 60px solid transparent;
-    border-bottom: 60px solid red;
-
     transform: rotate(45deg);
     
     z-index: 3;
@@ -68,14 +64,10 @@
     transition: 1s;
  }
 
- .pullDown{
-    bottom: -10rem;
-}
+ .pullDown{ bottom: -10rem }
+ .floated{ bottom: 12rem }
 
-.floated{
-     bottom: 12rem;
-}
-
+ /* Setting Media querys by screen sizes */
 @media(max-width:281px){
     .sideBar{
         width: 6rem;
@@ -111,9 +103,9 @@
         }
 }
 .contents{ grid-area: contents;
-    height: 130vh;
-    width: 100vw;
-    margin-bottom: 6.5rem;
+    /* height: 100vh; */
+    /* width: 100vw; */
+    /* margin-bottom: 6.5rem; */
     z-index: 2;
       }
 .hideSideBar{

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import theme from './night';
+import theme from './theme';
 
 const Loading = styled.div`
   text-align: center;
@@ -16,7 +16,7 @@ const Loading = styled.div`
     width: 13px;
     height: 13px;
     border-radius: 50%;
-    background: ${theme.colors.loader};
+    background: ${theme.day.colors.loader};
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
   }
   .lds-ellipsis div:nth-child(1) {

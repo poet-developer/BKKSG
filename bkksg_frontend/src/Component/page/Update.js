@@ -25,13 +25,13 @@ class Update extends Component{
 
      changeHandler(e){
           let _value = e.target.value;
+          console.log(e.target);
           if(e.target){
                this.setState({[e.target.name] : _value });
           }
      }
      
      handleEditorChange = (e) => {
-          console.log('Content was updated:', e.target.getContent());
           this.setState({
             saved_desc : e.target.getContent()
           })
@@ -49,7 +49,7 @@ class Update extends Component{
                }
                const formData = new FormData();
                
-               formData.append('author', e.target.author.value);
+               formData.append('public', e.target.public.value);
                formData.append('type', e.target.type.value);
                formData.append('title', e.target.title.value);
                formData.append('desc', this.state.saved_desc);
@@ -63,20 +63,15 @@ class Update extends Component{
                     }
                if(_confrimed){
                     try{
-
                               await axios.post('/admin/update_process',formData, config)
                               .then(alert('Updated!'))
                               .catch(console.log)
-                              .finally(window.location.replace("/centre/admin"));
-                              // Float a popup
+                              window.location.replace("/centre/admin");
                               
                     }catch(err){
-                         console.log(err);
                          alert('fail!');
+                         throw new Error(err);
                     }
-               }else{
-                    console.log('거부');
-
                }
      }
 
@@ -86,7 +81,7 @@ class Update extends Component{
           return(
                <label> <h4>Update Your Content!</h4>
                <a href='/centre/admin'>Back to Admin</a>
-               <TextEditor title= {this.state.title} author= {this.state.author} genre = {this.state.type} initialValue = {this.state.desc} typeList= {this.props.type} profileList ={this.props.profile} id ={this.state.id} public = {this.state.public}handleEditorChange= {this.handleEditorChange} submitHandler = {this.submitHandler} changeHandler={this.changeHandler} mode = 'update' c = {this.state.c} ></TextEditor>
+               <TextEditor title= {this.state.title} author= {this.state.author} genre = {this.state.type} initialValue = {this.state.desc} typeList= {this.props.type} profileList ={this.props.profile} id ={this.state.id} public = {this.state.public} handleEditorChange= {this.handleEditorChange} submitHandler = {this.submitHandler} changeHandler={this.changeHandler} mode = 'update' c = {this.state.c} ></TextEditor>
                </label>
           )
      }

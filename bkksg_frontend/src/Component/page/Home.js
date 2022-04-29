@@ -4,13 +4,14 @@ import Sidebar from '../UI/Sidebar'
 import ImgContent from '../UI/imgContent'
 import Footer from '../UI/Footer'
 import styled from "styled-components"
-import getTheme from '../lib/getTheme'
+
 
 
 const GridContainer = styled.div`
     display: grid;
     width: 100vw;
     height:100%;
+    margin: -1rem;
     
     grid-auto-columns: minmax(auto,200px) auto; 
     grid-template-areas:
@@ -22,16 +23,16 @@ const GridContainer = styled.div`
 
 
 const Home = (props) => {
-     const [isOpen, setIsOpen] = useState(false);
-     // const [themeMode, setThemeMode] = useState(getTheme);
      const {themeMode, themeHandler} = props;
+     const [isModal, setIsModal] = useState(false);
           return(
                <GridContainer>
-                    <Header themeHandler= {themeHandler} 
-                    isOpen = {isOpen} setIsOpen = {setIsOpen}/>
-                    <Sidebar pullUp = {isOpen ? true : false} setIsOpen = {setIsOpen}/>
-                    <ImgContent themeMode = {themeMode} pullUp = {isOpen ? true : false} mode = 'home'/>
-                    <Footer/>
+                    <Header themeHandler= {themeHandler} isModal = {isModal}/>
+                    <Sidebar themeMode = {themeMode} />
+                    <ImgContent themeMode = {themeMode} mode = 'home' modalHandler ={function(is){
+                         if(is) { setIsModal(true)} else {setIsModal(false)}
+                    }}/>
+                    <Footer themeMode = {themeMode}/>
                </GridContainer>
           )
 }

@@ -7,7 +7,7 @@ const LogoContainer = styled.div`
      position : relative;
      width: 200px;
      height: 60px;
-     margin-left: 3.1rem;
+     margin-left: -0.5rem;
 `;
 
 // Logo animation
@@ -34,13 +34,9 @@ function HeaderLogo(props) {
      let ctx;
      let _text;
      if(props.text){
-          if(props.text === 1){
-               _text = '비껴서기'
-          }else if(props.text === 2){
-               _text = 'B KK SG'
-          }else{
-               _text = 'ㅂㄲㅅㄱ'
-          }
+          if(props.text === 1) _text = '비껴서기'
+          else if(props.text === 2) _text = 'B KK SG'
+          else _text = 'ㅂㄲㅅㄱ'
      }
      //캔버스
 

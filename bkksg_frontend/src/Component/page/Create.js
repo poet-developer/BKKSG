@@ -4,9 +4,9 @@ import TextEditor from '../lib/TextEditor'
 // Function Component
 const Create =  (props) => {
   const [desc, setDesc] = useState('')
+  const [publicValue, setPublic] = useState(false);
 
   const handleEditorChange = (e) => {
-    console.log('Content was updated:', e.target.getContent());
     setDesc(e.target.getContent())
   }
 
@@ -20,7 +20,7 @@ const Create =  (props) => {
       coverImg = e.target.c.files[0];
     }
     const formData = new FormData();
-                formData.append('author', e.target.author.value);
+                formData.append('public', publicValue);
                 formData.append('type', e.target.type.value);
                 formData.append('title', e.target.title.value)
                 formData.append('desc', desc)
@@ -35,14 +35,16 @@ const Create =  (props) => {
                     formData,config
                   ); 
                 } catch(err){
-                  console.log(err);
                   alert('fail!');
+                  throw err;
                 }
     
   }
     
     return(
-        <TextEditor typeList ={props.type} profileList ={props.profile} handleEditorChange= {handleEditorChange} submitHandler = {submitHandler} mode = 'create'></TextEditor>
+        <TextEditor typeList ={props.type} handleEditorChange= {handleEditorChange} submitHandler = {submitHandler} mode = 'create' publicHandler = {function(){
+          setPublic(!publicValue);
+        }}></TextEditor>
     );
 }
 

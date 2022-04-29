@@ -1,36 +1,38 @@
 import React, {useState} from "react";
 import styled, {ThemeProvider} from "styled-components";
 import Logo from '../lib/Header_Logo'
-import theme from '../lib/night';
+import theme from '../lib/theme';
 import Switch from "./Switch";
-import getTheme from "../lib/getTheme"
+import getTheme from "../lib/getTheme";
 
 const HeaderGrid = styled.div`
      grid-area : header;
      z-index : 3;
-
 `
 const HeaderContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const HeaderItem = styled.div`
-  text-align: center;
+display: flex;
+justify-content: space-around;
 `;
 
 const Glass = styled.div`
      padding : 0.2rem 0;
      width: 100%;
      position: fixed;
-     top: 0;
-     left: 0;    
-     background: ${theme.gradient.radial};
-     box-shadow: ${theme.glass.shadow};
-     backdrop-filter: ${theme.glass.filter};
-     -webkit-backdrop-filter: ${theme.glass.filter};
-     border-radius: ${theme.glass.border.radius};
-     border-bottom: ${theme.glass.border.line};
+     top: ${props => props.isModal ? "-60px" : "0"};
+     left: 0;
+     transition: 1s;
+     background: ${props => props.theme.gradient.radial};
+     -mos-box-shadow: ${props => props.theme.glass.shadow};
+     -ms-box-shadow: ${props => props.theme.glass.shadow};
+     -o-box-shadow: ${props => props.theme.glass.shadow};
+     box-shadow:  ${props => props.theme.glass.shadow};
+     backdrop-filter: ${props => props.theme.glass.filter};
+     -webkit-backdrop-filter: ${props => props.theme.glass.filter};
+     -mos-backdrop-filter: ${props => props.theme.glass.filter};
+     -ms-backdrop-filter: ${props => props.theme.glass.filter};
+     -o-backdrop-filter: ${props => props.theme.glass.filter};
+     border-radius: ${props => props.theme.glass.border.radius};
+     border-bottom: ${props => props.theme.glass.border.line};
 `;
 
 
@@ -43,34 +45,35 @@ const getText = () => {
 const Header = (props) => {
      let textVersion = getText();
      const [isChecked,setCheck] = useState(getTheme);
-     const {themeHandler} = props;
+     const {isModal, themeHandler} = props;
+
   return (
-  <ThemeProvider theme={theme}>
+    <ThemeProvider theme = {
+      isChecked 
+      ? theme.night
+      : theme.day}
+    >
     <HeaderGrid>
-     <Glass>
+     <Glass isModal = {isModal}>
       <HeaderContainer>
-        <HeaderItem>
-        </HeaderItem>
-        <HeaderItem>
+        <div>
+        </div>
+        <div>
           <a href='/'>
-          <Logo text = {textVersion} color ={theme.colors.logo}/></a>
-        </HeaderItem>
-        <HeaderItem>
-          <Switch isChecked={isChecked} toggleHandler = {function(e){
+          <Logo text = {textVersion} color ={"azure"}/></a>
+        </div>
+        <div>
+          <Switch isChecked={isChecked} toggleHandler = {(e) => {
             setCheck(!isChecked);
             themeHandler(isChecked);
-            console.log('체크박스',isChecked);
-            if(isChecked){
-              localStorage.setItem("Theme","day");
-            }else{
-              localStorage.setItem("Theme","night");
-            }
+            if(isChecked) localStorage.setItem("Theme","day")
+            else localStorage.setItem("Theme","night")
           }}/>
-        </HeaderItem>
+        </div>
       </HeaderContainer>
       </Glass>
     </HeaderGrid>
-  </ThemeProvider>
+    </ThemeProvider>
   );
 };
 
