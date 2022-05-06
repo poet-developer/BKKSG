@@ -1,37 +1,44 @@
-import React, {useState} from "react";
-import { Outlet, Navigate } from "react-router-dom";
-import Login from '../page/Login'
-import Auth from '../lib/auth'
+import React, { useState, useEffect } from "react";
+import { Outlet } from "react-router-dom";
+import Login from "../page/Login";
+import Auth from "../lib/auth";
 
-function Centre(props) {
-     // const [auth,setAuth] = useState(null);
-     // console.log(auth);
-     let logined;
-     if(sessionStorage.getItem("Admin") === 'true'){
-          logined = true;
-     }else{
-          logined = false;
-     }
+function Centre() {
+  const [logined, setLogin] = useState(false)
+  useEffect(()=> {
+    if (sessionStorage.getItem("Admin") === "true") setLogin(true);
+    else setLogin(false);
+  }, [])
+
   return (
     <>
-     {logined
-     ?<>
-     <button onClick={function(e){
-          e.preventDefault();
-          sessionStorage.setItem("Admin", false );
-          window.location.replace("/centre/admin")
-     }}>Logout</button>
-     <Outlet/>
-     </>
-     :<>
-     <Login login = {Auth} authenticated={function(data){
-          sessionStorage.setItem("Admin", true );
-          window.location.replace("/centre/admin")
-     }}></Login>
-     </>
-     }    
+      {logined ? (
+        <>
+          <button
+            onClick={ e => {
+              e.preventDefault()
+              sessionStorage.setItem("Admin", false)
+              window.location.replace("/centre/admin")
+            }}
+            style = {{margin: '1rem'}}
+          >
+            Logout
+          </button>
+          <Outlet />
+        </>
+      ) : (
+        <>
+          <Login
+            login={Auth}
+            authenticated={data => {
+              sessionStorage.setItem("Admin", true)
+              window.location.replace("/centre/admin")
+            }}
+          ></Login>
+        </>
+      )}
     </>
   );
 }
 
-export default Centre;
+export default Centre

@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import theme from './theme';
+import React from "react"
+import styled from "styled-components"
+import theme from "./theme"
 
 const Loading = styled.div`
   text-align: center;
@@ -13,10 +13,10 @@ const Loading = styled.div`
   .lds-ellipsis div {
     position: absolute;
     margin-top: -2rem;
-    width: 13px;
-    height: 13px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
-    background: ${theme.day.colors.loader};
+    background: ${theme.common.color};
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
   }
   .lds-ellipsis div:nth-child(1) {
@@ -71,8 +71,7 @@ const Loader = () => {
         <div></div>
       </div>
     </Loading>
-  );
-};
-
+  )
+}
 
 export default Loader

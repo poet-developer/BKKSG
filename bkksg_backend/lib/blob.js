@@ -1,7 +1,5 @@
-
-
 module.exports = {
-     send : (file) =>{
+     send : file =>{
           axios.post('/admin/axios_process', {file})
           .then('Suceess')
           .catch(console.log);

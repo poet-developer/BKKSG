@@ -40,4 +40,4 @@ router.post("/create_process", uploadCoverTool.single('coverImg'),
 router.post("/update_process",uploadCoverTool.single('coverImg'),contentController.update)
 router.post("/delete_process",contentController.delete)
 
-module.exports = router;
+module.exports = router

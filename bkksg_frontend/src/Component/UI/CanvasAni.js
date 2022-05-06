@@ -1,7 +1,8 @@
-import React, {useRef, useEffect} from "react";
-import styled, {ThemeProvider} from "styled-components";
-import theme from '../lib/theme';
-import drawSolarSystemAnimation from  '../lib/SolarSystem'
+import React, { useRef, useEffect } from "react";
+import styled, { ThemeProvider } from "styled-components";
+import theme from "../lib/theme";
+import drawSolarSystemAnimation from "../lib/SolarSystem";
+import StopScroll from "../lib/StopScroll"
 
 const ModalSection = styled.section`
   position: relative;
@@ -10,93 +11,89 @@ const ModalSection = styled.section`
   margin-left: 1rem;
   border-radius: 1rem;
 
-  /* 팝업이 열릴때 스르륵 열리는 효과 */
   animation: modal-show 0.3s;
-  
   box-shadow: 0 8px 30px 0 rgba(31, 38, 135, 0.2);
-  backdrop-filter: blur( 8px );
+  backdrop-filter: blur(8px);
 
-  @media(max-width: 900px){
+  @media (max-width: 850px) {
     overflow: hidden;
     overflow-y: scroll;
     overflow-x: scroll;
   }
-`
+`;
 
 const CancelButton = styled.button`
   cursor: pointer;
   position: absolute;
-  top: 2rem;
-  left: 2rem;
+  top: 1rem;
+  left: 1rem;
   border: 0;
   font-size: 40px;
   font-weight: 200;
   color: ${theme.common.color};
   background-color: transparent;
-`
+`;
+const checkWidth = () => {
+  const canvas = {
+    bigger: { x: 900, y: 850, orbitRatio: 55, planetRatio: 28 },
+    big : { x: 750, y: 700, orbitRatio: 53, planetRatio: 25 },
+    normal: { x: 600, y: 450, orbitRatio: 39, planetRatio: 20 },
+    small: { x: 400, y: 350, orbitRatio: 22, planetRatio: 10 },
+  };
+  if (window.innerWidth >= 850)
+    return canvas.bigger
+  else if (window.innerWidth >=700 && window.innerWidth < 850)
+    return canvas.big
+  else if (window.innerWidth < 700 && window.innerWidth >= 450)
+    return canvas.normal
+  else if (window.innerWidth < 450)
+    return canvas.small
+};
 
+const CanvasAni = props => {
+  let canvasRef = useRef();
+  let canvas;
+  let ctx;
+  const { themeMode, open, close } = props;
 
+  let canvasInfo = checkWidth();
 
-const CanvasAni = (props) => {
-     let canvasRef = useRef();
-     let canvas;
-     let ctx;
-     const {themeMode, open, close} = props;
-     console.log(window.innerWidth);
-     
-     const checkWidth = () => {
-      const canvas = {
-        big: {x: 900, y: 700, ratio: 55},
-        normal : {x: 600, y: 400, ratio: 45},
-      }
-      if(window.innerWidth >900){
-        return canvas.big
-      }else if(window.innerWidth > 700){
-        return canvas.normal
-      }
+  const drawLogo = () => {
+    //canvas
+    drawSolarSystemAnimation(canvas, ctx, canvasInfo.orbitRatio, canvasInfo.planetRatio);
+  };
 
-     }
+   useEffect(() => {
+    canvas = canvasRef.current;
+    ctx = canvas.getContext("2d");
+    requestAnimationFrame(drawLogo)
+    StopScroll();
+  }, []);
 
-     const drawLogo = () => {
-          //canvas
-          drawSolarSystemAnimation(canvas, ctx, 55)
-          // requestAnimationFrame(drawLogo); 
-     };
-     
-     useEffect(() => {
-          canvas = canvasRef.current;
-          ctx = canvas.getContext("2d");
-          requestAnimationFrame(()=>{
-            drawLogo()
-          }); 
-
-          document.body.style.cssText = `
-          position: fixed; 
-          top: -${window.scrollY}px;
-          overflow-y: scroll;
-          width: 100%;`;
-        return () => {
-          const scrollY = document.body.style.top;
-          document.body.style.cssText = '';
-          window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
-          };
-     }, []);
-     
-     return (
-          <ThemeProvider theme = {themeMode ? theme.night : theme.day}>
-       <div className={open ? 'openModal modal' : 'modal'}>
-         {open ? 
-           <ModalSection>
-                <canvas style = {{backgroundColor:"rgba(10,10,60,0.2", borderRadius :"1rem", marginBottom: "-0.4rem"}} color = {props.color} ref = {canvasRef} width="900" height="800"></canvas>
-               <CancelButton className="close" onClick={close}>
-                 &times;
-               </CancelButton>
-           </ModalSection>
-          : null}
-       </div>
-       </ThemeProvider>
-     )
-
-}
+  return (
+    <ThemeProvider theme={themeMode ? theme.night : theme.day}>
+      <div className={open ? "openModal modal" : "modal"}>
+        {open ? (
+          <ModalSection>
+            <canvas
+              style={{
+                backgroundColor: "rgba(10,10,60,0.2",
+                borderRadius: "1rem",
+                marginBottom: "-0.2rem",
+              }}
+              color={props.color}
+              ref={canvasRef}
+              width={canvasInfo.x}
+              height={canvasInfo.y}
+            ></canvas>
+            <CancelButton className="close" onClick={close}>
+              &times;
+            </CancelButton>
+          </ModalSection>
+        ) : null}
+      </div>
+    </ThemeProvider>
+  );
+};
 
 export default CanvasAni

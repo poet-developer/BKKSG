@@ -36,15 +36,13 @@ server.on('listening', onListening);
 function normalizePort(val) {
   var port = parseInt(val, 10);
 
-  if (isNaN(port)) {
+  if (isNaN(port))
     // named pipe
     return val;
-  }
 
-  if (port >= 0) {
+  if (port >= 0) 
     // port number
     return port;
-  }
 
   return false;
 }
@@ -54,9 +52,8 @@ function normalizePort(val) {
  */
 
 function onError(error) {
-  if (error.syscall !== 'listen') {
+  if (error.syscall !== 'listen')
     throw error;
-  }
 
   var bind = typeof port === 'string'
     ? 'Pipe ' + port
