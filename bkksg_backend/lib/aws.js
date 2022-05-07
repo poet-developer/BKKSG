@@ -1,3 +1,4 @@
+require("dotenv").config();
 const aws = require("aws-sdk");
 const {AWS_ACCESS_ID, AWS_ACCESS_SECRET} = process.env
 

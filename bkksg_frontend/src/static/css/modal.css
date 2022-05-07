@@ -1,0 +1,101 @@
+.modal {
+  font-family: WONBatang;
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 30;
+}
+
+.modal.openModal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.4);
+  /* 팝업이 열릴때 스르륵 열리는 효과 */
+  animation: modal-bg-show 0.3s;
+}
+@keyframes modal-show {
+  from {
+    opacity: 0;
+    margin-top: -50px;
+  }
+  to {
+    opacity: 1;
+    margin-top: 0;
+  }
+}
+@keyframes modal-bg-show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-section {
+  position: relative;
+  width: 90vw;
+  max-height: 90vh;
+  border-radius: 1rem;
+  margin-left: 1rem;
+  /* 팝업이 열릴때 스르륵 열리는 효과 */
+  animation: modal-show 0.3s;
+  overflow: hidden;
+  overflow-y: scroll;
+  box-shadow: 0 8px 30px 0 rgba(31, 38, 135, 0.2);
+  backdrop-filter: blur(8px);
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.modal-section::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
+
+.text-content {
+  max-height: 80vh;
+}
+
+.modal-header {
+  position: sticky;
+  z-index: -5;
+  width: 100%;
+  min-height: 30px;
+  top: 0;
+  padding: 25px 64px 30px 32px;
+  font-weight: 700;
+  font-size: 21px;
+  margin-bottom: -4rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 8px 30px 0 rgba(31, 38, 135, 0.2);
+  backdrop-filter: blur(3px);
+}
+
+.cancel-button {
+  cursor: pointer;
+  position: sticky;
+  top: 10px;
+  right: 10px;
+  float: right;
+  border: 0;
+  font-size: 40px;
+  font-weight: 200;
+  background-color: transparent;
+}
+
+.project-header {
+  position: absolute;
+  top: 0;
+  padding: 11rem 2.5rem;
+  color: azure;
+  width: 100%;
+  margin-top: -3rem;
+  background: linear-gradient( 90deg, rgba(131, 58, 180, 0.3) 0%, rgba(0, 0, 0, 0.5) 0%, rgba(252, 176, 69, 0) 70%)
+}
+

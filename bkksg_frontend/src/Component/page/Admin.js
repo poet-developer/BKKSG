@@ -126,7 +126,7 @@ const Admin = (props) => {
         .catch(console.log)
         .finally(window.location.replace("/centre/admin"))
     } catch (err) {
-      console.log(err)
+      console.error(err)
       throw new Error(err)
     }
   };

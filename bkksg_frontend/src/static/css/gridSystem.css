@@ -1,0 +1,67 @@
+.grid-container {
+  display: grid;
+  width: 100vw;
+  height: 100%;
+  margin: -1rem;
+  grid-auto-columns: minmax(auto, 200px) auto;
+  grid-template-areas:
+    "header header"
+    "sidebar content"
+    "footerBtn footerBtn"
+    "footer footer";
+}
+
+.grid-item-sidebar {
+  grid-area: sidebar;
+  position: fixed;
+  width: 9.3rem;
+  top: 3rem;
+  margin-top: -4rem;
+  height: 110vh;
+  z-index: 31;
+  transition: 1s;
+  overflow: hidden;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.grid-item-sidebar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
+
+.grid-item-header {
+  grid-area: header;
+  z-index: 3;
+}
+
+.contents-in-layout {
+  flex: 0 1 320px;
+  width: 100vw;
+  min-height: 100vh;
+  height: 100%;
+  margin : 0.5rem 1rem ;
+  padding-bottom: 0.5rem;
+}
+
+.grid-item-content {
+  grid-area: content;
+  padding: 1rem 0rem 0 1.1rem;
+  height: 100%;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 1.5rem;
+  z-index: 2;
+}
+
+.cover-content {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  width: 20rem;
+  border-radius: 1rem;
+  color: azure;
+  margin-right: 1rem;
+  cursor: pointer;
+}
