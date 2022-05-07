@@ -23,11 +23,11 @@ const drawSolarSystemAnimation = (cv, ctx, orbitRatio, planetRatio) => {
     name: "Comet",
     position: "left",
     speed: {
-      x: speedRatio * 0.05,
-      y: speedRatio * 0.05,
+      x: speedRatio * 0.03,
+      y: speedRatio * 0.03,
     },
     tailHeight: scaleRatio * 0.5,
-    updateSpeed: speedRatio * 0.05,
+    updateSpeed: speedRatio * 0.03,
   };
 
   const planetInitInfo = [

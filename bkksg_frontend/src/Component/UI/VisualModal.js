@@ -7,11 +7,11 @@ import StopScroll from "../lib/StopScroll"
 
 const Header = styled.header`
   color: ${theme.common.color};
-  background: ${(props) => props.theme.gradient.radial}
+  background: ${props => props.theme.gradient.radial}
 `;
 
 const CancelButton = styled.button`
-  color: ${(props) => props.theme.colors.cancel};
+  color: ${props => props.theme.colors.cancel};
 `;
 
 const Main = styled.main`
@@ -26,7 +26,7 @@ const Main = styled.main`
   }
 `;
 
-const VisualModal = (props) => {
+const VisualModal = props => {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, header, data, themeMode } = props;
   useEffect(StopScroll,[]);

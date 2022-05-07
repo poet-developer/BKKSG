@@ -6,28 +6,28 @@ import { CgChevronRight, CgChevronLeft } from "react-icons/cg";
 import "../../static/css/gridSystem.css";
 
 const SidebarGrid = styled.div`
-  background: ${(props) => props.theme.gradient.linear};
-  -mos-box-shadow: ${(props) => props.theme.glass.shadow};
-  -ms-box-shadow: ${(props) => props.theme.glass.shadow};
-  -o-box-shadow: ${(props) => props.theme.glass.shadow};
-  box-shadow: ${(props) => props.theme.glass.shadow};
+  background: ${props => props.theme.gradient.linear};
+  -mos-box-shadow: ${props => props.theme.glass.shadow};
+  -ms-box-shadow: ${props => props.theme.glass.shadow};
+  -o-box-shadow: ${props => props.theme.glass.shadow};
+  box-shadow: ${props => props.theme.glass.shadow};
 
-  -mos-backdrop-filter: ${(props) => props.theme.glass.filter};
-  -ms-backdrop-filter: ${(props) => props.theme.glass.filter};
-  -o-backdrop-filter: ${(props) => props.theme.glass.filter};
-  -webkit-backdrop-filter: ${(props) => props.theme.glass.filter};
-  backdrop-filter: ${(props) => props.theme.glass.filter};
+  -mos-backdrop-filter: ${props => props.theme.glass.filter};
+  -ms-backdrop-filter: ${props => props.theme.glass.filter};
+  -o-backdrop-filter: ${props => props.theme.glass.filter};
+  -webkit-backdrop-filter: ${props => props.theme.glass.filter};
+  backdrop-filter: ${props => props.theme.glass.filter};
 
-  border-radius: ${(props) => props.theme.glass.border.radius};
-  border-right: ${(props) => props.theme.glass.border.line};
+  border-radius: ${props => props.theme.glass.border.radius};
+  border-right: ${props => props.theme.glass.border.line};
   cursor: pointer;
 
-  left: ${(props) => (props.pullUp ? "0" : "-8rem")};
+  left: ${props => (props.pullUp ? "0" : "-8rem")};
   @media (max-width: 200px) {
     left: -8rem;
   };
   @media (min-width: ${theme.common.screen.max}) {
-    left: ${(props) => (props.pullUp ? "-8rem" : "0" || "0")};
+    left: ${props => (props.pullUp ? "-8rem" : "0" || "0")};
   };
 
   -webkit-overflow-scrolling: touch;
@@ -50,7 +50,7 @@ const OpenSideButton = styled.div`
   }
 `;
 
-const Sidebar = (props) => {
+const Sidebar = props => {
   const [isPullup, setPullup] = useState(false)
   const { themeMode } = props
   const openSidebarHandler = () => {
