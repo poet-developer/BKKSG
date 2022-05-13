@@ -7,6 +7,7 @@ const db = mysql.createConnection({
   user: DB_USER,
   password: DB_PASSWORD,
   database: DB_DATABASE,
+  post: 3306
 });
 
 db.connect();
