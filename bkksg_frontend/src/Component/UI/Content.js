@@ -40,9 +40,10 @@ const ImgContent = props => {
     fetchCards()
   }, []);
 
-  const fetchCards = (count = MasonryInfo.infiniteCount) => {
-    axios
-      .get("/admin/getType", {
+  const fetchCards = async(count = MasonryInfo.infiniteCount) => {
+    try{
+    await axios
+      .get("/admin/getType/", {
         params: { mode: mode },
       })
       .then((res) => {
@@ -66,7 +67,12 @@ const ImgContent = props => {
           if (allCovers.length <= (page - 1) * count + count) setMore(false);
         }, loadingTime);
       });
-  };
+  }catch(err){
+      console.log(err)
+      throw new Error(err)
+  }
+}
+;
 
   return (
     <ThemeProvider theme={themeMode ? theme.night : theme.day}>

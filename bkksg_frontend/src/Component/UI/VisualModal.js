@@ -16,13 +16,13 @@ const CancelButton = styled.button`
 
 const Main = styled.main`
   display: flex;
-  width: 100%;
+  max-width: 100%;
   justify-content: center;
   margin-top: 3.1rem;
 
   .main-image{
     width: 100%;
-    flex: 0 1 auto;
+    flex: 1 1 auto;
   }
 `;
 

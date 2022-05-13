@@ -1,9 +1,6 @@
 const db = require("../lib/db");
 const { s3 } = require("../lib/aws")
 
-const transfromationOption = 
-  {smallar:"w330", bigger:"w1024"}
-
 module.exports = {
   contentList: async(req, res) => {
     try{

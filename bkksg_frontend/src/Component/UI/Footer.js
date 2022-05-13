@@ -165,7 +165,7 @@ const Footer = props => {
     setModalOpen(false)
   };
 
-  pullUpFooter(setIsOpen)
+  // pullUpFooter(setIsOpen)
 
   window.addEventListener("click", e => {
     windowClickCloseModal(e, closeModal);
@@ -193,18 +193,18 @@ const Footer = props => {
           </div>
           <hr style={{ border: "0.1px solid white", marginTop: "1rem" }} />
           <div className = "sns-icon">
-            <div className = "icon-item"
+            <a className = "icon-item"
               href="https://www.instagram.com/bkksg.studio/"
               target="_blank"
             >
               <FiInstagram size={36} />
-            </div>
-            <div className = "icon-item"
+            </a>
+            <a className = "icon-item"
               href="https://www.pinterest.co.kr/bkksgstudio/"
               target="_blank"
             >
               <FaPinterest size={35} />
-            </div>
+            </a>
             <div style = {{ color: theme.common.color}}>
               <h5 style={{ marginBottom: "0.5rem" }}>| CONTACT US</h5>
               <span style={{letterSpacing : "0.15rem", fontSize: "0.9rem"}}>bkksg.studio@gmail.com</span>
@@ -227,7 +227,7 @@ const Footer = props => {
           </nav>
         </ArtistList>
 
-        <Copyright>@ Copyright All Rights Reserved</Copyright>
+        <Copyright>@ 2022 Copyright All Rights Reserved By IROLIM</Copyright>
       </FooterCotainer>
       {modalOpen ? (
         <CanvasAni

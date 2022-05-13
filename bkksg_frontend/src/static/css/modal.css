@@ -40,7 +40,7 @@
 
 .modal-section {
   position: relative;
-  width: 90vw;
+  width: 70vw;
   max-height: 90vh;
   border-radius: 1rem;
   margin-left: 1rem;
@@ -52,6 +52,12 @@
   backdrop-filter: blur(8px);
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width : 500px) {
+  .modal-section {
+    width: 90vw;
+  }
 }
 
 .modal-section::-webkit-scrollbar {
