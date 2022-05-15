@@ -79,6 +79,7 @@ const ImgContent = props => {
       <Layout className="grid-item-content" backgroundMode={themeMode}>
         <Contents className = "contents-in-layout" mode={mode}>
           <InfiniteScroll
+          style={{overflow:"hidden"}}
             dataLength={cards.length}
             next={fetchCards}
             hasMore={more}

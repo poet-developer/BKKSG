@@ -19,7 +19,7 @@
   margin-top: -4rem;
   height: 110vh;
   z-index: 31;
-  transition: 1s;
+  transition: 0.9s;
   overflow: hidden;
   overflow-y: scroll;
   scrollbar-width: none;

@@ -22,7 +22,7 @@ const FooterBtnGrid = styled.footer`
   z-index: 2;
   border: none;
 
-  transition: 1s;
+  transition: 0.7s;
 
   background: ${props => props.theme.gradient.radial};
   box-shadow: ${props => props.theme.glass.shadow};
@@ -64,7 +64,7 @@ const FooterCotainer = styled.div`
 
   gap: 2rem;
   z-index: 3;
-  transition: 1s;
+  transition: 0.7s;
   background: ${props => props.theme.gradient.footer};
   box-shadow: ${props => props.theme.glass.shadow};
   backdrop-filter: ${props => props.theme.glass.filter};

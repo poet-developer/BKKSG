@@ -30,7 +30,7 @@ const HeaderLogo = props => {
   let canvas, ctx, _text;
   if (props.text) {
     if (props.text === 1) _text = "비껴서기"
-    else if (props.text === 2) _text = "B KK SG"
+    else if (props.text === 2) _text = <span style={{letterSpacing: '-0.5px'}}>B&ensp;&nbsp;K&nbsp;K&ensp;S&ensp;G</span>
     else _text = "ㅂㄲㅅㄱ"
   }
 

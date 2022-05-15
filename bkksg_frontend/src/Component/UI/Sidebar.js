@@ -21,7 +21,6 @@ const SidebarGrid = styled.div`
   border-radius: ${props => props.theme.glass.border.radius};
   border-right: ${props => props.theme.glass.border.line};
   cursor: pointer;
-
   left: ${props => (props.pullUp ? "0" : "-8rem")};
   @media (max-width: 200px) {
     left: -8rem;

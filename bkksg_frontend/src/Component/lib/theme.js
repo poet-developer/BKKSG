@@ -12,7 +12,7 @@ const theme = {
     colors: {
       main: "#B3BFCE",
       content: "rgba(255,255,255,0.1)",
-      index: "rgba(200,220,220,1)",
+      index: "rgba(245,245,230,1)",
       card: "rgba(155,160,180,0.5)",
       section: "rgba(100,110,130,1)",
       hover: "rgba(200,200,210,0.3)",

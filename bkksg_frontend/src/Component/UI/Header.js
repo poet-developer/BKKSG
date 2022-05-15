@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import Logo from "../lib/Header_Logo";
 import theme from "../lib/theme";
@@ -35,6 +35,16 @@ const Header = props => {
   let textVersion = getText();
   const [isChecked, setCheck] = useState(getTheme);
   const { isModal, themeHandler } = props;
+
+  useEffect(() => {
+    if( isChecked === undefined){
+      const now = new Date()
+        if (now.getHours() > 10 && now.getHours()>7 )
+        setCheck(true)
+        else setCheck(false)
+    }
+  }
+    ,[]);
 
   return (
     <ThemeProvider theme={isChecked ? theme.night : theme.day}>

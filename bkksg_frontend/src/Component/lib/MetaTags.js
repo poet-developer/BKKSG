@@ -7,6 +7,10 @@ const MetaTags = props => {
       <Helmet>
         <title>{props.title}</title>
         <meta name="title" content = {props.title}/>
+        <meta name="theme-color" content="#dcdcdc"
+        media="(prefers-color-scheme: light)"/>
+        <meta name="theme-color" content="#000000"
+        media="(prefers-color-scheme: dark)"/>
         <meta name="description" content= {props.dsec} data-react-helmet="true"/>
         <meta name="keywords" content= "비껴서기, bkksg, ㅂㄲㅅㄱ, IROLIM, 시, 수필, 글, Art, 조각, poetdeveopler, 林이로," />
         <meta name="author" content="IROLIM"/>

@@ -14,6 +14,7 @@ const ContentPage = (props) => {
   return (
     <div className="grid-container">
       <Header
+        themeMode={themeMode}
         themeHandler={themeHandler}
         isOpen={isOpen}
         setIsOpen={setIsOpen}

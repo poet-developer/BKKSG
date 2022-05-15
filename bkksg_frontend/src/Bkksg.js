@@ -11,13 +11,20 @@ import "./static/css/reset.css"
 function Bkksg() {
   const [content, getContent] = useState("")
   const [type, getType] = useState("")
-  const [themeMode, setThemeMode] = useState(getTheme) //Day;
   const [checkIe, detectBrowser] = useState(false)
-
+  const [themeMode, setThemeMode] = useState(getTheme) //Day;
+  
   useEffect(() => {
     getAxiosforAdmin()
-    if (localStorage.getItem("Theme") === null)
-      localStorage.setItem("Theme", getHour())
+    if (localStorage.getItem("Theme") === null){
+      const now = new Date()
+      let _now;
+        if (now.getHours() > 10 && now.getHours()>7 )
+        _now= "night"
+        else _now= "day"
+      localStorage.setItem("Theme", _now);
+      setThemeMode(getTheme)
+  }
     detectBrowser(detectIE)
   }, [])
 
@@ -30,7 +37,6 @@ function Bkksg() {
         getType(res.data.types)
       })
       .catch(console.log)
-    // admin contet list 불러옴.
     } catch (err) {
       console.log(err)
       throw new Error(err)
@@ -46,12 +52,6 @@ function Bkksg() {
     // Edge 20+
     const isEdge = !isIE && !!window.StyleMedia
     if (isIE || isEdge) return true
-  };
-
-  const getHour = () => {
-    const now = new Date()
-    if (now.getHours() > 18 && now.getHours() < 7 ) return "night"
-    else return "day"
   };
 
   return (

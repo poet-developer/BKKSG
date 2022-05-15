@@ -9,6 +9,7 @@ const Loading = styled.div`
     position: relative;
     width: 80px;
     height: 80px;
+    margin-top:3rem;
   }
   .lds-ellipsis div {
     position: absolute;

@@ -10,7 +10,7 @@ const drawSolarSystemAnimation = (cv, ctx, orbitRatio, planetRatio) => {
     y: orbitInterval * 2,
   }
   const scaleRatio = planetRatio
-  const speedRatio = 0.5
+  const speedRatio = 0.3
 
   const planetPos = { x: [], y: [] }
   const planetOrginPosX = []
