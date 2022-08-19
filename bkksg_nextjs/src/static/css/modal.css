@@ -1,0 +1,141 @@
+.modal {
+  font-family: WONBatang;
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 30;
+}
+
+.modal.openModal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  align-items: center;
+  background-color: rgba(70, 70, 70, 0.4);
+  margin-left:1rem;
+  /* 팝업이 열릴때 스르륵 열리는 효과 */
+  animation: modal-bg-show 0.3s;
+  backdrop-filter: blur(8px);
+}
+@keyframes modal-show {
+  from {
+    opacity: 0;
+    margin-top: -50px;
+  }
+  to {
+    opacity: 1;
+    margin-top: 0;
+  }
+}
+@keyframes modal-bg-show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-section {
+  position: relative;
+  min-width: 80vw;
+  max-width: 80vw;
+  max-height: 80vh;
+  border-radius: 1rem;
+  /* 팝업이 열릴때 스르륵 열리는 효과 */
+  animation: modal-show 0.3s;
+  overflow: hidden;
+  overflow-y: scroll;
+  box-shadow: 0 8px 30px 0 rgba(31, 38, 105, 0.2);
+  backdrop-filter: blur(8px);
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width : 500px) {
+  .modal-section {
+    max-width: 100vw;
+    width: 90vw;
+  }
+  .cancel-button {
+    right: 0px;
+  }
+}
+
+.modal-section::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
+
+.text-content {
+  max-height: 80vh;
+  margin-bottom: 2.1rem;
+
+}
+
+.visual-content {
+  overflow: hidden;
+  overflow-y: scroll; 
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+
+  display: flex;
+  position: relative;
+  max-width: 80vw;
+  justify-content: center;
+  margin-bottom: 0.2rem;
+  max-height: 80vh;
+
+  box-shadow: 0 8px 30px 0 rgba(31, 38, 135, 0.2);
+  backdrop-filter: blur(8px);
+  border-radius: 1rem;
+}
+
+.visual-content::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
+
+.visual-image {
+  width: 100%;
+  height: 100%;
+}
+
+.modal-header {
+  position: sticky;
+  z-index: 5;
+  min-height: 1rem;
+  top: 0;
+  padding: 1rem 0 1rem 2rem;
+  font-weight: 700;
+  font-size: 21px;
+  margin-bottom: -3rem;
+}
+
+.cancel-button {
+  cursor: pointer;
+  position: sticky;
+  top:0;
+  z-index:6; 
+  right: 1rem;
+  float: right;
+  border: 0;
+  padding-right:15px;
+  font-size: 2rem;
+  font-weight: 200;
+  color: azure;
+  background-color: transparent;
+}
+
+.project-header {
+  position: absolute;
+  top: 0;
+  padding: 11rem 2.5rem;
+  color: azure;
+  width: 100%;
+  margin-top: -3rem;
+  background: linear-gradient( 90deg, rgba(131, 58, 180, 0.3) 0%, rgba(0, 0, 0, 0.5) 0%, rgba(252, 176, 69, 0) 70%)
+}
+

@@ -1,0 +1,25 @@
+{
+  "name": "bkksg_nextjs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "PORT=7272 next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1196.0",
+    "axios": "^0.27.2",
+    "mysql": "2.18.1",
+    "next": "12.2.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@tinymce/tinymce-react": "^4.2.0",
+    "eslint": "8.22.0",
+    "eslint-config-next": "12.2.5",
+    "styled-components": "^5.3.5"
+  }
+}

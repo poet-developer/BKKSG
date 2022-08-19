@@ -1,0 +1,33 @@
+.switch-checkbox {
+  display: none;
+}
+
+.switch-checkbox:checked + .switch-label .ball {
+  transform: translateX(24px);
+}
+
+.switch-checkbox:checked + .switch-label {
+  background-color: blueviolet;
+}
+
+.switch-label {
+  position: fixed;
+  height: 26px;
+  width: 50px;
+  top: 1.2rem;
+  right: 2rem;
+  border-radius: 52px;
+  background-color: powderblue;
+}
+
+.ball {
+  position: absolute;
+  height: 22px;
+  width: 22px;
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+
+  transition: transform 0.2s linear;
+  background-color: azure;
+}
