@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import styled, { ThemeProvider } from "styled-components";
+import styled from "styled-components";
 import theme from "../lib/theme";
 import drawSolarSystemAnimation from "../lib/SolarSystem";
 import StopScroll from "../lib/StopScroll"
@@ -71,7 +71,6 @@ const CanvasAni = props => {
   }, []);
 
   return (
-    <ThemeProvider theme={themeMode ? theme.night : theme.day}>
       <div className={open ? "openModal modal" : "modal"}>
         {open ? (
           <ModalSection>
@@ -92,7 +91,6 @@ const CanvasAni = props => {
           </ModalSection>
         ) : null}
       </div>
-    </ThemeProvider>
   );
 };
 

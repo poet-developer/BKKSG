@@ -12,9 +12,7 @@ const Admin = (props) => {
   const [data, setData] = useState({}) // Object
   const [pre_data, setPre_data] = useState({})
   const [formData, setFormData] = useState({}) //Object
-  const [config, setConfig] = useState({}) // Object
   const [imageURL, setImageURL] = useState("") //String
-
   const [content, getContent] = useState("")
   const [type, getType] = useState("")
 
@@ -109,36 +107,33 @@ const Admin = (props) => {
     setMode(e.target.dataset.mode)
   };
 
-  const submitHandler = (_formData, _config) => {
-    // let _pre_data = {}
-    // for (var value of _formData.values()) {
-    //   _pre_data.push(value)
-    // }
-    console.log(_formData.type)
-    if (_formData.type==="3" || _formData.type==="4") {
-      _cover_src = _formData.coverImg
-      console.log('imageSrc',_cover_src);
+  const submitHandler = (_formData) => {
+    let _pre_data = []
+    for (var value of _formData.values()) {
+      _pre_data.push(value)
+    }
+    if (_pre_data[1] === "3" || _pre_data[1] === "4") {
+      _cover_src = _pre_data[5]
       let _fileReader = new FileReader()
       _fileReader.readAsDataURL(_cover_src)
       _fileReader.onload = (e) => setImageURL(e.target.result)
-    } else if (_formData.type === "1" || _formData.type === "2")
-      _cover_src = _formData.color
+    } else if (_pre_data[1] === "1" || _pre_data[1] === "2")
+      _cover_src = _pre_data[4]
     setMode("preview")
     setPre_data({
-      public: _formData.public,
-      type: _formData.type,
-      title: _formData.title,
-      desc: _formData.desc,
+      public: _pre_data[0],
+      type: _pre_data[1],
+      title: _pre_data[2],
+      desc: _pre_data[3],
       cover_src: _cover_src,
     });
     setFormData(_formData)
-    setConfig(_config)
   };
 
   const createProcess = async () => {
     try {
       await axios
-        .post("/api/create_process", formData, config)
+        .post("/api/create_process", formData)
         .then(setMode(""))
       alert("Uploaded!")
       window.location.replace("/centre/admin")
@@ -161,7 +156,7 @@ const Admin = (props) => {
     }
   };
   return (
-    <>
+    <div style = {{margin : '5rem 3rem', width: '90vw'}}>
       <h1 style = {{fontSize : '2rem'}}>
         <a href="./admin" style = {{margin: '0 1rem'}}>ADMIN</a>
       </h1><br/>
@@ -249,7 +244,7 @@ const Admin = (props) => {
       ) : (
         ""
       )}
-    </>
+    </div>
   );
 };
 

@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import styled, { ThemeProvider } from "styled-components";
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 import theme from "../lib/theme";
-import "../../static/css/basicCss.css";
-import { ReactComponent as Logo } from "../../static/img/LOGO_BKKSG.svg";
+import Logo from "../lib/Header_Logo";
 import { FiInstagram } from "react-icons/fi";
 import { FaPinterest } from "react-icons/fa";
 import CanvasAni from "./CanvasAni";
@@ -134,8 +133,8 @@ const Copyright = styled.div`
 `;
 
 
-const pullUpFooter = cb => {
-  window.addEventListener("scroll", function () {
+const pullUpFooter = (cb, win) => {
+  win.addEventListener("scroll", function () {
     // let scrollLimitValue =
     //   window.pageYOffset + window.innerHeight > window.innerHeight * 2.7
     // if (scrollLimitValue) cb(true)
@@ -165,14 +164,22 @@ const Footer = props => {
     setModalOpen(false)
   };
 
-  pullUpFooter(setIsOpen)
+  useEffect(()=>{
+    window.addEventListener("click", e => {
+      windowClickCloseModal(e, closeModal);
+    })
+    window.addEventListener("scroll", function () {
+      let scrollLimitValue =
+        window.pageYOffset + window.innerHeight > window.innerHeight * 2.7
+      if (scrollLimitValue) setIsOpen(true)
+      setIsOpen(false);
+    });
+  },[])
 
-  window.addEventListener("click", e => {
-    windowClickCloseModal(e, closeModal);
-  })
+  
 
   return (
-    <ThemeProvider theme={themeMode ? theme.night : theme.day}>
+      <>
       <FooterBtnGrid
         onClick={openFooterHandler}
         pullUp={isOpen ? true : false}
@@ -184,13 +191,8 @@ const Footer = props => {
         {/* 로고 */}
         <span style={{display: "none"}}>비껴서서 생각하고 설계하고 만드는 林이로의 움직이는 화랑| Poet, Essay, Art, Visual, Installation, Project</span>
         <LogoContainer>
-          <div style={{ cursor: "pointer" }} onClick={openModal}>
-            <Logo
-              color={theme.common.color}
-              fill={theme.common.color}
-              stroke={theme.common.color}
-            />
-            <div className = "logo-title">비 껴 서 기</div>
+          <div style={{ cursor: "pointer", marginLeft:'0.5rem'}} onClick={openModal}>
+            <Logo/>
           </div>
           <hr style={{ border: "0.1px solid white", marginTop: "1rem" }} />
           <div className = "sns-icon">
@@ -239,7 +241,7 @@ const Footer = props => {
       ) : (
         ""
       )}
-    </ThemeProvider>
+    </>
   );
 };
 

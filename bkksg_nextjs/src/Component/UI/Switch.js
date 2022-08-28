@@ -1,8 +1,8 @@
 import React from "react";
-import "../../static/css/switch.css";
 
 const Switch = props => {
   const { isChecked, toggleHandler } = props;
+
   return (
     <div className="switch">
       <input

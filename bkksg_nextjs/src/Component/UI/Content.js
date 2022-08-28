@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
-import styled, { ThemeProvider } from "styled-components";
-import theme from "../lib/theme";
+import styled from "styled-components";
 import Masonry from "react-masonry-css";
-import "../../static/css/masonry.css";
 import InfiniteScroll from "react-infinite-scroll-component";
 import axios from "axios";
 import Card from "./Card";
 import Loader from "../lib/Loader";
-import "../../static/css/gridSystem.css";
 
 const Layout = styled.div`
   background-color: ${props => props.theme.colors.main};
@@ -18,7 +15,7 @@ const Contents = styled.nav`
 `;
 // the Second big container
 
-const ImgContent = props => {
+const Content = props => {
   const [cards, setCard] = useState([]);
   const [page, setPage] = useState(1);
   const [more, setMore] = useState(true);
@@ -43,7 +40,7 @@ const ImgContent = props => {
   const fetchCards = async(count = MasonryInfo.infiniteCount) => {
     try{
     await axios
-      .get("/admin/getType/", {
+      .get("/api/getTypeContents/", {
         params: { mode: mode },
       })
       .then((res) => {
@@ -72,10 +69,8 @@ const ImgContent = props => {
       throw new Error(err)
   }
 }
-;
 
   return (
-    <ThemeProvider theme={themeMode ? theme.night : theme.day}>
       <Layout className="grid-item-content" backgroundMode={themeMode}>
         <Contents className = "contents-in-layout" mode={mode}>
           <InfiniteScroll
@@ -105,8 +100,7 @@ const ImgContent = props => {
           </InfiniteScroll>
         </Contents>
       </Layout>
-    </ThemeProvider>
   );
 };
 
-export default ImgContent
+export default Content

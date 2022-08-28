@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import styled, { ThemeProvider } from "styled-components";
+import styled from "styled-components";
 import Logo from "../lib/Header_Logo";
-import theme from "../lib/theme";
 import Switch from "./Switch";
 import getTheme from "../lib/getTheme";
-import "../../static/css/gridSystem.css";
+import LocalStorage from "../lib/LocalStorage";
 
 const Glass = styled.div`
   padding: 0.2rem 0;
@@ -34,19 +33,17 @@ const getText = () => {
 const Header = props => {
   let textVersion = getText();
   const [isChecked, setCheck] = useState(getTheme);
-  const { isModal, themeHandler } = props;
+  const { themeMode, isModal, themeHandler } = props;
 
   useEffect(() => {
     if( isChecked === undefined){
-      const now = new Date()
-        if (now.getHours() > 18 && now.getHours()>8 )
-        setCheck(true)
-        else setCheck(false)
+        setCheck(themeMode)
+    }else{
+      setCheck(themeMode)
     }
   },[]);
 
   return (
-    <ThemeProvider theme={isChecked ? theme.night : theme.day}>
       <div className = "grid-item-header">
         <Glass isModal={isModal}>
           <div style = {{ display: 'flex', justifyContent: 'space-around' }}>
@@ -54,21 +51,19 @@ const Header = props => {
             <div>
               <a href="/"><Logo text={textVersion}/></a>
             </div>
-            
               <Switch
+                themeMode = {themeMode}
                 isChecked={isChecked}
                 toggleHandler={() => {
                   setCheck(!isChecked);
                   themeHandler(isChecked);
-                  if (isChecked) localStorage.setItem("Theme", "day");
-                  else localStorage.setItem("Theme", "night");
+                  if (isChecked) LocalStorage.setItem("Theme", "day");
+                  else LocalStorage.setItem("Theme", "night");
                 }}
               />
-            
           </div>
         </Glass>
       </div>
-    </ThemeProvider>
   );
 };
 

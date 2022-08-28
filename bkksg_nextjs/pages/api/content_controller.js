@@ -1,5 +1,5 @@
-const db = require("../lib/db");
-const { s3 } = require("../lib/aws")
+const db = require("../../config/db");
+const { s3 } = require("../../config/aws")
 
 module.exports = {
   contentList: async(req, res) => {

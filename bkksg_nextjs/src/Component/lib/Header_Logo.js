@@ -1,7 +1,6 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { cometOrbit, makeComet } from "./drawLogo";
 import styled from "styled-components";
-import "../../static/css/basicCss.css";
 
 const LogoContainer = styled.div`
   position: relative;
@@ -27,12 +26,8 @@ const Title = styled.div`
 
 const HeaderLogo = props => {
   let canvasRef = useRef();
-  let canvas, ctx, _text;
-  if (props.text) {
-    if (props.text === 1) _text = "비껴서기"
-    else if (props.text === 2) _text = <span style={{letterSpacing: '-0.5px'}}>B&ensp;&nbsp;K&nbsp;K&ensp;S&ensp;G</span>
-    else _text = "ㅂㄲㅅㄱ"
-  }
+  let canvas, ctx
+  const [text, setText] = useState("비껴서기")
 
   const drawLogo = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -45,6 +40,12 @@ const HeaderLogo = props => {
     canvas = canvasRef.current;
     ctx = canvas.getContext("2d");
     requestAnimationFrame(drawLogo);
+
+    if (props.text) {
+      if (props.text === 1) setText("비껴서기");
+      else if (props.text === 2) setText(<span style={{letterSpacing: '-0.5px'}}>B&ensp;&nbsp;K&nbsp;K&ensp;S&ensp;G</span>)
+      else setText("ㅂㄲㅅㄱ")
+    }
   }, []);
 
   return (
@@ -55,7 +56,7 @@ const HeaderLogo = props => {
         height="60"
       ></canvas>
       <Title text={props.text}>
-        {_text}
+        {text}
       </Title>
     </LogoContainer>
   );

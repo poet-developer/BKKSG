@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import styled, { ThemeProvider } from "styled-components";
-import theme from "../lib/theme";
+import styled from "styled-components";
 import DetailModal from "./DetailModal";
 import VisualModal from "./VisualModal";
 import ImageLoader from "../lib/imageLoader";
-import "../../static/css/basicCss.css";
-import "../../static/css/gridSystem.css";
+import { useRouter } from 'next/router'
 
 const CoverTextContent = styled.div`
   height: 7rem;
@@ -68,6 +66,7 @@ const Card = props => {
   const [title, targetTitle] = useState(data.title);
   const [desc, targetDesc] = useState("");
   let _topic;
+  const router = useRouter();
 
   if (data) 
     if (data.topic === "poem") _topic = "시조각"
@@ -76,10 +75,8 @@ const Card = props => {
     else _topic = "프로젝트"
 
   const openModal = () => {
-    setModalOpen(true)
-    targetTitle(data.title)
-    targetDesc(data.desc)
-    modalHandler(true)
+    let _path = `/`+data.topic+`/`+String(data.id)
+    router.push(_path)
   };
 
   const openVisualModal = () => {
@@ -100,7 +97,7 @@ const Card = props => {
   });
   // Close Modal by clicking window.
   return (
-    <ThemeProvider theme={themeMode ? theme.night : theme.day}>
+    <>
       {data.topic === "poem" || data.topic === "essay" ? (
         <CoverTextContent className ="cover-content" mode={mode} onClick={openModal}>
           <Label color={data.src}></Label>
@@ -114,8 +111,7 @@ const Card = props => {
           className = "cover-content"
           topic={data.topic}
           mode={mode}
-          onClick={ data.topic === "visual" ? openVisualModal : openModal
-          }
+          onClick={openModal}
         >
           <ImageLoader
             imageUrl={`https://d2oispwivf10h4.cloudfront.net/w330/${data.src}`} alt = {data.title}
@@ -160,7 +156,7 @@ const Card = props => {
       ) : (
         ""
       )}
-    </ThemeProvider>
+    </>
   );
 };
 

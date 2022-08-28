@@ -1,7 +1,5 @@
 import React, { useEffect } from "react"
-import "../../static/css/modal.css"
-import "../../static/css/basicCss.css"
-import styled, { ThemeProvider } from "styled-components"
+import styled from "styled-components"
 import theme from "../lib/theme"
 import StopScroll from "../lib/StopScroll"
 
@@ -42,7 +40,6 @@ const DetailModal = props => {
   useEffect(StopScroll,[]);
 
   return (
-    <ThemeProvider theme={themeMode ? theme.night : theme.day}>
       <div className={open ? "openModal modal" : "modal"}>
         {open ? (
           <section className = "modal-section text-content">
@@ -79,14 +76,13 @@ const DetailModal = props => {
             <MainContainer>
               <Main topic={topic}>{props.children}
               <hr style={{border: "0.1px solid rgba(100,100,100,0.3)"}}/>
-              <div style={{width: "100%", textAlign: "center", fontSize: '0.8rem'}}>林이로 | IROLIM</div>
+              <div style={{width: "100%", textAlign: "center", fontSize: '0.8rem'}}>비껴서기 | BKKSG</div>
               </Main>
               
             </MainContainer>
           </section>
         ) : null}
       </div>
-    </ThemeProvider>
   );
 };
 

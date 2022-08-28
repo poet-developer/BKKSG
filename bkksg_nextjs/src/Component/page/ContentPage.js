@@ -1,41 +1,18 @@
 import React, { useState } from "react";
-import Header from "../UI/Header";
-import Sidebar from "../UI/Sidebar";
-import ImgContent from "../UI/Content";
-
-import Footer from "../UI/Footer";
-import "../../static/css/gridSystem.css";
+import Content from "../UI/Content";
 
 const ContentPage = (props) => {
   const [isOpen, setIsOpen] = useState(false)
   const [isModal, setIsModal] = useState(false)
-  const { themeMode, themeHandler, mode } = props //Theme Mode.
+  const { themeMode, themeHandler, mode , modalHandler } = props //Theme Mode.
 
   return (
-    <div className="grid-container">
-      <Header
-        themeMode={themeMode}
-        themeHandler={themeHandler}
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        isModal={isModal}
-      />
-      <Sidebar
-        themeMode={themeMode}
-        pullUp={isOpen ? true : false}
-        setIsOpen={setIsOpen}
-      />
-      <ImgContent
+      <Content
         themeMode={themeMode}
         pullUp={isOpen ? true : false}
         mode = {mode}
-        modalHandler={is =>{
-          if (is) setIsModal(true)
-          else setIsModal(false)
-        }}
+        modalHandler={modalHandler}
       />
-      <Footer themeMode={themeMode} />
-    </div>
   );
 };
 

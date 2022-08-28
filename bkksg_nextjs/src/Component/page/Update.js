@@ -27,36 +27,25 @@ const Update = props => {
     const _confrimed = window.confirm("수정 할까요?")
     e.preventDefault()
     let color, coverImg, imgId
-    if (e.target.c.type === "color") {
-      color = e.target.c.value
-    } else {
+    if (e.target.c.type === "color") color = e.target.c.value
+    else {
       coverImg = e.target.c.files[0]
       imgId = e.target.img_id.value
     }
-    // const formData = new FormData()
+    const formData = new FormData()
 
-    let formData = {
-      public: e.target.public.value, 
-      type: e.target.type.value,
-      title: e.target.title.value,
-      desc: saved_desc,
-      id: e.target.id.value,
-      img_id: imgId,
-      color: color,
-      coverImg: coverImg
-    };
-
-    // formData.append("public", e.target.public.value)
-    // formData.append("type", e.target.type.value)
-    // formData.append("title", e.target.title.value)
-    // formData.append("desc", saved_desc)
-    // formData.append("id", e.target.id.value)
-    // formData.append("img_id", imgId)
-    // formData.append("color", color)
+    formData.append("public", e.target.public.value)
+    formData.append("type", e.target.type.value)
+    formData.append("title", e.target.title.value)
+    formData.append("desc", saved_desc)
+    formData.append("id", e.target.id.value)
+    formData.append("img_id", imgId)
+    formData.append("color", color)
     // An img file's to been used to middleware must be at the end.
-    // formData.append("coverImg", coverImg)
+    formData.append("coverImg", coverImg)
     const config = {
-      headers: { "Content-type": 'application/json' },
+      headers: { "Content-Type": 'multipart/form-data', },
+      api: { bodyParser: false },
     }
     if (_confrimed) {
       try {

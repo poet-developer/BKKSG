@@ -1,7 +1,6 @@
 import React from "react";
-import styled, { ThemeProvider } from "styled-components";
+import styled from "styled-components";
 import theme from "../lib/theme";
-import "../../static/css/basicCss.css";
 
 const List = styled.ul`
   margin-top: 7rem;
@@ -62,8 +61,6 @@ const IndexList = props => {
     "JOGAK-JOGAK",
     "PROJECT",
   ];
-  const { themeMode } = props;
-
   const nameList = names.map(name => (
     <li key={names.indexOf(name)}>
       <Anchor href={"/" + paths[names.indexOf(name)]}>
@@ -76,9 +73,7 @@ const IndexList = props => {
   ));
 
   return (
-    <ThemeProvider theme={themeMode ? theme.night : theme.day}>
       <List pullUp={props.pullUp}>{nameList}</List>
-    </ThemeProvider>
   );
 };
 

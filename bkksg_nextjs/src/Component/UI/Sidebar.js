@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import styled, { ThemeProvider } from "styled-components";
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 import theme from "../lib/theme";
 import IndexList from "./IndexList";
 import { CgChevronRight, CgChevronLeft } from "react-icons/cg";
-import "../../static/css/gridSystem.css";
 
 const SidebarGrid = styled.div`
   background: ${props => props.theme.gradient.linear};
@@ -58,10 +57,14 @@ const Sidebar = props => {
   const resizeHandler = () => {
     setPullup(false)
   };
-  window.addEventListener("resize", resizeHandler)
+  let windowWidth;
 
+  useEffect(()=>{
+    window.addEventListener("resize", resizeHandler)
+    windowWidth = window.innerWidth
+  },[])
+ 
   return (
-    <ThemeProvider theme={themeMode ? theme.night : theme.day}>
       <SidebarGrid
         className="grid-item-sidebar"
         onClick={openSidebarHandler}
@@ -73,14 +76,13 @@ const Sidebar = props => {
           style={{ position: "relative" }}
         ></IndexList>
         <OpenSideButton pullUp={isPullup}>
-          {isPullup || window.innerWidth < theme.common.screen.max ? (
+          {isPullup || windowWidth < theme.common.screen.max ? (
             <CgChevronLeft />
           ) : (
             <CgChevronRight />
           )}
         </OpenSideButton>
       </SidebarGrid>
-    </ThemeProvider>
   );
 };
 
