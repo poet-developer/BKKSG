@@ -28,6 +28,7 @@
   overflow: hidden;
   overflow-y: scroll;
   scrollbar-width: none;
+  /* display: none; */
 }
 
 .grid-item-sidebar::-webkit-scrollbar {
@@ -45,17 +46,18 @@
   min-height: 100vh;
   height: 100%;
   margin : 0.5rem 1rem ;
-  padding-bottom: 0.5rem;
+  padding: 1rem 1rem 0.5rem 1rem;
 }
 
 .grid-item-content {
   grid-area: content;
-  padding: 1rem 0rem 0 1.1rem;
+  padding: 1rem -1rem 0 0 ;
+  min-height: 100vh;
   height: 100%;
   width: 100vw;
   display: flex;
   justify-content: center;
-  padding-bottom: 1.5rem;
+  padding-bottom: 2rem;
   z-index: 2;
 }
 

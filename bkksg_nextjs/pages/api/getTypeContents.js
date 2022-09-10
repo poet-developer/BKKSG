@@ -5,9 +5,9 @@ const getTypeContent =  async (req, res) => {
      let _query;
      try{
        if(info.mode === 'home'){
-         _query = `SELECT content.id,content.title,content.description,topic,cover_src FROM content LEFT JOIN type ON content.type_id = type.id WHERE public = 1 ORDER BY content.id DESC`
+         _query = `SELECT content.id,content.title,content.description,topic,cover_src,link FROM content LEFT JOIN type ON content.type_id = type.id WHERE public = 1 ORDER BY content.id DESC`
        }else{
-         _query = `SELECT content.id,content.title,content.description,topic,cover_src FROM content LEFT JOIN type ON content.type_id = type.id WHERE topic = ? and public = 1 ORDER BY content.id DESC`
+         _query = `SELECT content.id,content.title,content.description,topic,cover_src,link FROM content LEFT JOIN type ON content.type_id = type.id WHERE topic = ? and public = 1 ORDER BY content.id DESC`
        }
  
        await db.query(

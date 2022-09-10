@@ -52,7 +52,7 @@ import {storageCover, filterPublic, NextConnextObj} from '../../src/Component/li
          _c = req.file.key.replace("raw/","")
        }
        _public = filterPublic(info.public);
-       await db.query("INSERT INTO content (title, description, cover_src, type_id, public) VALUES (?, ?, ?, ?, ?)", [info.title, info.desc, _c , info.type, _public] ,(err, result) => {
+       await db.query("INSERT INTO content (title, description, cover_src, type_id, public,link) VALUES (?, ?, ?, ?, ?, ?)", [info.title, info.desc, _c , info.type, _public, info.link] ,(err, result) => {
          if (err) throw err;
          console.log('Uploded Contents!');
          res.status(200).send();

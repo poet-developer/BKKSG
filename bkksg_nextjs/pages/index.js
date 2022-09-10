@@ -3,12 +3,11 @@ import ContentPage from "../src/Component/page/ContentPage"
 
 function Bkksg(props) {
 
-  const { themeMode, themeHandler, setIsModal } = props;
+  const { themeMode, themeHandler, detailHandler } = props;
   return (
-              <ContentPage themeMode={themeMode} themeHandler={themeHandler} modalHandler={is =>{
-                if (is) setIsModal(true)
-                else setIsModal(false)
-              }} mode = "home" />
+              <ContentPage themeMode={themeMode} themeHandler={themeHandler} detailHandler={
+                detailHandler
+              } mode = "home" />
   )
 }
 

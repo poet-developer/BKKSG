@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useRouter } from 'next/router'
 import '../styles/globals.css'
 import '../styles/basicCss.css'
 import '../styles/gridSystem.css'
@@ -18,14 +19,15 @@ function MyApp({ Component, pageProps }) {
   const [themeMode, setThemeMode] = useState(getTheme) //Day;
   // const [checkIe, detectBrowser] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
-  const [isModal, setIsModal] = useState(false)
+  const [isDetail, setIsDetail] = useState(false)
+  // const [resized, setResizeEvent] = useState(false)
   const [componentMounted, setComponentMounted] = useState(false);
+  const router = useRouter();
   
   useEffect(() => {  
     setThemeMode(getTheme)
     setComponentMounted(true); 
-    // detectBrowser(detectIE(window))
-  },[])
+  },[router])
 
   const themeHandler = () => {
     setThemeMode(!themeMode)
@@ -53,15 +55,16 @@ function MyApp({ Component, pageProps }) {
       themeHandler={themeHandler}
       isOpen={isOpen}
       setIsOpen={setIsOpen}
-      isModal={isModal}/>
+      isDetail={isDetail}/>
     <Sidebar
         themeMode={themeMode}
         pullUp={isOpen ? true : false}
         setIsOpen={setIsOpen}
-        isModal={isModal}
+        isDetail={isDetail}
       />
-      <Component themeMode = {themeMode} themeHandler = {themeHandler} modalHandler = {() => {
-        setIsModal(!isModal)
+      <Component theme = {theme} themeMode = {themeMode} themeHandler = {themeHandler} detailHandler = {(detail) => {
+        if(detail === true) setIsDetail(true)
+        else setIsDetail(false)
       }} {...pageProps} />
     <Footer themeMode={themeMode} />
     </div>

@@ -4,7 +4,7 @@ const getTypeContent =  async (req, res) => {
      const info = req.query;
      let _query;
      try{
-         _query = `SELECT content.id,content.title,content.description,topic,cover_src FROM content LEFT JOIN type ON content.type_id = type.id WHERE content.id = ? and public = 1`
+         _query = `SELECT content.id,content.title,content.description,topic,cover_src,link FROM content LEFT JOIN type ON content.type_id = type.id WHERE content.id = ? and public = 1`
  
        await db.query(
          _query,[info.id],

@@ -11,7 +11,7 @@ const Glass = styled.div`
   position: fixed;
   left: 0;
   transition: 1s;
-  top: ${props => props.isModal ? "-70px" : "0"};
+  top: ${props => props.isDetail ? "-70px" : "0"};
   background: ${props => props.theme.gradient.radial};
   -mos-box-shadow: ${props => props.theme.glass.shadow};
   -ms-box-shadow: ${props => props.theme.glass.shadow};
@@ -33,7 +33,7 @@ const getText = () => {
 const Header = props => {
   let textVersion = getText();
   const [isChecked, setCheck] = useState(getTheme);
-  const { themeMode, isModal, themeHandler } = props;
+  const { themeMode, isDetail, themeHandler } = props;
 
   useEffect(() => {
     if( isChecked === undefined){
@@ -45,7 +45,7 @@ const Header = props => {
 
   return (
       <div className = "grid-item-header">
-        <Glass isModal={isModal}>
+        <Glass isDetail={isDetail}>
           <div style = {{ display: 'flex', justifyContent: 'space-around' }}>
             <div></div>
             <div>

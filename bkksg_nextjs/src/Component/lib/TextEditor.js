@@ -9,6 +9,7 @@ const TextEditor = props => {
     typeList,
     title,
     id,
+    link,
     initialValue,
     handleEditorChange,
     changeHandler,
@@ -65,7 +66,7 @@ const TextEditor = props => {
             <input type="hidden" name="img_id" value={c} />
             <br />
             <label>
-              Change | <input type="file" name="c" />
+            &nbsp;| Change <input type="file" name="c" />
             </label>
           </label>
         )
@@ -114,7 +115,7 @@ const TextEditor = props => {
         )}
         <div>
           <label>
-            Title :
+          &nbsp;| Title :
             {mode === UPDATE ? (
               <input
                 type="text"
@@ -127,7 +128,7 @@ const TextEditor = props => {
             )}
           </label>
           <label>
-            Type :
+            &nbsp;| Type :
             <select
               required
               name="type"
@@ -147,17 +148,34 @@ const TextEditor = props => {
               {selectTypes}
             </select>
           </label>
+          <label>
+          &nbsp;| Link :
+            {mode === UPDATE ? (
+              <input
+                type="text"
+                name="link"
+                onChange={changeHandler}
+                defaultValue= {link || null}
+              />
+            ) : (
+              <input
+                type="text"
+                name="link"
+                placeholder="link"
+              />
+            )}
+          </label>
           {isOpenInput ? (
             <label>
               <br />
-              Cover: {coverType}
+              &nbsp;| Cover: {coverType}
             </label>
           ) : (
             ""
           )}
 
           <label>
-            Public :
+          &nbsp;| Public :
             {mode === UPDATE ? (
               <input
                 type="checkbox"
@@ -178,6 +196,7 @@ const TextEditor = props => {
               />
             )}
           </label>
+          
         </div>
         <br />
         <Editor

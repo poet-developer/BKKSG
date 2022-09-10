@@ -5,7 +5,7 @@ const list =  async(req, res) => {
        await db.query("SELECT * FROM type", (err, types) => {
        if (err) throw err;
             db.query(
-             `SELECT content.id,content.title,content.description,topic,cover_src, public FROM content LEFT JOIN type ON content.type_id = type.id `,
+             `SELECT content.id,content.title,content.description,topic,cover_src, public,link FROM content LEFT JOIN type ON content.type_id = type.id ORDER BY content.id DESC`,
                (err1, contents) => {
              if (err1) throw err1;
                res.status(200).send(

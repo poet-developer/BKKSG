@@ -19,7 +19,7 @@ const SidebarGrid = styled.div`
 
   border-radius: ${props => props.theme.glass.border.radius};
   border-right: ${props => props.theme.glass.border.line};
-  cursor: pointer;
+  cursor: ${props=>(props.isDetail? 'default' : 'pointer')};
   left: ${props => (props.pullUp ? "0" : "-8rem")};
   @media (max-width: 200px) {
     left: -8rem;
@@ -27,6 +27,7 @@ const SidebarGrid = styled.div`
   @media (min-width: ${theme.common.screen.max}) {
     left: ${props => (props.pullUp ? "-8rem" : "0" || "0")};
   };
+  opacity: ${props=>(props.isDetail? '0' : '1')};
 
   -webkit-overflow-scrolling: touch;
 `;
@@ -40,7 +41,7 @@ const OpenSideButton = styled.div`
   cursor: pointer;
   margin: 1rem;
   padding: 0.4rem 0 0 0;
-  cursor: pointer;
+  cursor: ${props=>(props.isDetail? 'default' : 'pointer')};
   transform: scale(2);
   color: ${theme.common.little};
   &:hover {
@@ -50,7 +51,7 @@ const OpenSideButton = styled.div`
 
 const Sidebar = props => {
   const [isPullup, setPullup] = useState(false)
-  const { themeMode } = props
+  const { themeMode, isDetail } = props
   const openSidebarHandler = () => {
     setPullup(!isPullup)
   };
@@ -69,13 +70,14 @@ const Sidebar = props => {
         className="grid-item-sidebar"
         onClick={openSidebarHandler}
         pullUp={isPullup}
+        isDetail={isDetail}
       >
         <IndexList
           themeMode={themeMode}
           pullUp={isPullup}
           style={{ position: "relative" }}
         ></IndexList>
-        <OpenSideButton pullUp={isPullup}>
+        <OpenSideButton pullUp={isPullup} isDetail={isDetail}>
           {isPullup || windowWidth < theme.common.screen.max ? (
             <CgChevronLeft />
           ) : (

@@ -23,6 +23,7 @@ const Preview = props => {
         <h2>제목 : {_data.title}</h2>
         <div dangerouslySetInnerHTML={{ __html: _data.desc }} />
         <hr />
+        <h2>* Link : { _data.link === null ? 'none' : _data.link }</h2>
       </label>
     </div>
   );

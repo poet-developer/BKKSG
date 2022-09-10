@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import DetailModal from "./DetailModal";
 import VisualModal from "./VisualModal";
@@ -60,11 +60,9 @@ const windowClickCloseModal = (e, cb) => {
 };
 
 const Card = props => {
-  const { data, mode, modalHandler, themeMode } = props;
+  const { data, mode, detailHandler, modalHandler, themeMode } = props;
   const [modalOpen, setModalOpen] = useState(false);
-  const [visualModal, setvisualOpen] = useState(false);
-  const [title, targetTitle] = useState(data.title);
-  const [desc, targetDesc] = useState("");
+  const [visualModal, setVisualOpen] = useState(false);
   let _topic;
   const router = useRouter();
 
@@ -74,32 +72,39 @@ const Card = props => {
     else if (data.topic === "visual") _topic = "조각조각"
     else _topic = "프로젝트"
 
-  const openModal = () => {
+  const openDetail = () => {
     let _path = `/`+data.topic+`/`+String(data.id)
     router.push(_path)
+    // setModalOpen(true)
+    // modalHandler(true)
+    // detailHandler(true)
   };
 
   const openVisualModal = () => {
-    setvisualOpen(true)
-    targetTitle(data.title)
-    targetDesc(data.desc)
-    modalHandler(true)
+    setVisualOpen(true)
+    detailHandler(true)
   };
 
   const closeModal = () => {
     setModalOpen(false)
-    setvisualOpen(false)
-    modalHandler(false)
+    setVisualOpen(false)
+    detailHandler(false)
   };
 
-  window.addEventListener("click", e => {
-    windowClickCloseModal(e, closeModal)
-  });
+  useEffect(()=>{
+    // if(visualModal === false || modalOpen === false ){
+    //   detailHandler(false);
+    // }
+  },[])
+  // window.addEventListener("click", e => {
+  //   windowClickCloseModal(e, closeModal)
+  // });
   // Close Modal by clicking window.
+
   return (
     <>
       {data.topic === "poem" || data.topic === "essay" ? (
-        <CoverTextContent className ="cover-content" mode={mode} onClick={openModal}>
+        <CoverTextContent className ="cover-content" mode={mode} onClick={openDetail}>
           <Label color={data.src}></Label>
           <CardTitle>
             {data.title}
@@ -111,14 +116,15 @@ const Card = props => {
           className = "cover-content"
           topic={data.topic}
           mode={mode}
-          onClick={openModal}
+          onClick={ data.topic === "visual" ? openDetail : openDetail
+          }
         >
           <ImageLoader
             imageUrl={`https://d2oispwivf10h4.cloudfront.net/w330/${data.src}`} alt = {data.title}
           />
           <ImgLabel>
             <CardTitle>
-              {title}
+              {data.title}
               <Topic>{_topic}</Topic>
             </CardTitle>
           </ImgLabel>
@@ -129,12 +135,8 @@ const Card = props => {
           themeMode={themeMode}
           open={modalOpen}
           close={closeModal}
-          header={title}
-          topic={data.topic}
-          src={data.src}
-        >
-          <section dangerouslySetInnerHTML={{ __html: desc }}></section>
-        </DetailModal>
+          data ={data}
+        />
       ) : (
         ""
       )}
@@ -144,15 +146,8 @@ const Card = props => {
           themeMode={themeMode}
           open={visualModal}
           close={closeModal}
-          header={title}
-          data={data.src}
-        >
-          <article>
-            <ImageLoader
-              imageUrl={`https://d2oispwivf10h4.cloudfront.net/w330/${data.src}`}
-            />
-          </article>
-        </VisualModal>
+          data={data}
+        />
       ) : (
         ""
       )}

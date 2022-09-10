@@ -19,7 +19,7 @@ const Content = props => {
   const [cards, setCard] = useState([]);
   const [page, setPage] = useState(1);
   const [more, setMore] = useState(true);
-  const { mode, themeMode, modalHandler } = props;
+  const { mode, themeMode, detailHandler, modalHandler } = props;
   const loadingTime = 700;
   let allCovers = [];
   let preCovers;
@@ -35,6 +35,7 @@ const Content = props => {
 
   useEffect(() => {
     fetchCards()
+    detailHandler(false);
   }, []);
 
   const fetchCards = async(count = MasonryInfo.infiniteCount) => {
@@ -91,9 +92,10 @@ const Content = props => {
                   key={cards.indexOf(card)}
                   data={card}
                   mode={mode}
-                  modalHandler={is => {
-                    modalHandler(is);
+                  detailHandler={is => {
+                    detailHandler(is);
                   }}
+                  modalHandler={modalHandler}
                 />
               ))}
             </Masonry>

@@ -38,6 +38,7 @@ const Admin = (props) => {
               title: _data.title,
               desc: _data.description,
               cover_src: _data.cover_src,
+              link : _data.link
             })
           })
           .catch(console.log)

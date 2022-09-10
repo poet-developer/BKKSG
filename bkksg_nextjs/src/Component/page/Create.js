@@ -22,6 +22,7 @@ const Create = props => {
     formData.append("type", e.target.type.value)
     formData.append("title", e.target.title.value)
     formData.append("desc", desc)
+    formData.append("link",e.target.link.value)
     formData.append("color", color)
     // An img file's to been used to middleware must be at the end.
     formData.append("coverImg", coverImg)

@@ -6,10 +6,11 @@ const Update = props => {
   const { data, types } = props
   const [type, setType] = useState(data.type)
   const [title, setTitle] = useState(data.title)
+  const [link, setLink] = useState(data.link)
   const [publication, setPublic] = useState(data.public)
   const [c, setC] = useState(data.cover_src)
   const [saved_desc, setContent] = useState(data.desc) // String
-
+  
   const changeHandler = e => {
     let _value = e.target.value;
     let _name = e.target.name;
@@ -17,6 +18,7 @@ const Update = props => {
     else if (_name === "title") setTitle(_value)
     else if (_name === "public") setPublic(_value)
     else if (_name === "c") setC(_value)
+    else if (_name === "link") setLink(_value)
   };
 
   const handleEditorChange = e => {
@@ -38,6 +40,7 @@ const Update = props => {
     formData.append("type", e.target.type.value)
     formData.append("title", e.target.title.value)
     formData.append("desc", saved_desc)
+    formData.append("link",e.target.link.value)
     formData.append("id", e.target.id.value)
     formData.append("img_id", imgId)
     formData.append("color", color)
@@ -73,6 +76,7 @@ const Update = props => {
         genre={type}
         initialValue={data.desc}
         typeList={types}
+        link={link}
         id={data.id}
         public={publication}
         handleEditorChange={handleEditorChange}

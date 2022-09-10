@@ -33,7 +33,7 @@ import {storageCover, filterPublic, NextConnextObj} from '../../src/Component/li
       if(info.type === '1' || info.type === '2') _c = info.color
       else _c = info.img_id
       _public = filterPublic(info.public);
-      await db.query(`UPDATE content SET title=?, description=?, cover_src=?, type_id=?, public=? WHERE id =?`,[info.title, info.desc, _c, info.type, _public, info.id],function(error,result){
+      await db.query(`UPDATE content SET title=?, description=?, cover_src=?, type_id=?, public=?, link=? WHERE id =?`,[info.title, info.desc, _c, info.type, _public, info.link, info.id],function(error,result){
         if(error) throw error
         if(result) console.log('fixed.')
         res.status(200).send();

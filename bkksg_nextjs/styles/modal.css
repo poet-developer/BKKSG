@@ -5,16 +5,18 @@
   top: 0;
   right: 0;
   bottom: 0;
-  left: 0;
+  left: -1rem;
   z-index: 30;
 }
 
 .modal.openModal {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
-  align-items: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  height: 100%;
+  overflow: hidden;
+  overflow-y: scroll;
   background-color: rgba(70, 70, 70, 0.4);
   margin-left:1rem;
   /* 팝업이 열릴때 스르륵 열리는 효과 */
@@ -40,11 +42,16 @@
   }
 }
 
+.modal-container{
+  position: 'ralative'
+}
+
 .modal-section {
   position: relative;
   min-width: 80vw;
   max-width: 80vw;
   max-height: 80vh;
+  height: 100%;
   border-radius: 1rem;
   /* 팝업이 열릴때 스르륵 열리는 효과 */
   animation: modal-show 0.3s;
@@ -53,7 +60,7 @@
   box-shadow: 0 8px 30px 0 rgba(31, 38, 105, 0.2);
   backdrop-filter: blur(8px);
   scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
+  /* -webkit-overflow-scrolling: touch; */
 }
 
 @media (max-width : 500px) {
@@ -130,12 +137,14 @@
 }
 
 .project-header {
-  position: absolute;
+  position: relative;
   top: 0;
-  padding: 11rem 2.5rem;
   color: azure;
   width: 100%;
-  margin-top: -3rem;
+  height: 100%;
+  /* margin-top: -3rem; */
+  font-size: 24px;
+  font-family: WONBatang;
   background: linear-gradient( 90deg, rgba(131, 58, 180, 0.3) 0%, rgba(0, 0, 0, 0.5) 0%, rgba(252, 176, 69, 0) 70%)
 }
 

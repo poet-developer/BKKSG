@@ -12,6 +12,7 @@ const theme = {
     colors: {
       main: "#B3BFCE",
       content: "rgba(255,255,255,0.1)",
+      innerDetail: "rgba(169,180,195,1)",
       index: "rgba(245,245,230,1)",
       card: "rgba(155,160,180,0.5)",
       section: "rgba(100,110,130,1)",
@@ -26,6 +27,7 @@ const theme = {
 
     glass: {
       shadow: "0 8px 30px 0 rgba( 31, 38, 135, 0.37 )",
+      detailShadow: "0 8px 30px 0 rgba( 31, 38, 135, 0.37 )",
       filter: "blur( 4px )",
       border: {
         radius: "0.5rem",
@@ -46,6 +48,7 @@ const theme = {
 
     colors: {
       main: "rgba(11,39,51,1)",
+      innerDetail: "rgba(8,36,47,1)",
       content: "rgba(0,0,0,0.2)",
       index: "rgba(211,211,211,0.9)",
       section: "rgba(190,190,190,1)",
@@ -61,6 +64,7 @@ const theme = {
 
     glass: {
       shadow: "0 8px 30px 0 rgba( 31, 38, 135, 0.37 )",
+      detailShadow: "0 8px 30px 0 rgba( 0, 20, 10, 0.47 )",
       filter: "blur( 4px )",
       border: {
         radius: "0.5rem",

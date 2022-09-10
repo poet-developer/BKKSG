@@ -1,12 +1,30 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect} from 'react';
 import { useRouter } from 'next/router'
 import React from "react"
-import DetailTest from '../../src/Component/page/DetailTest';
+import DetailPage from '../../src/Component/page/DetailPage';
 import axios from 'axios'
 import Error from '../../src/Component/page/Error';
+import { CgChevronLeft } from "react-icons/cg";
+import VisualPage from '../../src/Component/page/VisualPage';
+import styled from 'styled-components';
+
+const BackButton = styled.div`
+  position: fixed;
+  left: 1.5rem;
+  top: 2.2rem;
+  transform: scale(2);
+  color: azure;
+  cursor: pointer;
+  z-index: 9;
+  opacity: 0.8;
+
+  &:hover{
+    opacity: 1;
+  }
+`
 
 function getContentDetail(props) {
-  const { themeMode, themeHandler, modalHandler} = props;
+  const { themeMode, detailHandler} = props;
   const [data, setData] = useState({})
   const router = useRouter()
   const id = router.query.id
@@ -14,9 +32,16 @@ function getContentDetail(props) {
   
   useEffect(()=> {
     callData(id);
-    modalHandler(); // hide header 
-    
+    detailHandler(true); // hide header 
   }, [])
+
+  const goBack = (e)=>{
+    try {
+    if (e) window.history.back()
+    }catch(err){
+      throw new Error("Failed to Go Back.")
+    }
+  }
 
   const callData = async(id) => {
     try{
@@ -31,9 +56,11 @@ function getContentDetail(props) {
               desc :res.data.description,
               topic : res.data.topic,
               src : res.data.cover_src,
+              link : res.data.link
             });
           }else{
-            router.push('/error')
+            alert('Unvaild Url.')
+            router.push('/')
           }
         })
     }catch(err){
@@ -42,32 +69,23 @@ function getContentDetail(props) {
     }
   }
 
+  const myLoader = ({ src }) => {
+    return `https://d2oispwivf10h4.cloudfront.net/w1024/${src}`
+  }
+
   return (
-    /** Need A Comp framing Content's detail.  **/
-       <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', width: '103vw', height: '85vh', border: "2px red solid"}}>
-      { data.topic === 'poem' || data.topic === 'essay'
+       <div className = "grid-item-content" style={{ flexDirection: 'column', padding:'0', marginRight: '-1rem'}}>
+      <BackButton onClick={goBack}><CgChevronLeft /></BackButton>
+      { data.topic === 'poem' || data.topic === 'essay' ||data.topic === 'project'
       ? 
-      <> 
-      <h1>{data.title}</h1>
-      <div style={{background : data.src }}>
-      <section dangerouslySetInnerHTML={{ __html: data.desc }}></section>
-      </div>
-      </>
+      <DetailPage themeMode ={themeMode} data ={data}/>
       //poem && essay && project COMP
       :
       // visual COMP
-      <>
-      <img className="visual-image" src={`https://d2oispwivf10h4.cloudfront.net/w1024/${data.src}`} alt ={data.topic}/>{data.title}
-      </> 
-      /** Need A Comp framing Content's detail.  **/
-    }
+      <VisualPage themeMode ={themeMode} data ={data}/>
+      }
     </div>
   )
 }
-
-
-getContentDetail.getInitialProps = async context => {
-  // this.setMode(context.mode)
-   }
 
 export default getContentDetail

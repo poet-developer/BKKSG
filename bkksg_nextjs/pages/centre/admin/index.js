@@ -7,6 +7,7 @@ import Pagination from "../../../src/Component/lib/Pagination";
 
 
 const Admin = (props) => {
+  const { detailHandler } = props;
   const [page, setPage] = useState(1) // Num
   const [mode, setMode] = useState("admin")//String
   const [data, setData] = useState({}) // Object
@@ -24,6 +25,7 @@ const Admin = (props) => {
 
   useEffect(()=>{
     getContentList();
+    detailHandler();
   },[])
 
   /** Get All Content List from DB */
@@ -61,6 +63,7 @@ const Admin = (props) => {
               title: _data.title,
               desc: _data.description,
               cover_src: _data.cover_src,
+              link: _data.link
             })
           })
           .catch(console.log)
@@ -113,18 +116,19 @@ const Admin = (props) => {
       _pre_data.push(value)
     }
     if (_pre_data[1] === "3" || _pre_data[1] === "4") {
-      _cover_src = _pre_data[5]
+      _cover_src = _pre_data[6]
       let _fileReader = new FileReader()
       _fileReader.readAsDataURL(_cover_src)
       _fileReader.onload = (e) => setImageURL(e.target.result)
     } else if (_pre_data[1] === "1" || _pre_data[1] === "2")
-      _cover_src = _pre_data[4]
+      _cover_src = _pre_data[5]
     setMode("preview")
     setPre_data({
       public: _pre_data[0],
       type: _pre_data[1],
       title: _pre_data[2],
       desc: _pre_data[3],
+      link: _pre_data[4],
       cover_src: _cover_src,
     });
     setFormData(_formData)
@@ -159,7 +163,7 @@ const Admin = (props) => {
     <div style = {{margin : '5rem 3rem', width: '90vw'}}>
       <h1 style = {{fontSize : '2rem'}}>
         <a href="./admin" style = {{margin: '0 1rem'}}>ADMIN</a>
-      </h1><br/>
+      </h1><br/><a href="../">Home</a><br/>
       <div style={{ border: "1px solid black" , padding : "1rem"}}>
         <h4>** Contents</h4><br/>
         <table data-admin="contents">

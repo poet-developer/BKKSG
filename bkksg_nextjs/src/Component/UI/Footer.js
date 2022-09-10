@@ -5,12 +5,14 @@ import Logo from "../lib/Header_Logo";
 import { FiInstagram } from "react-icons/fi";
 import { FaPinterest } from "react-icons/fa";
 import CanvasAni from "./CanvasAni";
+import Image from 'next/image';
+import opensea from'../../img/opensea.png';
 
 const FooterBtnGrid = styled.footer`
   grid-area: footerBtn;
   position: fixed;
   bottom: ${props => (props.pullUp ? "11.6rem" : "-3.3rem")};
-  left: calc(50% - 2rem);
+  left: calc(49% - 2rem);
   height: 5rem;
   width: 5rem;
   border-left: 60px solid transparent;
@@ -117,9 +119,10 @@ const LogoContainer = styled.div`
     padding: 0.7rem 0;
 
     .icon-item {
-      color: ${theme.common.color};
+      color: white;
       cursor: pointer;
-  }
+      opacity: 0.8
+    }
   }
 `;
 
@@ -207,6 +210,12 @@ const Footer = props => {
               target="_blank" rel="noopener noreferrer"
             >
               <FaPinterest size={35} />
+            </a>
+            <a className = "icon-item"
+              href="https://opensea.io/collection/bkksg"
+              target="_blank" rel="noopener noreferrer"
+            >
+              <Image alt="Opensea" layout="fixed" width={35} height={35} src={opensea}/>
             </a>
             <div style = {{ color: theme.common.color}}>
               <h5 style={{ marginBottom: "0.5rem" }}>| CONTACT US</h5>
