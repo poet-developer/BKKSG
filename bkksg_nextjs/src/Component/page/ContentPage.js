@@ -4,7 +4,7 @@ import Content from "../UI/Content";
 const ContentPage = (props) => {
   const [isOpen, setIsOpen] = useState(false)
   const [isModal, setIsModal] = useState(false)
-  const { themeMode, themeHandler, mode , detailHandler } = props //Theme Mode.
+  const { themeMode, mode , detailHandler, setCount, scrollPosition} = props //Theme Mode.
 
   return (
       <Content
@@ -17,6 +17,8 @@ const ContentPage = (props) => {
           if (is) setIsModal(true)
           else setIsModal(false)
         }}
+        setCount = {setCount}
+        scrollPosition = {scrollPosition}
       />
   );
 };

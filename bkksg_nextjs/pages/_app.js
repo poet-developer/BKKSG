@@ -79,11 +79,12 @@ function MyApp({ Component, pageProps }) {
 MyApp.getInitialProps = async context => {
   const {  ctx, Component } = context;
   let pageProps = {};
+  console.log('연구',Component)
   if (Component.getInitialProps ) {
     pageProps = await Component.getInitialProps(ctx);
     //실행 컴포넌트 렌더링 전에 컴포넌트의 다이나믹 라우팅 데이터(getInitialProps)를 읽어서 제일 먼저 데이터 넣어줌 -> 그후 렌더링 시킴
   }
-  return { props: { data: pageProps } }
+  return { props: { data: pageProps, scroll: '위치테스트' } }
 }
 
 

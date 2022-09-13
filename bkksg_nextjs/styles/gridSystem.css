@@ -13,26 +13,28 @@
   -webkit-user-select:none;
   -moz-user-select:none;
   -ms-user-select:none;
-  user-select:none
+  user-select:none;
 }
 
 .grid-item-sidebar {
   grid-area: sidebar;
   position: fixed;
   width: 9.3rem;
-  top: 3rem;
-  margin-top: -4rem;
-  height: 110vh;
+  top: 2rem;
+  margin-top: -5rem;
+  height: 130vh;
   z-index: 31;
   transition: 0.9s;
   overflow: hidden;
   overflow-y: scroll;
   scrollbar-width: none;
-  /* display: none; */
+  -ms-overflow-style: none;
 }
 
 .grid-item-sidebar::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera*/
+  /* -webkit-overflow-scrolling: touch; */
+  width: 0 !important;
 }
 
 .grid-item-header {
@@ -45,13 +47,14 @@
   width: 100vw;
   min-height: 100vh;
   height: 100%;
-  margin : 0.5rem 1rem ;
+  margin : 0.5rem 1rem 0rem 2rem ;
   padding: 1rem 1rem 0.5rem 1rem;
+  /* scrollbar-width: 0; */
 }
 
 .grid-item-content {
   grid-area: content;
-  padding: 1rem -1rem 0 0 ;
+  padding: 1rem 1.2rem 0 0 ;
   min-height: 100vh;
   height: 100%;
   width: 100vw;

@@ -4,6 +4,7 @@ import Logo from "../lib/Header_Logo";
 import Switch from "./Switch";
 import getTheme from "../lib/getTheme";
 import LocalStorage from "../lib/LocalStorage";
+import getRandomNum from "../lib/getRandomNum";
 
 const Glass = styled.div`
   padding: 0.2rem 0;
@@ -26,12 +27,8 @@ const Glass = styled.div`
   border-bottom: ${props => props.theme.glass.border.line};
 `;
 
-const getText = () => {
-  return Math.floor(Math.random() * 3 + 1);
-};
-
 const Header = props => {
-  let textVersion = getText();
+  let textVersion = getRandomNum(3);
   const [isChecked, setCheck] = useState(getTheme);
   const { themeMode, isDetail, themeHandler } = props;
 

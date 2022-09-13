@@ -166,7 +166,7 @@ const Footer = props => {
   const closeModal = () => {
     setModalOpen(false)
   };
-
+  
   useEffect(()=>{
     window.addEventListener("click", e => {
       windowClickCloseModal(e, closeModal);
@@ -241,15 +241,6 @@ const Footer = props => {
 
         <Copyright>@ 2022 Copyright All Rights Reserved By IROLIM</Copyright>
       </FooterCotainer>
-      {modalOpen ? (
-        <CanvasAni
-          themeMode={themeMode}
-          open={modalOpen}
-          close={closeModal}
-        ></CanvasAni>
-      ) : (
-        ""
-      )}
     </>
   );
 };

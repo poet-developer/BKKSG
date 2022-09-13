@@ -29,7 +29,6 @@ const SidebarGrid = styled.div`
   };
   opacity: ${props=>(props.isDetail? '0' : '1')};
 
-  -webkit-overflow-scrolling: touch;
 `;
 
 const OpenSideButton = styled.div`

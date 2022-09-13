@@ -26,8 +26,6 @@ left: 5rem;
 const MainContainer = styled.div`
 z-index: 2;
 width: 100%;
-// min-height: 100vh;
-// height:100%;
 line-height: 35px;
 font-family: "koreanMain";
 font-size: 17px;
@@ -54,7 +52,6 @@ const LogoFooter = styled.div`
 
 function getContentDetail(props) {
   const { themeMode, data} = props;
-  console.log(data.topic);
   return (
       <div>
       <DetailHeader src = {data.src} topic = {data.topic} imgSrc = {`url(https://d2oispwivf10h4.cloudfront.net/w1024/${data.src})`}>

@@ -7,6 +7,7 @@ import Error from '../../src/Component/page/Error';
 import { CgChevronLeft } from "react-icons/cg";
 import VisualPage from '../../src/Component/page/VisualPage';
 import styled from 'styled-components';
+import SessionStorage from '../../src/Component/lib/SessionStorage';
 
 const BackButton = styled.div`
   position: fixed;
@@ -23,21 +24,35 @@ const BackButton = styled.div`
   }
 `
 
+const DetailContainer = styled.div`
+animation: modal-show 0.3s;
+flex-direction: column; 
+padding: 0;
+marginRight: -1rem;
+
+`
+
 function getContentDetail(props) {
   const { themeMode, detailHandler} = props;
   const [data, setData] = useState({})
   const router = useRouter()
   const id = router.query.id
   const mode = router.query.mode
-  
+  const from = router.query.fr
   useEffect(()=> {
+    SessionStorage.setItem('sp',router.query.sp);
+    SessionStorage.setItem('cc',router.query.cc);
+    SessionStorage.setItem('saved','saved');
     callData(id);
     detailHandler(true); // hide header 
   }, [])
 
   const goBack = (e)=>{
     try {
-    if (e) window.history.back()
+    if (e) {
+      if(from !== 'home') router.push(`/${mode}`)
+      else router.push('/')
+    }
     }catch(err){
       throw new Error("Failed to Go Back.")
     }
@@ -69,23 +84,19 @@ function getContentDetail(props) {
     }
   }
 
-  const myLoader = ({ src }) => {
-    return `https://d2oispwivf10h4.cloudfront.net/w1024/${src}`
-  }
-
   return (
-       <div className = "grid-item-content" style={{ flexDirection: 'column', padding:'0', marginRight: '-1rem'}}>
+       <DetailContainer className = "grid-item-content">
       <BackButton onClick={goBack}><CgChevronLeft /></BackButton>
+      {/* 같은 뒤로가기 버튼  */}
       { data.topic === 'poem' || data.topic === 'essay' ||data.topic === 'project'
       ? 
-      <DetailPage themeMode ={themeMode} data ={data}/>
-      //poem && essay && project COMP
+      <DetailPage themeMode ={themeMode} data ={data}/> //poem && essay && project COMP
       :
-      // visual COMP
-      <VisualPage themeMode ={themeMode} data ={data}/>
+      <VisualPage themeMode ={themeMode} data ={data}/>// visual COMP
       }
-    </div>
+    </DetailContainer>
   )
+  
 }
 
 export default getContentDetail

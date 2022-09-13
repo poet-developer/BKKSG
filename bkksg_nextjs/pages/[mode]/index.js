@@ -1,28 +1,31 @@
 import { useRouter } from 'next/router'
-import React from "react"
-import ContentPage from '../../src/Component/page/ContentPage';
+import React, {useState, useEffect} from "react"
+import ContentPage from '../../src/Component/page/ContentPage'
+import SessionStorage from '../../src/Component/lib/SessionStorage';
+import CanvasAni from '../../src/Component/UI/CanvasAni'
 
 function TopicMode(props) {
   const { themeMode, themeHandler, detailHandler} = props;
   const router = useRouter()
   const mode = router.query.mode
+  const [scrollPosition,setSP] = useState(SessionStorage.getItem('sp'))
+  const [countCard, setCC] = useState(    SessionStorage.getItem('cc'))
+  useEffect(()=>{
+    window.scrollTo(0, scrollPosition)
+  },[])
 
   return (
+    <>
+    { mode === 'jogakbo'
+    ? <CanvasAni themeMode = {themeMode} detailHandler = {detailHandler}/>
+    :
     <ContentPage themeMode={themeMode} themeHandler={themeHandler} detailHandler={detailHandler}
+    scrollPosition = {scrollPosition}
+    setCount = {countCard}
     mode = {mode} />
+    }
+   </>
   )
-}
-
-
-TopicMode.getInitialProps = async context => {
-  // console.log(context);
-  // const {  ctx, Component } = context;
-  // let pageProps = {};
-  // if (Component.getInitialProps ) {
-    // pageProps = await Component.getInitialProps(ctx.query);
-    // 실행 컴포넌트 렌더링 전에 컴포넌트의 다이나믹 라우팅 데이터(getInitialProps)를 읽어서 제일 먼저 데이터 넣어줌 -> 그후 렌더링 시킴
-  // }
-  // return { props: { event: detailHandler ,data: pageProps } }
 }
 
 export default TopicMode

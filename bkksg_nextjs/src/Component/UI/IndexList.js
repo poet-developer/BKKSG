@@ -3,7 +3,7 @@ import styled from "styled-components";
 import theme from "../lib/theme";
 
 const List = styled.ul`
-  margin-top: 7rem;
+  margin-top: 5rem;
   transition: 2s;
   display: flex;
   justify-content: center;
@@ -27,8 +27,8 @@ const Anchor = styled.a`
     display: -ms-flexbox;
     display: flex;
 
-    margin: 2rem 0.5rem;
-    padding-left: 21%;
+    margin: 1.7rem 0.5rem;
+    padding-left: 17%;
     width: 70%;
     height: 20px;
     color: ${props => props.theme.colors.index};
@@ -52,14 +52,15 @@ const EN_NAME = styled.span`
 `;
 
 const IndexList = props => {
-  const names = [`모아보기`, "시조각", "글조각", "조각조각", "프로젝트"];
-  const paths = ["", "poem", "essay", "visual", "project"];
+  const names = [`모아보기`, "시조각", "글조각", "조각조각", "프로젝트", "조각보"];
+  const paths = ["", "poem", "essay", "visual", "project", "jogakbo"];
   const en_names = [
     "HOME",
     "SHI-JOGAK",
     "GEUL-JOGAK",
     "JOGAK-JOGAK",
     "PROJECT",
+    "JOGAK-BO"
   ];
   const nameList = names.map(name => (
     <li key={names.indexOf(name)}>

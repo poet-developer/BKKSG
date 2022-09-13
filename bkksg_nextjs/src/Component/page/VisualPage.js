@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { RiShoppingBag3Fill } from "react-icons/ri"
+import {HiOutlineShoppingCart } from "react-icons/hi"
+import theme from '../lib/theme';
 
 const ImageContainer = styled.div`
      position: absolute;
@@ -51,13 +52,14 @@ const ImageContainer = styled.div`
      `
      
      const Description = styled.section`
-     color: azure;
+     color: ${theme.common.color};
      font-size: 1rem;
      font-family: "koreanMain";
      font-style: italic;
-     margin-top: 0.7rem;
+     margin-top: 1.3rem;
      padding-left: 0.6rem;
      padding-bottom: 1rem;
+     opacity: 0.8;
      `
 
     const DESCContainer = styled.div`
@@ -72,11 +74,12 @@ const ImageContainer = styled.div`
 
      const LinkButton = styled.div`
      display: inline-block;
-     transform: translateY(4px);
+     transform: scale(1.3) translateY(3.5px);
      color: azure;
      cursor: pointer;
-     opacity: 0.7;
+     opacity: 0.6;
      padding-left: 0.7rem;
+     margin-left: 0.5rem;
      &:hover{
      opacity: 1;
      }
@@ -93,8 +96,20 @@ const ImageContainer = styled.div`
      border-radius: ${props => props.theme.glass.border.radius};
      `
 
+     const LogoFooter = styled.div`
+     width: 100vw;
+     text-align: center;
+     padding: 1rem 0rem 3rem 0;
+     font-size: 0.8rem;
+     margin-top: 0.5rem;
+     border-top: 0.1px solid rgba(240, 240, 240, 0.5);
+     color: rgba(240, 240, 240, 1);
+     opacity: 0.8;
+     font-family: "koreanMain";
+   `
+
 const VisualPage = (props) => {
-     const { data } = props;
+     const { data, themeMode } = props;
 
      const goLink = (e) => {
           try {
@@ -122,12 +137,13 @@ return(
             <Title>| {data.title}
             {data.link 
              ? <LinkButton onClick={goLink}>
-            <RiShoppingBag3Fill/>
+            <HiOutlineShoppingCart/>
             </LinkButton>
             : ''
             } 
             </Title>
             <Description dangerouslySetInnerHTML={{ __html: data.desc }}/>
+            <LogoFooter themeMode={themeMode}>비껴서기 | BKKSG</LogoFooter>
             </DESCItem>
           </DESCContainer >
         </DetailSection>

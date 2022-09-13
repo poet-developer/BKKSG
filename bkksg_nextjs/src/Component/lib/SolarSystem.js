@@ -1,7 +1,7 @@
 const drawSolarSystemAnimation = (cv, ctx, orbitRatio, planetRatio) => {
   const orbitIndex = { first: 1, fin: 11 }
   const centerPos = {
-    x: cv.width / 2.2,
+    x: cv.width / 2.3,
     y: cv.height / 2,
   }
   const orbitInterval = orbitRatio
@@ -389,29 +389,66 @@ const drawSolarSystemAnimation = (cv, ctx, orbitRatio, planetRatio) => {
     }
   }
 
+  const jogakBo = (ctx, pos, interval, index) => {
+    ctx.lineWidth = 1
+    const boColorPalette = [
+      '', // Mercury
+      '',
+      '',
+      'rgba(55,55,55,0.09)', // Venus
+      'rgba(57,137,55,0.09)', // Earth
+      'rgba(200,72,85,0.09)', // Mars
+      '', // Kuiper Belt
+      'rgba(156,83,41,0.09)', // Jupiter
+      'rgba(52,226,145,0.09)', // Saturn
+      'rgba(59,136,164,0.09)', // Uranus
+      'rgba(110,52,226,0.09)', // Nepture
+    ]
+    ctx.fillStyle = boColorPalette[index];
+    ctx.fill();
+    ctx.fillRect(
+      pos.x - (interval * index) / 2,
+      pos.y - (interval * index) / 2,
+      interval * index,
+      interval * index
+    );
+
+    ctx.fillStyle = "rgba(255,255,255,0.05)";
+    ctx.strokeRect(
+      pos.x - (interval * index) / 2,
+      pos.y - (interval * index) / 2,
+      interval * index,
+      interval * index
+    );
+  }
+
   const SolarSystem = {
     orbit: (ctx, interval) => {
       for (var i = orbitIndex.fin - 1; i > orbitIndex.first; i--) {
-        if (i === planetInitInfo[4].id) i--;
-        if (i === planetInitInfo[0].id) {
-          ctx.lineWidth = 2
-          ctx.strokeRect(
+        if (i === planetInitInfo[4].id) i--; // Kuiper Belt
+        if (i === planetInitInfo[0].id) { // Mercury
+          ctx.lineWidth = 1
+          ctx.fillStyle = "rgba(9,114,118,0.1)";
+          ctx.fill();
+          ctx.fillRect(
             centerPos.x - (interval * i) / (planetInitInfo[0].orbit * 2),
             centerPos.y - (interval * i) / (planetInitInfo[0].orbit * 2),
             (interval * i) / planetInitInfo[0].orbit,
             (interval * i) / planetInitInfo[0].orbit
           )
+          ctx.fillStyle = "rgba(255,255,255,0.05)";
+          ctx.strokeRect(
+            centerPos.x - (interval * i) / (planetInitInfo[0].orbit * 2),
+            centerPos.y - (interval * i) / (planetInitInfo[0].orbit * 2),
+            (interval * i) / planetInitInfo[0].orbit,
+            (interval * i) / planetInitInfo[0].orbit
+          );
           i--
         }
-
-        ctx.lineWidth = 2
-        ctx.strokeRect(
-          centerPos.x - (interval * i) / 2,
-          centerPos.y - (interval * i) / 2,
-          interval * i,
-          interval * i
-        );
-        ctx.fillStyle = "white";
+        
+        jogakBo(ctx, centerPos, interval, i);
+      
+        ctx.fillStyle = "white"; // Sun
         ctx.fill();
         ctx.fillRect(
           centerPos.x - interval / 2,
@@ -423,6 +460,7 @@ const drawSolarSystemAnimation = (cv, ctx, orbitRatio, planetRatio) => {
     },
 
     cometOrbit: (ctx, interval) => {
+      ctx.lineWidth = 1
       ctx.strokeRect(
         centerPos.x - (interval * 4.5) / 2,
         centerPos.y - (interval * 2) / 2,

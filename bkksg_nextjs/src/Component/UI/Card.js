@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import DetailModal from "./DetailModal";
-import VisualModal from "./VisualModal";
 import ImageLoader from "../lib/imageLoader";
 import { useRouter } from 'next/router'
 
@@ -60,11 +58,12 @@ const windowClickCloseModal = (e, cb) => {
 };
 
 const Card = props => {
-  const { data, mode, detailHandler, modalHandler, themeMode } = props;
+  const { data, mode, detailHandler, modalHandler, themeMode, infiniteCount } = props;
   const [modalOpen, setModalOpen] = useState(false);
   const [visualModal, setVisualOpen] = useState(false);
   let _topic;
   const router = useRouter();
+  const isServer = typeof window === "undefined";
 
   if (data) 
     if (data.topic === "poem") _topic = "시조각"
@@ -72,17 +71,17 @@ const Card = props => {
     else if (data.topic === "visual") _topic = "조각조각"
     else _topic = "프로젝트"
 
+  const savePos = () => {
+    if (isServer) return;
+  //서버면 종료
+    
+    let pageYOffset = window.pageYOffset;
+  // 페이지 오프셋
+    return pageYOffset
+  }  
   const openDetail = () => {
-    let _path = `/`+data.topic+`/`+String(data.id)
+    let _path = `/${data.topic}/${String(data.id)}?sp=${savePos()}&cc=${infiniteCount}&fr=${mode}` //RememberScroll(포지션, count)
     router.push(_path)
-    // setModalOpen(true)
-    // modalHandler(true)
-    // detailHandler(true)
-  };
-
-  const openVisualModal = () => {
-    setVisualOpen(true)
-    detailHandler(true)
   };
 
   const closeModal = () => {
@@ -92,14 +91,8 @@ const Card = props => {
   };
 
   useEffect(()=>{
-    // if(visualModal === false || modalOpen === false ){
-    //   detailHandler(false);
-    // }
+    console.log('현재모드',mode)
   },[])
-  // window.addEventListener("click", e => {
-  //   windowClickCloseModal(e, closeModal)
-  // });
-  // Close Modal by clicking window.
 
   return (
     <>
@@ -116,8 +109,7 @@ const Card = props => {
           className = "cover-content"
           topic={data.topic}
           mode={mode}
-          onClick={ data.topic === "visual" ? openDetail : openDetail
-          }
+          onClick={openDetail}
         >
           <ImageLoader
             imageUrl={`https://d2oispwivf10h4.cloudfront.net/w330/${data.src}`} alt = {data.title}
@@ -129,27 +121,6 @@ const Card = props => {
             </CardTitle>
           </ImgLabel>
         </CoverImgContent>
-      )}
-      {modalOpen ? (
-        <DetailModal
-          themeMode={themeMode}
-          open={modalOpen}
-          close={closeModal}
-          data ={data}
-        />
-      ) : (
-        ""
-      )}
-
-      {visualModal ? (
-        <VisualModal
-          themeMode={themeMode}
-          open={visualModal}
-          close={closeModal}
-          data={data}
-        />
-      ) : (
-        ""
       )}
     </>
   );
