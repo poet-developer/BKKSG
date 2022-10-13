@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 
-const ImageLoader = ({ imageUrl, alt }) => {
+const ImageLoader = ({ imageUrl, alt, mode }) => {
   const [isError, setIsError] = useState(false);
   const [hashedUrl, setHashedUrl] = useState(imageUrl);
   const styles = {
     display: isError ? "none" : "block",
-    borderRadius: "1rem",
+    borderRadius: mode ? '0' : "1rem",
     height: "100%",
     width: "100%",
-    objectFit: "cover",
+    objectFit: mode ? "cover" : "cover",
   };
   useEffect(() => {
     let intervalId;
@@ -20,6 +20,7 @@ const ImageLoader = ({ imageUrl, alt }) => {
     else setHashedUrl(imageUrl)
     return () => clearInterval(intervalId)
   }, [isError, setHashedUrl, imageUrl])
+
   return (
     <img
       style={styles}

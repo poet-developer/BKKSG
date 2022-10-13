@@ -4,6 +4,9 @@ import Update from "../../../src/Component/page/Update";
 import Create from "../../../src/Component/page/Create";
 import Preview from "../../../src/Component/page/Preview";
 import Pagination from "../../../src/Component/lib/Pagination";
+import SessionStorage from "../../../src/Component/lib/SessionStorage";
+import Login from "../../../src/Component/page/Login";
+import Auth from "../../../src/Component/lib/auth";
 
 
 const Admin = (props) => {
@@ -16,6 +19,8 @@ const Admin = (props) => {
   const [imageURL, setImageURL] = useState("") //String
   const [content, getContent] = useState("")
   const [type, getType] = useState("")
+  const [logined, setLogin] = useState(false)
+  
 
   let _contentLimit = 10
   let _offset = (page - 1) * _contentLimit
@@ -25,7 +30,9 @@ const Admin = (props) => {
 
   useEffect(()=>{
     getContentList();
-    detailHandler();
+    detailHandler(true);
+    if (SessionStorage.getItem("Admin") === "true") setLogin(true);
+    else setLogin(false);
   },[])
 
   /** Get All Content List from DB */
@@ -160,10 +167,22 @@ const Admin = (props) => {
     }
   };
   return (
+    logined ? 
+    <>
     <div style = {{margin : '5rem 3rem', width: '90vw'}}>
       <h1 style = {{fontSize : '2rem'}}>
         <a href="./admin" style = {{margin: '0 1rem'}}>ADMIN</a>
-      </h1><br/><a href="../">Home</a><br/>
+      </h1><br/><a href="../">Home</a>
+      <button
+            onClick={ e => {
+              e.preventDefault()
+              SessionStorage.setItem("Admin", false)
+              window.location.replace("/centre/admin")
+            }}
+            style = {{margin: '1rem'}}
+          >
+            Logout
+      </button>
       <div style={{ border: "1px solid black" , padding : "1rem"}}>
         <h4>** Contents</h4><br/>
         <table data-admin="contents">
@@ -249,6 +268,15 @@ const Admin = (props) => {
         ""
       )}
     </div>
+    </>
+    : 
+    <Login
+      login={Auth}
+      authenticated={data => {
+        SessionStorage.setItem("Admin", true)
+        window.location.replace("/centre/admin")
+      }}
+    ></Login>
   );
 };
 

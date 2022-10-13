@@ -32,16 +32,7 @@ const SidebarGrid = styled.div`
 `;
 
 const OpenSideButton = styled.div`
-  position: absolute;
-  left: 7rem;
-  top: 50%;
-  opacity: 0.7;
-  z-index: 20;
-  cursor: pointer;
-  margin: 1rem;
-  padding: 0.4rem 0 0 0;
   cursor: ${props=>(props.isDetail? 'default' : 'pointer')};
-  transform: scale(2);
   color: ${theme.common.little};
   &:hover {
     color: ${theme.common.color};
@@ -76,7 +67,7 @@ const Sidebar = props => {
           pullUp={isPullup}
           style={{ position: "relative" }}
         ></IndexList>
-        <OpenSideButton pullUp={isPullup} isDetail={isDetail}>
+        <OpenSideButton className="open-side-button" pullUp={isPullup} isDetail={isDetail}>
           {isPullup || windowWidth < theme.common.screen.max ? (
             <CgChevronLeft />
           ) : (

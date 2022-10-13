@@ -1,0 +1,23 @@
+.bo-container{
+width: 100vw;
+  height: 110vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.8rem;
+}
+
+.bo-back-btn{
+  position: fixed;
+  left: 1.5rem;
+  top: 2.2rem;
+  transform: scale(2);
+  color: azure;
+  cursor: pointer;
+  z-index: 9;
+  opacity: 0.8;
+
+}

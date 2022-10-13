@@ -62,7 +62,8 @@ const Loading = styled.div`
   }
 `;
 
-const Loader = () => {
+const Loader = (props) => {
+  const { state } = props
   return (
     <Loading>
       <div className="lds-ellipsis">

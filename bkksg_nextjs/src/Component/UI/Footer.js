@@ -4,27 +4,12 @@ import theme from "../lib/theme";
 import Logo from "../lib/Header_Logo";
 import { FiInstagram } from "react-icons/fi";
 import { FaPinterest } from "react-icons/fa";
-import CanvasAni from "./CanvasAni";
 import Image from 'next/image';
 import opensea from'../../img/opensea.png';
 
 const FooterBtnGrid = styled.footer`
   grid-area: footerBtn;
-  position: fixed;
   bottom: ${props => (props.pullUp ? "11.6rem" : "-3.3rem")};
-  left: calc(49% - 2rem);
-  height: 5rem;
-  width: 5rem;
-  border-left: 60px solid transparent;
-  border-right: 60px solid transparent;
-
-  transform: rotate(45deg);
-
-  z-index: 2;
-  border: none;
-
-  transition: 0.7s;
-
   background: ${props => props.theme.gradient.radial};
   box-shadow: ${props => props.theme.glass.shadow};
   backdrop-filter: ${props => props.theme.glass.filter};
@@ -32,17 +17,6 @@ const FooterBtnGrid = styled.footer`
   border-radius: ${props => props.theme.glass.border.radius};
 
   .contact {
-    position: relative;
-    left: -1rem;
-    top: -1rem;
-    line-height: 5rem;
-    font-size: 0.8rem;
-
-    font-family: EnglishMain;
-    font-weight: bold;
-    text-align: center;
-    transform: rotate(-45deg);
-    cursor: pointer;
     color: ${theme.common.little};
     &:hover {
       color: ${theme.common.color};
@@ -52,20 +26,7 @@ const FooterBtnGrid = styled.footer`
 
 const FooterCotainer = styled.div`
   grid-area: footer;
-  position: fixed;
-  left: -0.1rem;
-  padding: 1rem 1rem;
   bottom: ${props => (props.pullUp ? "0" : "-15rem")};
-  width: 100%;
-  height: 12.5rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  font-family: EnglishMain, KoreanMain;
-
-  gap: 2rem;
-  z-index: 3;
-  transition: 0.7s;
   background: ${props => props.theme.gradient.footer};
   box-shadow: ${props => props.theme.glass.shadow};
   backdrop-filter: ${props => props.theme.glass.filter};
@@ -75,14 +36,6 @@ const FooterCotainer = styled.div`
 `;
 
 const ArtistList = styled.ul`
-  list-style-type: none;
-  padding-top: 2.1rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  align-items: center;
-  min-width: 30%;
-
   .artist-part {
     flex: 1 0 150px;
     color: ${theme.common.color};
@@ -94,57 +47,14 @@ const ArtistList = styled.ul`
 `;
 
 const LogoContainer = styled.div`
-  flex: 0 1 120px;
-  margin-left: 1.5rem;
-  position: relative;
-  min-width: 230px;
-  padding-top: 2.7rem;
-
-  .logo-title {
-    position: absolute;
-    left: 130px;
-    top: 62px;
-    font-family: WONBatang;
-    font-weight: bolder;
-    font-size: 17px;
-
-    letter-spacing: 3px;
-    word-spacing: -7px;
-    color: ${theme.common.color};
-  }
-
-  .sns-icon {
-    display: flex;
-    gap: 1rem;
-    padding: 0.7rem 0;
-
-    .icon-item {
-      color: white;
-      cursor: pointer;
-      opacity: 0.8
+  .icon-item {
+    &: hover{
+      opacity: 1;
     }
   }
+
 `;
 
-const Copyright = styled.div`
-  position: absolute;
-  bottom: 0px;
-  right: 2.5rem;
-  text-align: end;
-  font-size: 11px;
-  color: ${theme.common.color};
-`;
-
-
-const pullUpFooter = (cb, win) => {
-  win.addEventListener("scroll", function () {
-    // let scrollLimitValue =
-    //   window.pageYOffset + window.innerHeight > window.innerHeight * 2.7
-    // if (scrollLimitValue) cb(true)
-    cb(false);
-  });
-  //Promise
-};
 
 const windowClickCloseModal = (e, cb) => {
   if (e.target.classList[0] === "openModal") cb()
@@ -153,7 +63,6 @@ const windowClickCloseModal = (e, cb) => {
 const Footer = props => {
   const [isOpen, setIsOpen] = useState(false) //Sidebar Hook
   const [modalOpen, setModalOpen] = useState(false)
-  const { themeMode } = props
   const openFooterHandler = e => {
     e.preventDefault()
     setIsOpen(!isOpen)
@@ -184,17 +93,18 @@ const Footer = props => {
   return (
       <>
       <FooterBtnGrid
+        className="footer-btn-grid"
         onClick={openFooterHandler}
         pullUp={isOpen ? true : false}
       >
-        <div className = 'contact'>CONTACT</div>
+      <div className = 'contact'>CONTACT</div>
       </FooterBtnGrid>
       ?{" "}
-      <FooterCotainer pullUp={isOpen ? true : false}>
+      <FooterCotainer className="footer-container" pullUp={isOpen ? true : false}>
         {/* 로고 */}
         <span style={{display: "none"}}>비껴서서 생각하고 설계하고 만드는 林이로의 움직이는 화랑| Poet, Essay, Art, Visual, Installation, Project</span>
-        <LogoContainer>
-          <div style={{ cursor: "pointer", marginLeft:'0.5rem'}} onClick={openModal}>
+        <LogoContainer className="footer-logo-container">
+          <div style={{ marginLeft:'0.5rem'}} onClick={openModal}>
             <Logo/>
           </div>
           <hr style={{ border: "0.1px solid white", marginTop: "1rem" }} />
@@ -224,7 +134,7 @@ const Footer = props => {
           </div>
         </LogoContainer>
         <section></section>
-        <ArtistList>
+        <ArtistList className="artist-ls">
           <nav className = "artist-part">
             <h4 className = "artist-role">| TECH</h4>
             <br />
@@ -239,7 +149,7 @@ const Footer = props => {
           </nav>
         </ArtistList>
 
-        <Copyright>@ 2022 Copyright All Rights Reserved By IROLIM</Copyright>
+        <div className="footer-copyright">@ 2022 Copyright All Rights Reserved By IROLIM</div>
       </FooterCotainer>
     </>
   );

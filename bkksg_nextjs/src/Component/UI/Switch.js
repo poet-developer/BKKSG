@@ -1,5 +1,3 @@
-import React from "react";
-
 const Switch = props => {
   const { isChecked, toggleHandler } = props;
 

@@ -1,13 +1,6 @@
 import db from '../../config/db'
-import {s3} from "../../config/aws"
-import mime from "mime-types"
-import multerS3 from "multer-s3"
-import uuid from 'react-uuid'
 import nextConnect from "next-connect";
 import multer from "multer";
-import path from "path"
-import dayjs from "dayjs";
-
 import {storageCover, filterPublic, NextConnextObj} from '../../src/Component/lib/storage'
    
    const updateProcess = nextConnect(NextConnextObj);

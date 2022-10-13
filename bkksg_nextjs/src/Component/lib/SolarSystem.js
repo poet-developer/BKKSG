@@ -1,4 +1,5 @@
 const drawSolarSystemAnimation = (cv, ctx, orbitRatio, planetRatio) => {
+
   const orbitIndex = { first: 1, fin: 11 }
   const centerPos = {
     x: cv.width / 2.3,
@@ -389,7 +390,7 @@ const drawSolarSystemAnimation = (cv, ctx, orbitRatio, planetRatio) => {
     }
   }
 
-  const jogakBo = (ctx, pos, interval, index) => {
+  const jogakBo = (ctx, pos, interval, index) => {;
     ctx.lineWidth = 1
     const boColorPalette = [
       '', // Mercury
@@ -469,7 +470,7 @@ const drawSolarSystemAnimation = (cv, ctx, orbitRatio, planetRatio) => {
       );
     },
   };
-
+  
   function Planet(initInfo, dot, originPosX, originPosY, orbitLength, speed) {
     this.initInfo = initInfo
     this.dot = dot

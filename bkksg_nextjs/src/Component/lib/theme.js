@@ -17,7 +17,8 @@ const theme = {
       card: "rgba(155,160,180,0.5)",
       section: "rgba(100,110,130,1)",
       hover: "rgba(200,200,210,0.3)",
-      modal: "azure",
+      modal: "rgba(225,235,240, 1)",
+      backBtn: "rgba(255,255,255,1)",
       detailHeader: {
         mid: "rgba(236,195,202, 0.6)",
         end: "rgba(226,220,185,0.5)",
@@ -28,6 +29,7 @@ const theme = {
     glass: {
       shadow: "0 8px 30px 0 rgba( 31, 38, 135, 0.37 )",
       detailShadow: "0 8px 30px 0 rgba( 31, 38, 135, 0.37 )",
+      searchItemShadow: "1px 1px 8px 8px rgba(100,110,140,0.4)",
       filter: "blur( 4px )",
       border: {
         radius: "0.5rem",
@@ -55,6 +57,7 @@ const theme = {
       card: "rgba(100,100,170,0.2)",
       hover: "rgba(100,100,170,0.4)",
       modal: "rgba(11,39,51,1)",
+      backBtn: "rgba(255,255,255,1)",
       detailHeader: {
         mid: "rgba(28,37,84,0.5)",
         end: "rgba(30,0,70,0.5)",
@@ -65,6 +68,7 @@ const theme = {
     glass: {
       shadow: "0 8px 30px 0 rgba( 31, 38, 135, 0.37 )",
       detailShadow: "0 8px 30px 0 rgba( 0, 20, 10, 0.47 )",
+      searchItemShadow: "1px 1px 8px 8px rgba(10,25,40,0.5)",
       filter: "blur( 4px )",
       border: {
         radius: "0.5rem",

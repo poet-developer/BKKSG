@@ -21,7 +21,8 @@ const LoginForm = ({ login, authenticated }) => {
   }
 
   return (
-    <div style = {{margin: '1rem'}}>
+    <div style = {{width: '100vw', height: '100vw', display: 'flex', justifyContent: 'center', alignItems: 'flex-start', marginTop: '2rem'}}>
+      <div>
       <h1 style = {{margin: '1rem 0', fontSize : "2rem"}} >Login</h1>
       <form onSubmit={handleSubmit}>
         <input
@@ -29,15 +30,16 @@ const LoginForm = ({ login, authenticated }) => {
           onChange={({ target: { value } }) => setId(value)}
           type="text"
           placeholder="id"
-        />
+        /><br/><br/>
         <input
           value={password}
           onChange={({ target: { value } }) => setPassword(value)}
           type="password"
           placeholder="password"
-        />
+        /><br/><br/>
         <input type="submit" value="Login" />
       </form>
+      </div>
     </div>
   );
 };

@@ -1,20 +1,40 @@
-import React, { useEffect, useState } from "react"
-import ContentPage from "../src/Component/page/ContentPage"
+import React, { useState } from "react"
+import Content from "../src/Component/UI/Content";
 import SessionStorage from "../src/Component/lib/SessionStorage";
+import axios from "axios";
+import HeadMeta from "../src/Component/lib/seo";
+
 
 function Bkksg(props) {
-  const { themeMode, themeHandler, detailHandler } = props;
-  const [scrollPosition,setSP] = useState( SessionStorage.getItem('sp'))
-  const [countCard, setCC] = useState(    SessionStorage.getItem('cc'))
+  const { themeMode, themeHandler, detailHandler, item } = props;
+  const [scrollPosition,setSP] = useState(SessionStorage.getItem('sp'))
+  const [countCard, setCC] = useState(SessionStorage.getItem('cc'))
 
   return (
-              <ContentPage themeMode={themeMode} themeHandler={themeHandler} detailHandler={
+    <>
+    <HeadMeta title={'BKKSG'}/>
+              <Content themeMode={themeMode} themeHandler={themeHandler} detailHandler={
                 detailHandler
               }
-              scrollPosition = {scrollPosition}
-              setCount = {countCard}
-              mode = "home" />
+              scrollPosition = {scrollPosition || '0'}
+              setCount = {countCard || null}
+              mode = "home"
+              data = {item ? item.contents : ''}
+              />
+    </>
   )
 }
 
 export default Bkksg
+
+export async function getServerSideProps(context){
+  const res = await axios.get("http://localhost:7272/api/getTypeContents/", {
+    params: {mode: '' },
+  })
+  const data = res.data
+  return {
+    props : {
+      item: data
+    }
+  }
+}

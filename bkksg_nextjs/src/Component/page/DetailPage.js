@@ -1,7 +1,7 @@
-import React, { useEffect } from "react"
-import Error from './Error';
+import React from "react"
 import styled  from "styled-components";
 import theme from '../lib/theme';
+import Parser from 'html-react-parser';
 
 const DetailHeader = styled.div`
   position: sticky;
@@ -20,15 +20,16 @@ const DetailHeader = styled.div`
 `
 const Title = styled.h4`
 position: absolute;
-top: ${props => props.topic === 'project' ? '10rem' : '4rem'};
-left: 5rem;
+top: ${props => props.topic === 'project' ? '10rem' : '2.5rem'};
+left: 4rem;
+width: 16rem;
+line-height: 2rem;
 `
 const MainContainer = styled.div`
 z-index: 2;
 width: 100%;
-line-height: 35px;
-font-family: "koreanMain";
-font-size: 17px;
+line-height: 2.2rem;
+font-size: 1.1rem;
 color: ${props => props.theme.colors.section};
 background: ${props => props.theme.colors.modal};
 -webkit-user-select:none;
@@ -38,23 +39,20 @@ user-select:none;
 `
 
 const MainItem = styled.section`
-padding: 3rem 4.5vw;
+padding: 1.2rem 4.5vw;
 min-height: 100vh;
 `
 
 const LogoFooter = styled.div`
-  width: 100vw;
-  text-align: center;
-  padding: 1rem 0rem 3rem 0;
-  font-size: 0.8rem;
-  border-top: ${props => props.theme === true ? "solid 0.1px rgba(200,200,200,0.3)" : "solid 0.1px rgba(200, 200, 200, 0.3)"};
+border-top: ${props => props.theme === true ? "solid 0.1px rgba(200,200,200,0.5)" : "solid 0.1px rgba(200, 200, 200, 0.5)"};
+
 `
 
 function getContentDetail(props) {
   const { themeMode, data} = props;
   return (
-      <div>
-      <DetailHeader src = {data.src} topic = {data.topic} imgSrc = {`url(https://d2oispwivf10h4.cloudfront.net/w1024/${data.src})`}>
+      <div className='modal-container'>
+      <DetailHeader src = {data.cover_src} topic = {data.topic} imgSrc = {data.cover_src ? `url(${process.env.NEXT_PUBLIC_REACT_AWS_CLOUDFRONT}w1024/${data.cover_src})`:''}>
       <div className = "project-header">
         <Title topic={data.topic}>
         {data.title}
@@ -62,8 +60,11 @@ function getContentDetail(props) {
       </div>
     </DetailHeader>
       <MainContainer>
-      <MainItem topic= {data.topic} dangerouslySetInnerHTML={{ __html: data.desc }}></MainItem>
-      <LogoFooter theme={themeMode}>비껴서기 | BKKSG</LogoFooter>
+      <MainItem topic= {data.topic} 
+      >
+        {Parser(data.description)}
+      </MainItem>
+      <LogoFooter className="logo-footer" theme={themeMode}>비껴서기 | BKKSG</LogoFooter>
       </MainContainer>
     </div>
   )

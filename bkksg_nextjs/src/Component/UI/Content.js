@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import Masonry from "react-masonry-css";
-import InfiniteScroll from "react-infinite-scroll-component";
-import axios from "axios";
 import Card from "./Card";
 import Loader from "../lib/Loader";
 import SessionStorage from "../lib/SessionStorage";
@@ -16,14 +14,16 @@ const Contents = styled.nav`
 `;
 // the Second big container
 
-const Content = props => {
-  const { mode, themeMode, detailHandler, modalHandler, setCount, scrollPosition } = props;
+const Content = (props) => {
+  const { mode, themeMode, detailHandler, setCount, scrollPosition, data } = props;
   const defaultCount = 10;
-  const loadingTime = 900;
+  const loadingTime = 600;
   const [cards, setCard] = useState([]);
   const [page, setPage] = useState(1);
-  const [more, setMore] = useState(true);
+  const [more, setMore] = useState(false)
+  const [loaded, setLoadState] = useState(false);
   const [infiniteCount, setDefaultCount] = useState( setCount ? Number(setCount) : defaultCount)// 스크롤 기억하기 조건 1.
+  const pageEnd = useRef(null);
   let allCovers = [];
   let preCovers;
   const MasonryInfo = {
@@ -36,68 +36,85 @@ const Content = props => {
     infiniteCount: infiniteCount,
   }
 
+
   useEffect(() => {
-    fetchCards()
-    detailHandler(false);
-    // setDefaultCount(2);
-    console.log('현재 카드 개수',setCount);
-  }, []);
+    detailHandler(false)
+    setMore(true) 
+    if(data.length === cards.length) setLoadState(true)
+  }
+  ,[cards.length]);
 
-  const fetchCards = async(count = MasonryInfo.infiniteCount) => {
+  const loadMore =  () => {
+    setPage(page+1)
+  }
+
+  useEffect(() => {
+    if(more) {
+      const observer = new IntersectionObserver( entries => {
+        if(entries[0].isIntersecting){
+          fetchCards(MasonryInfo.infiniteCount, data)
+          loadMore();
+          if (allCovers.length <= page * MasonryInfo.infiniteCount){
+          observer.unobserve(pageEnd.current)
+          setLoadState(false)
+          }
+          setMore(false)
+        }
+      }, {threshold : 1})
+      observer.observe(pageEnd.current)
+    }
+  },[more])
+
+
+
+  const fetchCards = async(count, data) => {
     try{
-    await axios
-      .get("/api/getTypeContents/", {
-        params: { mode: mode },
-      })
-      .then((res) => {
-        allCovers = res.data.contents.map((content) => {
-          return {
-            id: content.id,
-            title: content.title,
-            desc: content.description,
-            topic: content.topic,
-            src: content.cover_src,
-          };
-        });
-        preCovers = allCovers.slice(
-          (page - 1) * count,
-          (page - 1) * count + count
-        );
+      allCovers = await data.map((content) => {
+        return {
+          id: content.id,
+          title: content.title,
+          desc: content.description,
+          topic: content.topic,
+          src: content.cover_src,
+        };
+      });
 
+      preCovers = data.slice(
+        (page - 1) * count,
+        (page - 1) * count + count
+      );
         setTimeout(() => {
           setCard([...cards, ...preCovers]);
-          setPage(page + 1);
-          if (allCovers.length <= (page - 1) * count + count) setMore(false);
+          setMore(true)
+          if (allCovers.length <= page * count) setMore(false)
         }, loadingTime);
-      })
-      .finally(
-        () => {
-          if(SessionStorage.getItem('saved') !== null){
-            setTimeout(() => {
-              window.scrollTo(0, Number(scrollPosition));
-              SessionStorage.setItem('cc', defaultCount);
-              SessionStorage.removeItem('sp');
-            }, 1200);
-            SessionStorage.removeItem('saved');
-          }
-        }
-      );
+
+        movedScroll()
+        .then(()=>{
+          
+        })
+
   }catch(err){
       console.log(err)
       throw new Error(err)
   }
 }
 
+const movedScroll = async() => {
+  if(SessionStorage.getItem('saved') !== null){
+    setTimeout(() => {
+      window.scrollTo(0, Number(scrollPosition));
+      SessionStorage.setItem('cc', defaultCount);
+      SessionStorage.removeItem('sp');
+    }, 1200);
+    SessionStorage.removeItem('saved');
+  }
+}
+
+
   return (
       <Layout className="grid-item-content" backgroundMode={themeMode}>
         <Contents className = "contents-in-layout" mode={mode}>
-          <InfiniteScroll
-          style={{overflow:"hidden"}}
-            dataLength={cards.length}
-            next={fetchCards}
-            hasMore={more}
-            loader={<Loader/>}
-          >
             <Masonry
               breakpointCols={MasonryInfo.breakPoint}
               className="my-masonry-grid"
@@ -112,17 +129,17 @@ const Content = props => {
                   detailHandler={is => {
                     detailHandler(is);
                   }}
-                  modalHandler={modalHandler}
                   infiniteCount={
                     cards.length
                   }
                 />
               ))}
             </Masonry>
-          </InfiniteScroll>
+          <span style={loaded ? {display:"none"} : {display: "auto"}}><Loader/></span>
+        <div ref = {pageEnd}/>
         </Contents>
       </Layout>
   );
 };
-
 export default Content
+

@@ -1,24 +1,13 @@
 import React, { useRef, useEffect } from "react";
 import styled from "styled-components";
-import theme from "../lib/theme";
 import drawSolarSystemAnimation from "../lib/SolarSystem";
 import { CgChevronLeft } from "react-icons/cg";
 import { useRouter } from 'next/router'
 import getRandomNum from '../lib/getRandomNum'
 
 const Bo = styled.div`
-  width: 100vw;
-  height: 110vh;
-  background-image: url('/jogakbo/${getRandomNum(10)}.jpg');
-  backrgound-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1.5rem;
-
   animation: modal-show 0.3s;
+  background-image: url('/jogakbo/${getRandomNum(10)}.jpg');
   @media (max-width: 850px) {
     overflow: hidden;
     overflow-y: scroll;
@@ -26,26 +15,7 @@ const Bo = styled.div`
   }
 `
 
-const Cutton = styled.div`
- position: absolute;
- top:0;
- left:0;
- height: 111vh;
- width: 100vw;
- padding: 1rem;
- background: rgba(10,10,10,0.3);
-`
-
 const BackButton = styled.div`
-  position: fixed;
-  left: 1.5rem;
-  top: 2.2rem;
-  transform: scale(2);
-  color: azure;
-  cursor: pointer;
-  z-index: 9;
-  opacity: 0.8;
-
   &:hover{
     opacity: 1;
   }
@@ -72,7 +42,7 @@ const CanvasAni = props => {
   let canvasRef = useRef();
   let canvas;
   let ctx;
-  const { themeMode, detailHandler } = props;
+  const { detailHandler } = props;
   const router = useRouter()
 
   let canvasInfo = checkWidth();
@@ -85,7 +55,6 @@ const CanvasAni = props => {
   }
 
   const drawLogo = () => {
-    //canvas
     drawSolarSystemAnimation(canvas, ctx, canvasInfo.orbitRatio, canvasInfo.planetRatio);
   };
 
@@ -97,9 +66,8 @@ const CanvasAni = props => {
   }, []);
 
   return (
-      <Bo>
-        <BackButton onClick={goBack}><CgChevronLeft /></BackButton>
-        <Cutton/>
+      <Bo className="bo-container">
+        <BackButton className="bo-back-btn" onClick={goBack}><CgChevronLeft /></BackButton>
             <canvas
               style={{zIndex: '3', display: 'relative'}}
               color={props.color}
@@ -107,7 +75,7 @@ const CanvasAni = props => {
               width={canvasInfo.x}
               height={canvasInfo.y}
               >
-              </canvas>
+             </canvas>
       </Bo>
   );
 };

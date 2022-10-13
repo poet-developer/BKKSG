@@ -1,0 +1,174 @@
+
+
+.modal {
+     font-family: WONBatang;
+     display: none;
+     position: fixed;
+     top: 0;
+     right: 0;
+     bottom: 0;
+     left: -1rem;
+     z-index: 30;
+   }
+   
+   .modal.openModal {
+     display: flex;
+     justify-content: center;
+     align-items: flex-start;
+     background-color: rgba(70, 70, 70, 0.4);
+     margin-left:1rem;
+     /* 팝업이 열릴때 스르륵 열리는 효과 */
+     animation: modal-bg-show 0.3s;
+     backdrop-filter: blur(8px);
+   }
+   @keyframes modal-show {
+     from {
+       margin-bottom: -100px;
+     }
+     to {
+       margin-top: 0;
+     }
+   }
+   @keyframes modal-bg-show {
+     from {
+       opacity: 0;
+     }
+     to {
+       opacity: 1;
+     }
+   }
+   
+   .modal-container{
+     position: 'ralative';
+     font-family: "koreanMain";
+   }
+   
+   .modal-section {
+     position: relative;
+     min-width: 80vw;
+     max-width: 80vw;
+     
+     border-radius: 1rem;
+     margin-top: -1rem;
+     /* 팝업이 열릴때 스르륵 열리는 효과 */
+     animation: modal-show 0.3s;
+   
+     box-shadow: 0 8px 30px 0 rgba(31, 38, 105, 0.2);
+     backdrop-filter: blur(8px);
+     scrollbar-width: none;
+     /* -webkit-overflow-scrolling: touch; */
+   }
+   
+   @media (max-width : 500px) {
+     .modal-section {
+       min-width: 100vw;
+       margin-top: 0;
+     }
+   }
+   
+   .modal-section::-webkit-scrollbar {
+     display: none; /* Chrome, Safari, Opera*/
+   }
+
+   .modal-header {
+     position: sticky;
+     z-index: 5;
+     min-height: 1rem;
+     top: 0;
+     padding: 1rem 0 1rem 2rem;
+     font-weight: 700;
+     font-size: 21px;
+     margin-bottom: -3rem;
+   }
+
+   .search-container{
+    padding: 0;
+    margin-right: -1rem;
+    padding-bottom: 3rem;
+    width: 100%;
+    border-radius: 1rem;
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   }
+
+   .search-input {
+     border: none;
+     border-radius: 0;
+     padding-bottom: 0.3rem;
+     margin-top: 2rem;
+     max-width: 50vw;
+     width: 17rem;
+     height: 2rem;
+     background-color: transparent;
+     font-size: 1rem;
+     outline: none;
+     font-family: "koreanMain";
+     color: azure;
+   }
+
+   .search-submitBtn{
+     width: 45px;
+     height: 2.4rem;
+     background-color: transparent;
+     font-size: 30px;
+     vertical-align: top;
+     border: none;
+     border-radius: 0;
+     cursor: pointer;
+   }
+
+   .search-result-container {
+     width: 90%;
+     max-width: 1024px;
+     height: 90vh;
+     margin-bottom: 4rem;
+     border-radius: 1rem;
+     margin-top: 1.5rem;
+     overflow: hidden;
+     overflow-y: scroll;
+     scrollbar-width: none;
+     
+     display: flex;
+     flex-direction: column;
+   }
+
+   .search-result-item {
+     flex: 0 0 7rem;
+     height: 7rem;
+     width: 100%;
+     margin-bottom: 2rem;
+     border-radius: 1rem;
+     overflow: hidden;
+     cursor: pointer;
+     font-size: 4rem;
+   }
+
+   .result-item-container{
+     position: relative;
+     display: flex;
+     height: 100%;
+     align-items: stretch;
+     position: relative;
+     color: azure;
+   }
+
+   .result-item-image-title { 
+     position: absolute;
+     top: 2.2rem;
+     left: 1rem;
+     font-weight: bold;
+   }
+
+   .result-item-desc{
+     display: -webkit-box;
+     -webkit-box-orient: vertical;
+     -webkit-line-clamp: 3;
+     overflow: hidden;
+     margin: 1.5rem 1.5rem 0 1rem ;
+     height: 60px;
+     flex: 1 0 10rem;
+   }

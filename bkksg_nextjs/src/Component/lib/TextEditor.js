@@ -92,7 +92,7 @@ const TextEditor = props => {
   let selectTypes, _selectedType
   const UPDATE = "update"
   const apiKey = process.env.NEXT_PUBLIC_REACT_APP_TINY_EDITOR
-  // 장르 선택 옵션
+  // 장르 선택 옵션 
   selectTypes = typeList.map(type => {
     if (mode === UPDATE) {
       if (type.id === genre) _selectedType = type.id;
@@ -207,20 +207,18 @@ const TextEditor = props => {
           init={{
             width: 900,
             height: 500,
-            menubar: true,
+            toolbar_sticky: true,
             plugins: [
-              "advlist autolink lists link image",
-              "charmap print preview anchor help",
-              "searchreplace visualblocks code insertdatetime",
-              "media table paste wordcount",
+              'advlist', 'autolink', 'lists', 'link', 'image', 'charmap',
+              'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+              'insertdatetime', 'media', 'table', 'preview', 'help', 'wordcount'
             ],
-            toolbar:
-              "undo redo | formatselect | bold italic | \
-                alignleft aligncenter alignright | \
-                bullist numlist outdent indent | help",
-
+            toolbar: 'undo redo | blocks | ' +
+              'bold italic forecolor | alignleft aligncenter ' +
+              'alignright alignjustify | bullist numlist outdent indent | ' +
+              'removeformat | help',
             content_style:
-              "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+              "body { font-family:Helvetica,Arial,sans-serif; font-size:14px; }",
             a11y_advanced_options: true,
           }}
           onChange={handleEditorChange}
