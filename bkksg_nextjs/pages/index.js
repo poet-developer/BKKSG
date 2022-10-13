@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import Content from "../src/Component/UI/Content";
 import SessionStorage from "../src/Component/lib/SessionStorage";
 import axios from "axios";
-import HeadMeta from "../src/Component/lib/seo";
+import HeadMeta from "../src/Component/lib/SEO";
 
 
 function Bkksg(props) {

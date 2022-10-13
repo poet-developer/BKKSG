@@ -7,7 +7,7 @@ import { CgChevronLeft } from "react-icons/cg"
 import VisualPage from '../../src/Component/page/VisualPage'
 import styled from 'styled-components'
 import SessionStorage from '../../src/Component/lib/SessionStorage'
-import HeadMeta from '../../src/Component/lib/seo'
+import HeadMeta from '../../src/Component/lib/SEO'
 
 const BackButton = styled.div`
   color: ${props => props.theme.colors.backBtn}

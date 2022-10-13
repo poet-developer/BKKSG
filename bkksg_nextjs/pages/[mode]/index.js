@@ -5,7 +5,7 @@ import SessionStorage from '../../src/Component/lib/SessionStorage'
 import CanvasAni from '../../src/Component/UI/CanvasAni'
 import axios from "axios"
 import styled from 'styled-components'
-import HeadMeta from '../../src/Component/lib/seo'
+import HeadMeta from '../../src/Component/lib/SEO'
 
 const Jogakbo = styled.div`
 position: absolute;
