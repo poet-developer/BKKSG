@@ -45,8 +45,8 @@ function MyApp(
         <meta property="og:title" content={`비껴서기 | BKKSG`} />
         <meta property="og:site_name" content={`비껴서기 | BKKSG`} />
         <meta property="og:description" content={`비껴서기 | BKKSG : 林이로가 비껴서서 생각하고 설계하고 만드는, 움직이는 화랑 | 글, 시각, 설치, 기획`}/>
-        <meta property="og:image" content={ cover ? `${process.env.NEXT_PUBLIC_REACT_AWS_CLOUDFRONT}w330/${cover}`: '/bkksg_thumbnail.png' }/>
-        <meta property="og:url" content={id ? url : `http://bkksg.com/`} />
+        <meta property="og:image" content={'/bkksg_thumbnail.png' }/>
+        <meta property="og:url" content={`http://bkksg.com/`} />
         <meta property="og:image:width" content="1200"/>
         <meta property="og:image:height" content="630"/>
         <meta name="twitter:card" content="summary"/>
