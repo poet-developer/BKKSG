@@ -1,4 +1,5 @@
 import Head from "next/head";
+import thumbnail from'../../img/bkksg_thumbnail.png';
 
 const HeadMeta = ({ title, topic, id, cover, url}) => {
   return (
@@ -30,18 +31,18 @@ const HeadMeta = ({ title, topic, id, cover, url}) => {
         <meta property="og:title" content={`비껴서기 | ${title}`} />
         <meta property="og:site_name" content={`비껴서기 | ${title}`} />
         <meta property="og:description" content={id ? `${title} | ${topic}` :`林이로가 비껴서서 생각하고 설계하고 만드는, 움직이는 화랑 | 글, 시각, 설치, 기획`}/>
-        <meta property="og:image" content={ cover ? `${process.env.NEXT_PUBLIC_REACT_AWS_CLOUDFRONT}w330/${cover}`: '/bkksg_thumbnail.png'}/>
+        <meta property="og:image" content={ cover ? `${process.env.NEXT_PUBLIC_REACT_AWS_CLOUDFRONT}w330/${cover}`: thumbnail}/>
         <meta property="og:url" content={id ? url : `http://bkksg.com/`} />
         <meta property="og:image:width" content="1200"/>
         <meta property="og:image:height" content="630"/>
         <meta name="twitter:card" content="summary"/>
         <meta name="twitter:title" content={`비껴서기 | ${title}`} />
         <meta name="twitter:description" content={id ? `${title} | ${topic}`:`林이로가 비껴서서 생각하고 설계하고 만드는, 움직이는 화랑 | 글, 시각, 설치, 기획`}/>
-        <meta name="twitter:image" content={cover ? `${process.env.NEXT_PUBLIC_REACT_AWS_CLOUDFRONT}w330/${cover}`: '/bkksg_thumbnail.png'}/>
+        <meta name="twitter:image" content={cover ? `${process.env.NEXT_PUBLIC_REACT_AWS_CLOUDFRONT}w330/${cover}`: thumbnail}/>
         <meta name="naver-site-verification" content={process.env.NEXT_PUBLIC_REACT_NAVER_SITE_VERIFICATION} />
 
         <link rel="canonical" href={id ? url : `http://bkksg.com/`} />
-        <link rel="shortcut icon" href="/favicon.ico"/>
+        <link rel="icon" sizes="32x32" href="/favicon.ico"/>
     </Head>
   );
 };
