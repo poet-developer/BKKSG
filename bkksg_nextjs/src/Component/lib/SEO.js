@@ -41,7 +41,7 @@ const HeadMeta = ({ title, topic, id, cover, url}) => {
         <meta name="naver-site-verification" content={process.env.NEXT_PUBLIC_REACT_NAVER_SITE_VERIFICATION} />
 
         <link rel="canonical" href={id ? url : `http://bkksg.com/`} />
-        <link rel="icon" sizes="32x32" href="/favicon.ico"/>
+        <link rel="icon" href="/favicon.ico"/>
     </Head>
   );
 };

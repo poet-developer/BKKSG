@@ -2,7 +2,6 @@ import React, { useState } from "react"
 import Content from "../src/Component/UI/Content";
 import SessionStorage from "../src/Component/lib/SessionStorage";
 import axios from "axios";
-import HeadMeta from "../src/Component/lib/SEO";
 
 
 function Bkksg(props) {
@@ -12,7 +11,6 @@ function Bkksg(props) {
 
   return (
     <>
-    <HeadMeta title={'BKKSG'}/>
               <Content themeMode={themeMode} themeHandler={themeHandler} detailHandler={
                 detailHandler
               }

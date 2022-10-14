@@ -15,6 +15,7 @@ import getTheme from '../src/Component/lib/getTheme'
 import Header from "../src/Component/UI/Header"
 import Footer from "../src/Component/UI/Footer"
 import Sidebar from "../src/Component/UI/Sidebar"
+import HeadMeta from "../src/Component/lib/SEO"
 
 function MyApp(
   { Component, pageProps }
@@ -38,6 +39,7 @@ function MyApp(
   
   return (
     <ThemeProvider theme={themeMode ? theme.night : theme.day}>
+    <HeadMeta title={'BKKSG'}/>
     <div className="grid-container">
     <Header
       themeMode={themeMode}
