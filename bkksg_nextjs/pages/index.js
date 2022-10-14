@@ -11,6 +11,7 @@ function Bkksg(props) {
 
   return (
     <>
+    {/* <HeadMeta title={'BKKSG'}/> */}
               <Content themeMode={themeMode} themeHandler={themeHandler} detailHandler={
                 detailHandler
               }

@@ -16,6 +16,7 @@ import Header from "../src/Component/UI/Header"
 import Footer from "../src/Component/UI/Footer"
 import Sidebar from "../src/Component/UI/Sidebar"
 import HeadMeta from "../src/Component/lib/SEO"
+import Head from "next/head";
 
 function MyApp(
   { Component, pageProps }
@@ -39,7 +40,24 @@ function MyApp(
   
   return (
     <ThemeProvider theme={themeMode ? theme.night : theme.day}>
-    <HeadMeta title={'BKKSG'}/>
+    <Head>
+    <meta property="og:type" content="website" />
+        <meta property="og:title" content={`비껴서기 | BKKSG`} />
+        <meta property="og:site_name" content={`비껴서기 | BKKSG`} />
+        <meta property="og:description" content={`비껴서기 | BKKSG : 林이로가 비껴서서 생각하고 설계하고 만드는, 움직이는 화랑 | 글, 시각, 설치, 기획`}/>
+        <meta property="og:image" content={ cover ? `${process.env.NEXT_PUBLIC_REACT_AWS_CLOUDFRONT}w330/${cover}`: '/bkksg_thumbnail.png' }/>
+        <meta property="og:url" content={id ? url : `http://bkksg.com/`} />
+        <meta property="og:image:width" content="1200"/>
+        <meta property="og:image:height" content="630"/>
+        <meta name="twitter:card" content="summary"/>
+        <meta name="twitter:title" content={`비껴서기 | BKKSG`} />
+        <meta name="twitter:description" content={`비껴서기 | BKKSG : 林이로가 비껴서서 생각하고 설계하고 만드는, 움직이는 화랑 | 글, 시각, 설치, 기획`}/>
+        <meta name="twitter:image" content={'/bkksg_thumbnail.png' }/>
+        <meta name="naver-site-verification" content={process.env.NEXT_PUBLIC_REACT_NAVER_SITE_VERIFICATION} />
+
+        <link rel="canonical" href={`http://bkksg.com/`} />
+        <link rel="icon" href="/favicon.ico"/>
+    </Head>
     <div className="grid-container">
     <Header
       themeMode={themeMode}
