@@ -29,8 +29,6 @@ function getContentDetail(props) {
       SessionStorage.removeItem('cc');
       SessionStorage.removeItem('saved');
     }
-    console.log(item.id)
-    
   },[])
 
   

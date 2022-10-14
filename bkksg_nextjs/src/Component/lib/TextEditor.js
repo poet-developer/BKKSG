@@ -199,6 +199,7 @@ const TextEditor = props => {
           
         </div>
         <br />
+        <input style= {{marginTop : "1rem"}} type="submit" value={mode === UPDATE ? "고치기" : "만들기"} />
         <Editor
           apiKey={apiKey}
           initialValue={
@@ -225,7 +226,7 @@ const TextEditor = props => {
         />
         {/* 이미지 html */}
         {/* {_imginfo} */}
-        <input style= {{marginTop : "1rem"}} type="submit" value={mode === UPDATE ? "고치기" : "만들기"} />
+        
       </form>
     </label>
   );
