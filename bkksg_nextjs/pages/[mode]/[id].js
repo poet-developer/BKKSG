@@ -29,6 +29,7 @@ function getContentDetail(props) {
       SessionStorage.removeItem('cc');
       SessionStorage.removeItem('saved');
     }
+    console.log(item.id)
     
   },[])
 
@@ -53,7 +54,7 @@ function getContentDetail(props) {
 
   return (
       <div className = "grid-item-content detail-container">
-        <HeadMeta title={item.title} topic={item.topic} id={true}/>
+        <HeadMeta title={item.title} topic={item.topic} cover ={item.topic === 'poem' || item.topic === 'essay' ? null : item.cover_src} url = {`http://bkksg.com/${mode}/${item.id}`} id={true}/>
         <BackButton className='backBtn'
         onClick={goBack}
         // href={from !== 'home' ? `/${mode}` : '/'}
