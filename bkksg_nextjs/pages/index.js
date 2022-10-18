@@ -44,7 +44,7 @@ export async function getServerSideProps(context){
       site_name: "비껴서기",
       images: [
         {
-          url: "/thumbnail/bkksg_thumbnail.png",
+          url: "./public/thumbnail/bkksg_thumbnail.png",
           width: 1200,
           height: 630,
           alt: "BKKSG"
