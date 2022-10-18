@@ -32,7 +32,7 @@ function TopicMode(props) {
 
   return (
     <>
-    {/* <HeadMeta title={mode.toUpperCase()}/> */}
+    <HeadMeta title={mode.toUpperCase()}/>
     { mode === 'jogakbo'
     ? <Jogakbo><Cutton/><CanvasAni themeMode = {themeMode} detailHandler = {detailHandler}/></Jogakbo>
     :

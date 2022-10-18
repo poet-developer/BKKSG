@@ -3,16 +3,14 @@ import Head from "next/head";
 const HeadMeta = ({ title, topic, id, cover, url}) => {
   return (
     <Head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-     <meta name="viewport" content="width=device-width, initial-scale=1" />
-     <meta name="theme-color" content="#000000" />
-     <title>{`비껴서기 | ${title}`}</title>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+     <meta name="theme-color" content="#4B3872"/>
+     <title>{id ? `${title} | BKKSG`: `비껴서기 | ${title}`}</title>
         <meta name="title" content = {
              id
              ?`${title} | ${topic}`
-             :`비껴서기 | ${title}`}/>
-        <meta name="theme-color" content="#4B3872"
-        media="(prefers-color-scheme: dark)"/>
+             :`${title} | 비껴서기`}/>
         <meta name="description" itemprop="description" content={
           id?
           `${title} | ${topic} | 林이로가 비껴서서 생각하고 설계하고 만드는, 움직이는 화랑 | 글, 시각, 설치, 기획` 
@@ -27,11 +25,11 @@ const HeadMeta = ({ title, topic, id, cover, url}) => {
         <meta http-equiv="Email" content="bkksg.studio@gmail.com" />
 
         <meta property="og:type" content="website" />
-        <meta property="og:title" content={`비껴서기 | ${title}`} />
-        <meta property="og:site_name" content={`비껴서기 | ${title}`} />
+        <meta property="og:title" content={`${title} | 비껴서기`} />
+        <meta property="og:site_name" content={`${title} | 비껴서기`} />
         <meta property="og:description" content={id ? `${title} | ${topic}` :`林이로가 비껴서서 생각하고 설계하고 만드는, 움직이는 화랑 | 글, 시각, 설치, 기획`}/>
         <meta property="og:image" content={ cover ? `${process.env.NEXT_PUBLIC_REACT_AWS_CLOUDFRONT}w330/${cover}`: 'https://bkksg-images.s3.ap-northeast-2.amazonaws.com/ProjectImages_highquality/bkksg_thumbnail.png' }/>
-        <meta property="og:url" content={id ? url : `http://bkksg.com/`} />
+        <meta property="og:url" content={id ? url : `https://bkksg.com/`} />
         <meta property="og:image:width" content="1200"/>
         <meta property="og:image:height" content="630"/>
         <meta name="twitter:card" content="summary"/>
@@ -40,7 +38,7 @@ const HeadMeta = ({ title, topic, id, cover, url}) => {
         <meta name="twitter:image" content={cover ? `${process.env.NEXT_PUBLIC_REACT_AWS_CLOUDFRONT}w330/${cover}`: 'https://bkksg-images.s3.ap-northeast-2.amazonaws.com/ProjectImages_highquality/bkksg_thumbnail.png' }/>
         <meta name="naver-site-verification" content={process.env.NEXT_PUBLIC_REACT_NAVER_SITE_VERIFICATION} />
 
-        <link rel="canonical" href={id ? url : `http://bkksg.com/`} />
+        <link rel="canonical" href={id ? url : `https://bkksg.com/`} />
         <link rel="icon" href="/favicon.ico"/>
     </Head>
   );

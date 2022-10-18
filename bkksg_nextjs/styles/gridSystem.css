@@ -58,9 +58,10 @@
   width: 100vw;
   min-height: 100vh;
   height: 100%;
-  margin : 0.5rem 0rem 0rem 0rem ;
+  margin : 0.5rem 0rem 0rem 2rem ;
   padding: 1rem 0.5rem 0 0rem;
 }
+
 
 .grid-item-content {
   grid-area: content;
@@ -76,6 +77,10 @@
 @media (max-width : 600px) {
   .grid-item-content {
     padding: 1rem 1rem 1.5rem 1rem ;
+  }
+
+  .contents-in-layout {
+    margin : 0.5rem 0rem 0rem 0.5rem ;
   }
 }
 
