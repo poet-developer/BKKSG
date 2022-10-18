@@ -80,10 +80,11 @@ function MyApp(
           description: "비껴서기 | BKKSG : 林이로가 비껴서서 생각하고 설계하고 만드는, 움직이는 화랑 | 글, 시각, 설치, 기획",
           images: [
             {
-              url: "thumbnail/bkksg_thumbnail.png",
+              url: "https://bkksg.com/thumbnail/bkksg_thumbnail.png",
               width: 800,
               height: 420,
               alt: "BKKSG",
+              type: 'image/png',
             },
           ],
         }}
