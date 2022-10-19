@@ -15,7 +15,6 @@ import getTheme from '../src/Component/lib/getTheme'
 import Header from "../src/Component/UI/Header"
 import Footer from "../src/Component/UI/Footer"
 import Sidebar from "../src/Component/UI/Sidebar"
-import HeadMeta from "../src/Component/lib/SEO"
 
 function MyApp(
   { Component, pageProps }
