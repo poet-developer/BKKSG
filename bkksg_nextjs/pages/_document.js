@@ -32,8 +32,16 @@ class CustomDocument extends Document {
 
   render() {
     return (
-      <Html>
-        <Head />
+      <Html lang='ko'>
+        <Head>
+          <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+          <meta name="viewport" content="width=device-width, initial-scale=1"/>
+          <meta name="theme-color" content="#4B3872"/>
+          <meta property="og:image" content={'https://bkksg-images.s3.ap-northeast-2.amazonaws.com/ProjectImages_highquality/bkksg_thumbnail.png' }/>
+          <meta property="og:image:width" content="1200"/>
+          <meta property="og:image:height" content="630"/>
+          <meta name="twitter:image" content={'https://bkksg-images.s3.ap-northeast-2.amazonaws.com/ProjectImages_highquality/bkksg_thumbnail.png' }/>
+        </Head>
         <body>
           <Main />
           <NextScript />
