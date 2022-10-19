@@ -40,7 +40,6 @@ function MyApp(
   
   return (
     <ThemeProvider theme={themeMode ? theme.night : theme.day}>
-      <HeadMeta query = {router.query}/>
     <div className="grid-container">
     <Header
       themeMode={themeMode}
