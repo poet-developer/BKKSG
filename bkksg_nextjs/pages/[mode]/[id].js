@@ -18,7 +18,6 @@ function getContentDetail(props) {
   const router = useRouter()
   const mode = router.query.mode
   const from = router.query.fr
-  console.log(from)
   useEffect(()=> {
     SessionStorage.setItem('sp',router.query.sp);
     SessionStorage.setItem('cc',router.query.cc);
