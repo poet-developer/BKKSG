@@ -1,7 +1,6 @@
 import Head from "next/head";
 
 const HeadMeta = ({ query, title, topic, id, cover, url}) => {
-  console.log(query)
   return (
     <Head>
      <title>{id ? `${title} | BKKSG`: `비껴서기 | ${title}`}</title>
