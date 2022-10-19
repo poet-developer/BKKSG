@@ -36,11 +36,11 @@ class CustomDocument extends Document {
     return (
       <Html lang='ko'>
         <Head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta httpEquiv="Content-Type" content="text/html; charset=utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta name="theme-color" content="#4B3872"/>
         <meta name="author" content="IROLIM"/>
-        <meta http-equiv="Email" content="bkksg.studio@gmail.com" />
+        <meta httpEquiv="Email" content="bkksg.studio@gmail.com" />
         <meta property="og:type" content="website" />
         <meta property="og:image:width" content="1200"/>
         <meta property="og:image:height" content="630"/>
@@ -73,4 +73,4 @@ class CustomDocument extends Document {
 
 }
 
-export default CustomDocument;
+export default CustomDocument

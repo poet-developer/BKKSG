@@ -6,7 +6,7 @@ import HeadMeta from "../src/Component/lib/SEO"
 
 
 function Bkksg(props) {
-  const { themeMode, themeHandler, detailHandler, item, seoData } = props;
+  const { themeMode, themeHandler, detailHandler, item } = props;
   const [scrollPosition,setSP] = useState(SessionStorage.getItem('sp'))
   const [countCard, setCC] = useState(SessionStorage.getItem('cc'))
 

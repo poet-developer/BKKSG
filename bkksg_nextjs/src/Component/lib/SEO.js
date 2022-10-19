@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-const HeadMeta = ({ query, title, topic, id, cover, url}) => {
+const HeadMeta = ({ title, topic, id, cover, url}) => {
   return (
     <Head>
      <title>{id ? `${title} | BKKSG`: `비껴서기 | ${title}`}</title>

@@ -18,6 +18,7 @@ function getContentDetail(props) {
   const router = useRouter()
   const mode = router.query.mode
   const from = router.query.fr
+  console.log(from)
   useEffect(()=> {
     SessionStorage.setItem('sp',router.query.sp);
     SessionStorage.setItem('cc',router.query.cc);
@@ -36,10 +37,10 @@ function getContentDetail(props) {
     try {
     if (e) {
       if(from !== 'home') {
-        if(from !== undefined)
+        if(from !== undefined){
         router.push(`/${mode}`)
-        else{
-          router.push(`/${SessionStorage.getItem('mode')}`)
+        }else{
+          router.push( SessionStorage.getItem('mode')!== null ? `/${SessionStorage.getItem('mode')}` : '/')
           SessionStorage.removeItem('mode')
         }
       }
