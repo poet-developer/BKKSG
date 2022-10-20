@@ -129,7 +129,7 @@ const Footer = props => {
             </a>
             <div style = {{ color: theme.common.color}}>
               <h5 style={{ marginBottom: "0.5rem" }}>| CONTACT US</h5>
-              <span style={{letterSpacing : "0.15rem", fontSize: "0.9rem"}}>bkksg.studio@gmail.com</span>
+              <span style={{letterSpacing : "0.10rem", fontSize: "0.8rem"}}>bkksg.studio@gmail.com</span>
             </div>
           </div>
         </LogoContainer>
