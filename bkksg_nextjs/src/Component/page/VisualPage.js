@@ -3,29 +3,44 @@ import {HiOutlineShoppingCart } from "react-icons/hi"
 import theme from '../lib/theme'
 
 const ImageContainer = styled.div`
-     background-image : ${props => props ? `url(${process.env.NEXT_PUBLIC_REACT_AWS_CLOUDFRONT}w1024/${props.src})` : ``};
-     cursor: ${props => props.isCursor ? 'pointer' : 'auto'};
+      background-image : ${props => props ? `url(${process.env.NEXT_PUBLIC_REACT_AWS_CLOUDFRONT}w1024/${props.src})` : ``};
+     `
+const Cursor = styled.div`
+    position: absolute;
+    top: 0;
+    z-index: 2;
+    width: 80vw;
+    height: 100%;
+    cursor: ${props => props.isCursor ? 'pointer' : 'auto'};
+
+    @media screen and (max-width: 600px) {
+      top: 8rem;
+      width: 60vw;
+      height: 70vh;
+    }
+`
+const DetailSection = styled.div`
+      background: ${props => props.theme.colors.innerDetail};
      `
      
-     const DetailSection = styled.div`
-     background: ${props => props.theme.colors.innerDetail};
-     `
-     
-     const Description = styled.section`
-     color: ${theme.common.color};
-     margin-top: 1.3rem;
-     padding: 0 2rem 0 1.5rem;
-     opacity: 0.8;
+const Description = styled.section`
+      color: ${theme.common.color};
+      margin-top: 1.3rem;
+      padding: 0 2rem 0 1.5rem;
+      opacity: 0.8;
      `
 
-     const LinkButton = styled.div`
+const LinkButton = styled.div`
      &:hover{
-     opacity: 1;
+      opacity: 1;
      }
      `
 
-     const VisualModal = styled.div`
+const VisualModal = styled.div`
      position: relative;
+     display: flex;
+     justify-content: center;
+     align-items: center;
      width: 100vw;
      height: 90vh;
      background : ${props => props.theme.colors.main};
@@ -35,7 +50,7 @@ const ImageContainer = styled.div`
      border-radius: ${props => props.theme.glass.border.radius};
      `
 
-     const LogoFooter = styled.div`
+const LogoFooter = styled.div`
      border-top: solid 0.1px rgba(240, 240, 240, 0.2);
      color: rgba(240, 240, 240, 1);
    `
@@ -68,9 +83,10 @@ return(
             </div>
           </div>
         </DetailSection>
-      <VisualModal >
-      <ImageContainer onClick={data.link ? goLink : null} isCursor ={data.link ? true : false} className='img-container' src = {data.cover_src ? data.cover_src : ''}/>
-      <div className="visual-logo-sticker"> 비껴서기 | BKKSG</div>
+      <VisualModal>
+        <Cursor isCursor ={data.link ? true : false} onClick={data.link ? goLink : null}/>
+        <ImageContainer className='img-container' src = {data.cover_src ? data.cover_src : ''}/>
+        <div className="visual-logo-sticker"> 비껴서기 | BKKSG</div>
       </VisualModal>
       </div>
 )

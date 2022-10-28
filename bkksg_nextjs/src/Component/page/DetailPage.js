@@ -45,7 +45,6 @@ min-height: 100vh;
 
 const LogoFooter = styled.div`
 border-top: ${props => props.theme === true ? "solid 0.1px rgba(200,200,200,0.5)" : "solid 0.1px rgba(200, 200, 200, 0.5)"};
-
 `
 
 function getContentDetail(props) {

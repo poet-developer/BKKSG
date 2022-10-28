@@ -172,7 +172,7 @@ const Admin = (props) => {
     <div style = {{margin : '5rem 3rem', width: '90vw'}}>
       <h1 style = {{fontSize : '2rem'}}>
         <a href="./admin" style = {{margin: '0 1rem'}}>ADMIN</a>
-      </h1><br/><a href="../">Home</a>
+      </h1><br/><a href="/">Home</a>
       <button
             onClick={ e => {
               e.preventDefault()
