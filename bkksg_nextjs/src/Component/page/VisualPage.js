@@ -77,7 +77,7 @@ return(
               } 
             </h1>
             <Description 
-            style={{padding: '0 2rem 0 1.5rem'}}
+            style={{padding: '0 2rem 0.7rem 1.5rem'}}
             dangerouslySetInnerHTML={{ __html: data.description }}/>
             <LogoFooter className="logo-footer" themeMode={themeMode}>비껴서기 | BKKSG</LogoFooter>
             </div>

@@ -195,6 +195,12 @@ em {
 	transition: 0.7s;
 }
 
+@media (max-width : 600px) {
+	.footer-container {
+		margin-left: -1.5rem;
+	}
+}
+
 .artist-ls{
 	list-style-type: none;
 	padding-top: 2.1rem;
@@ -205,9 +211,17 @@ em {
 	min-width: 30%;
 }
 
+@media (max-width : 700px) {
+	.artist-ls {
+		text-align: right;
+		margin-right: 2rem;
+		gap: 1rem;
+	}
+}
+
 .footer-logo-container{
 	flex: 0 1 120px;
-	margin-left: 1.5rem;
+	margin-left: 1rem;
 	position: relative;
 	min-width: 230px;
 	padding-top: 2.7rem;
@@ -238,6 +252,22 @@ em {
 	opacity: 0.7;
    }
 
+   @media (max-width : 600px) {
+	.footer-logo-container {
+		margin-top: -2rem;
+		margin-left: 1rem;
+	}
+
+	.footer-logo-container .icon-item{
+		margin-top: -0.5rem;
+	   }
+	
+	.footer-logo-container .contact-email {
+		margin-top: 3rem;
+		margin-left: -13rem;
+	}
+   }
+
 .footer-copyright{
 	position: absolute;
 	bottom: 0px;
@@ -245,4 +275,11 @@ em {
 	text-align: end;
 	font-size: 11px;
 	color: azure;
+}
+
+
+@media (max-width : 600px) {
+	.footer-copyright {
+		right: 1rem;
+	}
 }

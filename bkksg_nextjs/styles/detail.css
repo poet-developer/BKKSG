@@ -5,6 +5,11 @@
   margin-right: -1rem;
 }
 
+.modal-container{
+  width: 100vw;
+  margin-right: -1.5rem;
+}
+
 .visual-content {
   overflow: hidden;
   overflow-y: scroll; 

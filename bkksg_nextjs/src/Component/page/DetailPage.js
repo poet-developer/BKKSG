@@ -22,7 +22,7 @@ const Title = styled.h4`
 position: absolute;
 top: ${props => props.topic === 'project' ? '10rem' : '2.5rem'};
 left: 4rem;
-width: 16rem;
+width: 14rem;
 line-height: 2rem;
 `
 const MainContainer = styled.div`

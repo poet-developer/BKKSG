@@ -4,6 +4,7 @@ import theme from "../lib/theme";
 import Logo from "../lib/Header_Logo";
 import { FiInstagram } from "react-icons/fi";
 import { FaPinterest } from "react-icons/fa";
+import { GrTwitter } from "react-icons/gr";
 import Image from 'next/image';
 import opensea from'../../img/opensea.png';
 
@@ -110,10 +111,16 @@ const Footer = props => {
           <hr style={{ border: "0.1px solid white", marginTop: "1rem" }} />
           <div className = "sns-icon">
             <a className = "icon-item"
-              href="https://www.instagram.com/bkksg.studio/"
+              href="https://www.instagram.com/bkksgstudio/"
               target="_blank" rel="noopener noreferrer"
             >
               <FiInstagram size={36} />
+            </a>
+            <a className = "icon-item"
+              href="https://twitter.com/bkksgstudio/"
+              target="_blank" rel="noopener noreferrer"
+            >
+            <GrTwitter size={36} />
             </a>
             <a className = "icon-item"
               href="https://www.pinterest.co.kr/bkksgstudio/bkksg_assets/"
@@ -127,7 +134,7 @@ const Footer = props => {
             >
               <Image alt="Opensea" layout="fixed" width={35} height={35} src={opensea}/>
             </a>
-            <div style = {{ color: theme.common.color}}>
+            <div className="contact-email" style = {{ color: theme.common.color}}>
               <h5 style={{ marginBottom: "0.5rem" }}>| CONTACT US</h5>
               <span style={{letterSpacing : "0.10rem", fontSize: "0.8rem"}}>bkksg.studio@gmail.com</span>
             </div>
