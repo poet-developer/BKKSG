@@ -151,7 +151,7 @@ const Footer = props => {
             <h4 className = "artist-role">| CONTENT</h4>
             <br />
             <li>
-            <span style={{ fontFamily: "KoreanMain" }}>林이로</span> | IROLIM
+            <span style={{ fontFamily: "KoreanMain" }}>이로</span> | IRO
             </li>
           </nav>
         </ArtistList>

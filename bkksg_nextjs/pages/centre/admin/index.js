@@ -13,13 +13,14 @@ const Admin = (props) => {
   const { detailHandler } = props;
   const [page, setPage] = useState(1) // Num
   const [mode, setMode] = useState("admin")//String
-  const [data, setData] = useState({}) // Object
+  const [data, setData] = useState([]) // Object
   const [pre_data, setPre_data] = useState({})
   const [formData, setFormData] = useState({}) //Object
   const [imageURL, setImageURL] = useState("") //String
   const [content, getContent] = useState("")
   const [type, getType] = useState("")
   const [logined, setLogin] = useState(false)
+  const [list, setList] = useState("");
   
 
   let _contentLimit = 10
@@ -82,8 +83,8 @@ const Admin = (props) => {
   /** */
 
   /** Pagination */
-  if (content) {
-    if (page) {
+  if (content && page) {
+    if (list === '') {
       _contentList = content
         .slice(_offset, _offset + _contentLimit)
         .map(list => {
@@ -108,6 +109,35 @@ const Admin = (props) => {
             </tbody>
           )
      })
+    }else{
+        _contentList = content.filter(item => {
+            if(item === "") return item;
+            else if(item.title.toLowerCase()
+                    .includes(list.toLowerCase()) || item.description.toLowerCase()
+                    .includes(list.toLowerCase())) return item   
+        }).map(item => {
+          return (
+         <tbody key={item.id}>
+           <tr>
+                <td> </td>
+                <td>{item.topic} </td>
+                <td>
+                  <a
+                    onClick={e => {
+                      e.preventDefault();
+                      readPreviewProcess(item.id, "read");
+                    }}
+                    href="/"
+                  >
+                    {item.title}
+                  </a>
+                </td>
+                <td style = {{paddingLeft: '1rem'}}>{list.public === 1 ? "O" : "X"}</td>
+              </tr><tr style = {{display: "block", marginBottom : "1rem"}}></tr>
+        </tbody>
+          )
+        }
+      )
     }
   }
   /** Pagination */
@@ -184,7 +214,14 @@ const Admin = (props) => {
             Logout
       </button>
       <div style={{ border: "1px solid black" , padding : "1rem"}}>
-        <h4>** Contents</h4><br/>
+        <h4>** Contents</h4>
+        <form style={{textAlign:'right'}}>
+        <span>Search : </span><input onChange={
+                e=>{
+                  setList(e.target.value);
+              }} type='text' 
+              placeholder={"제목·내용으로 조각 찾기"}/>
+        </form><br/>
         <table data-admin="contents">
           <thead>
             <tr>
@@ -196,12 +233,16 @@ const Admin = (props) => {
           </thead>
           {_contentList}
         </table>
+        {list === ''
+        ?
         <Pagination
           total={_posts.length}
           limit={_contentLimit}
           page={page}
           setPage={setPage}
         />
+        :''
+        }
       </div>
       <hr/>
       {/* 'create'모드 만드는 버튼 */}
