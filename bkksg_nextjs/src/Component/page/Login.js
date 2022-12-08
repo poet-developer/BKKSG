@@ -23,6 +23,7 @@ const LoginForm = ({ login, authenticated }) => {
   return (
     <div style = {{width: '100vw', height: '100vw', display: 'flex', justifyContent: 'center', alignItems: 'flex-start', marginTop: '2rem'}}>
       <div>
+      <a href="/">Home</a>
       <h1 style = {{margin: '1rem 0', fontSize : "2rem"}} >Login</h1>
       <form onSubmit={handleSubmit}>
         <input

@@ -47,8 +47,7 @@ const LogoFooter = styled.div`
 border-top: ${props => props.theme === true ? "solid 0.1px rgba(200,200,200,0.5)" : "solid 0.1px rgba(200, 200, 200, 0.5)"};
 `
 
-function getContentDetail(props) {
-  const { themeMode, data} = props;
+function getContentDetail({ themeMode, data}) {
   return (
       <div className='modal-container'>
       <DetailHeader src = {data.cover_src} topic = {data.topic} imgSrc = {data.cover_src ? `url(${process.env.NEXT_PUBLIC_REACT_AWS_CLOUDFRONT}w1024/${data.cover_src})`:''}>

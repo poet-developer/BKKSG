@@ -7,27 +7,37 @@ import Pagination from "../../../src/Component/lib/Pagination";
 import SessionStorage from "../../../src/Component/lib/SessionStorage";
 import Login from "../../../src/Component/page/Login";
 import Auth from "../../../src/Component/lib/auth";
+import {TableIndex, TableContent} from "../../../src/Component/UI/Table";
+import styled from "styled-components";
 
+const Container = styled.div`
+  margin : 5rem 3rem; 
+  width: 90vw;
+`
 
-const Admin = (props) => {
-  const { detailHandler } = props;
-  const [page, setPage] = useState(1) // Num
-  const [mode, setMode] = useState("admin")//String
-  const [data, setData] = useState([]) // Object
+const ListSection = styled.section`
+  border: 1px solid black; 
+  padding : 1rem;
+`
+
+const Admin = ({ detailHandler }) => {
+  const [page, setPage] = useState(1) 
+  const [mode, setMode] = useState("admin")
+  const [data, setData] = useState([]) 
   const [pre_data, setPre_data] = useState({})
-  const [formData, setFormData] = useState({}) //Object
-  const [imageURL, setImageURL] = useState("") //String
+  const [formData, setFormData] = useState({})
+  const [imageURL, setImageURL] = useState("")
   const [content, getContent] = useState("")
   const [type, getType] = useState("")
   const [logined, setLogin] = useState(false)
   const [list, setList] = useState("");
   
 
-  let _contentLimit = 10
-  let _offset = (page - 1) * _contentLimit
-  let _contentList
-  let _cover_src
-  let _posts = []
+  let contentLimit = 10
+  let offset = (page - 1) * contentLimit
+  let contentList
+  let cover_src
+  let posts = []
 
   useEffect(()=>{
     getContentList();
@@ -85,63 +95,28 @@ const Admin = (props) => {
   /** Pagination */
   if (content && page) {
     if (list === '') {
-      _contentList = content
-        .slice(_offset, _offset + _contentLimit)
-        .map(list => {
+      contentList = content
+        .slice(offset, offset + contentLimit)
+        .map(item => {
           return (
-            <tbody key={list.id}>
-              <tr>
-                <td> </td>
-                <td>{list.topic} </td>
-                <td>
-                  <a
-                    onClick={e => {
-                      e.preventDefault();
-                      readPreviewProcess(list.id, "read");
-                    }}
-                    href="/"
-                  >
-                    {list.title}
-                  </a>
-                </td>
-                <td style = {{paddingLeft: '1rem'}}>{list.public === 1 ? "O" : "X"}</td>
-              </tr><tr style = {{display: "block", marginBottom : "1rem"}}></tr>
-            </tbody>
+            <TableContent data = {item} read = {readPreviewProcess} />
           )
      })
     }else{
-        _contentList = content.filter(item => {
+        contentList = content.filter(item => {
             if(item === "") return item;
             else if(item.title.toLowerCase()
                     .includes(list.toLowerCase()) || item.description.toLowerCase()
                     .includes(list.toLowerCase())) return item   
         }).map(item => {
           return (
-         <tbody key={item.id}>
-           <tr>
-                <td> </td>
-                <td>{item.topic} </td>
-                <td>
-                  <a
-                    onClick={e => {
-                      e.preventDefault();
-                      readPreviewProcess(item.id, "read");
-                    }}
-                    href="/"
-                  >
-                    {item.title}
-                  </a>
-                </td>
-                <td style = {{paddingLeft: '1rem'}}>{list.public === 1 ? "O" : "X"}</td>
-              </tr><tr style = {{display: "block", marginBottom : "1rem"}}></tr>
-        </tbody>
+          <TableContent data = {item} read = {readPreviewProcess}/>
           )
         }
       )
     }
   }
   /** Pagination */
-
   const btnHandler = e => {
     e.preventDefault()
     setMode(e.target.dataset.mode)
@@ -153,12 +128,12 @@ const Admin = (props) => {
       _pre_data.push(value)
     }
     if (_pre_data[1] === "3" || _pre_data[1] === "4") {
-      _cover_src = _pre_data[6]
       let _fileReader = new FileReader()
-      _fileReader.readAsDataURL(_cover_src)
+      cover_src = _pre_data[6]
+      _fileReader.readAsDataURL(cover_src)
       _fileReader.onload = (e) => setImageURL(e.target.result)
     } else if (_pre_data[1] === "1" || _pre_data[1] === "2")
-      _cover_src = _pre_data[5]
+      cover_src = _pre_data[5]
     setMode("preview")
     setPre_data({
       public: _pre_data[0],
@@ -166,7 +141,7 @@ const Admin = (props) => {
       title: _pre_data[2],
       desc: _pre_data[3],
       link: _pre_data[4],
-      cover_src: _cover_src,
+      cover_src: cover_src,
     });
     setFormData(_formData)
   };
@@ -174,12 +149,10 @@ const Admin = (props) => {
   const createProcess = async () => {
     try {
       await axios
-        .post("/api/create_process", formData)
-        .then(setMode(""))
+        .post("/api/create_process", formData).then(setMode(""))
       alert("Uploaded!")
       window.location.replace("/centre/admin")
     } catch (err) {
-      console.log(err)
       throw new Error(err)
     }
   }
@@ -192,16 +165,16 @@ const Admin = (props) => {
         .catch(console.log)
         .finally(window.location.replace("/centre/admin"));
     } catch (err) {
-      console.error(err)
       throw new Error(err)
     }
   };
   return (
     logined ? 
     <>
-    <div style = {{margin : '5rem 3rem', width: '90vw'}}>
+    <Container style = {{margin : '5rem 3rem', width: '90vw'}}>
+      <header>
       <h1 style = {{fontSize : '2rem'}}>
-        <a href="./admin" style = {{margin: '0 1rem'}}>ADMIN</a>
+        <a href="./admin">ADMIN</a>
       </h1><br/><a href="/">Home</a>
       <button
             onClick={ e => {
@@ -213,43 +186,24 @@ const Admin = (props) => {
           >
             Logout
       </button>
-      <div style={{ border: "1px solid black" , padding : "1rem"}}>
-        <h4>** Contents</h4>
-        <form style={{textAlign:'right'}}>
-        <span>Search : </span><input onChange={
-                e=>{
-                  setList(e.target.value);
-              }} type='text' 
-              placeholder={"제목·내용으로 조각 찾기"}/>
-        </form><br/>
-        <table data-admin="contents">
-          <thead>
-            <tr>
-              <th> / </th>
-              <th style = {{paddingRight: '2rem'}}>type</th>
-              <th>title</th>
-              <th>public</th>
-            </tr><tr style = {{ display: "block", marginBottom : "1rem" }}></tr>
-          </thead>
-          {_contentList}
-        </table>
+      </header>
+      <ListSection>
+        <TableIndex contentList={contentList}/>
         {list === ''
         ?
         <Pagination
-          total={_posts.length}
-          limit={_contentLimit}
+          total={posts.length}
+          limit={contentLimit}
           page={page}
           setPage={setPage}
         />
         :''
         }
-      </div>
-      <hr/>
+      </ListSection><hr/>
       {/* 'create'모드 만드는 버튼 */}
-      <button style = {{marginLeft : '0.5rem'}} data-mode="create" onClick={btnHandler}>
+      <button data-mode="create" onClick={btnHandler}>
           CONTENT
-      </button>
-      <hr />
+      </button><hr/>
       {/* 모드 들어가기 */}
       {mode === "create" ? (
         <Create
@@ -257,7 +211,7 @@ const Admin = (props) => {
           submitHandler={(formData, config) => {
             submitHandler(formData, config);
           }}
-        ></Create>
+        />
       ) : (
         ""
       )}
@@ -274,7 +228,7 @@ const Admin = (props) => {
           >
             데이터저장
           </button>
-          <Preview data={pre_data} imgSrc={imageURL}></Preview>
+          <Preview data={pre_data} imgSrc={imageURL}/>
         </div>
       ) : (
         ""
@@ -283,9 +237,9 @@ const Admin = (props) => {
   {/** Read Mode */}
       {data && mode === "read" ? ( //Read Mode
         <div>
-          <button style = {{margin: "0.5rem"}} data-mode="update" onClick={btnHandler}>
+          <button data-mode="update" onClick={btnHandler}>
             update
-          </button>
+          </button>&nbsp;&nbsp;
           <form style = {{display : "inline-block"}}
             onSubmit={e => {
               e.preventDefault();
@@ -296,19 +250,19 @@ const Admin = (props) => {
           >
             <input type="submit" value={"Delete" || ""} />
           </form>
-          <Preview data={data}></Preview>
+          <Preview data={data}/>
         </div>
       ) : (
         ""
       )}
       {/** */}
 
-      {data && mode === "update" ? ( //Update Mode
-        <Update data={data} types={type}></Update>
+      {data && mode === "update" ? ( 
+        <Update data={data} types={type}/> //Update Mode
       ) : (
         ""
       )}
-    </div>
+      </Container>
     </>
     : 
     <Login
@@ -317,7 +271,7 @@ const Admin = (props) => {
         SessionStorage.setItem("Admin", true)
         window.location.replace("/centre/admin")
       }}
-    ></Login>
+    />
   );
 };
 
