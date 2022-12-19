@@ -41,16 +41,16 @@ const Admin = ({ detailHandler }) => {
 
   useEffect(()=>{
     getContentList();
-    detailHandler(true);
+    detailHandler(true); // header, siderbar 없애기
     if (SessionStorage.getItem("Admin") === "true") setLogin(true);
-    else setLogin(false);
+    else setLogin(false); //admin에 로그인이 되어있는지 확인
   },[])
 
   /** Get All Content List from DB */
-  const getContentList = async () => {
+  const getContentList = () => {
     try{
-    await axios
-      .get("/api/list")
+    axios
+      .get("/api/list") // 모든 데이터 리스트를 불러올 것
       .then((res) => {
         getContent(res.data.contents)
         getType(res.data.types)
@@ -64,11 +64,11 @@ const Admin = ({ detailHandler }) => {
   /** */
 
   /** Get Preview Specific Data */
-  const readPreviewProcess = async (id, mode) => {
+  const readPreviewProcess = (id, mode) => {
     try {
       if (id) {
-        await axios
-          .get("/api/read", {
+        axios
+          .get("/api/read", { // 특정 콘텐츠 불러올 것(Read)
             params: { id },
           })
           .then(res => {
@@ -128,38 +128,36 @@ const Admin = ({ detailHandler }) => {
       _pre_data.push(value)
     }
     if (_pre_data[1] === "3" || _pre_data[1] === "4") {
-      let _fileReader = new FileReader()
+      let _fileReader = new FileReader() // 이미지 파일 분기 (visual, project)
       cover_src = _pre_data[6]
       _fileReader.readAsDataURL(cover_src)
       _fileReader.onload = (e) => setImageURL(e.target.result)
     } else if (_pre_data[1] === "1" || _pre_data[1] === "2")
-      cover_src = _pre_data[5]
-    setMode("preview")
+      cover_src = _pre_data[5] // 컬러(srring) 분기 (poem, essay)
+    setMode("preview") // 관리자 미리보기 모드
     setPre_data({
       public: _pre_data[0],
       type: _pre_data[1],
       title: _pre_data[2],
       desc: _pre_data[3],
       link: _pre_data[4],
-      cover_src: cover_src,
+      cover_src: cover_src, // 이미지 or color(String)
     });
     setFormData(_formData)
   };
 
-  const createProcess = async () => {
+  const createProcess = () => {
     try {
-      await axios
-        .post("/api/create_process", formData).then(setMode(""))
-      alert("Uploaded!")
-      window.location.replace("/centre/admin")
+      axios
+        .post("/api/create_process", formData).then(setMode("")).then(alert("Uploaded!")).then(window.location.replace("/centre/admin")) // 데이터 생성 후 바로 윈도우를 리로드 시켜 변경된 관리자 페이지를 확인
     } catch (err) {
       throw new Error(err)
     }
   }
 
-  const deleteProcess = async (id, type, cover_src) => {
+  const deleteProcess = (id, type, cover_src) => {
     try {
-      await axios
+     axios
         .post("/api/delete_process", { id, type, cover_src })
         .then(alert("deleted."))
         .catch(console.log)
@@ -167,15 +165,17 @@ const Admin = ({ detailHandler }) => {
     } catch (err) {
       throw new Error(err)
     }
-  };
+  }; // 데이터 삭제
+
   return (
-    logined ? 
+    logined ?  // admin 로그인 여부를 확인
     <>
+    {/* Admin Container */}
     <Container style = {{margin : '5rem 3rem', width: '90vw'}}>
       <header>
       <h1 style = {{fontSize : '2rem'}}>
-        <a href="./admin">ADMIN</a>
-      </h1><br/><a href="/">Home</a>
+        <a href="./admin">ADMIN</a> 
+      </h1><br/><a href="/">Home</a> 
       <button
             onClick={ e => {
               e.preventDefault()
@@ -263,8 +263,9 @@ const Admin = ({ detailHandler }) => {
         ""
       )}
       </Container>
+    {/* Admin Container */}
     </>
-    : 
+    : // 로그인 안된 상태라면, 로그인 화면을 보여줄것.
     <Login
       login={Auth}
       authenticated={data => {

@@ -3,6 +3,11 @@ import styled  from "styled-components";
 import theme from '../lib/theme';
 import Parser from 'html-react-parser';
 
+/**
+ * 시조각(poem)/글조각(essay) 세부페이지 보기 컴포넌트
+ * cover에는 color data만 세팅된다.
+ */
+
 const DetailHeader = styled.div`
   position: sticky;
   z-index: -5;
@@ -19,35 +24,36 @@ const DetailHeader = styled.div`
   background-size: cover;
 `
 const Title = styled.h4`
-position: absolute;
-top: ${props => props.topic === 'project' ? '10rem' : '2.5rem'};
-left: 4rem;
-width: 14rem;
-line-height: 2rem;
+  position: absolute;
+  top: ${props => props.topic === 'project' ? '10rem' : '2.5rem'};
+  left: 4rem;
+  width: 14rem;
+  line-height: 2rem;
 `
 const MainContainer = styled.div`
-z-index: 2;
-width: 100%;
-line-height: 2.2rem;
-font-size: 1.1rem;
-color: ${props => props.theme.colors.section};
-background: ${props => props.theme.colors.modal};
--webkit-user-select:none;
--moz-user-select:none;
--ms-user-select:none;
-user-select:none;
+  z-index: 2;
+  width: 100%;
+  line-height: 2.2rem;
+  font-size: 1.1rem;
+  color: ${props => props.theme.colors.section};
+  background: ${props => props.theme.colors.modal};
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
 `
 
 const MainItem = styled.section`
-padding: 1.2rem 4.5vw;
-min-height: 100vh;
+  padding: 1.2rem 4.5vw;
+  min-height: 100vh;
 `
 
 const LogoFooter = styled.div`
-border-top: ${props => props.theme === true ? "solid 0.1px rgba(200,200,200,0.5)" : "solid 0.1px rgba(200, 200, 200, 0.5)"};
+  border-top: ${props => props.theme === true ? "solid 0.1px rgba(200,200,200,0.5)" : "solid 0.1px rgba(200, 200, 200, 0.5)"};
 `
 
 function getContentDetail({ themeMode, data}) {
+  /** 아래 Comp는 모두 Styled-Comps. */
   return (
       <div className='modal-container'>
       <DetailHeader src = {data.cover_src} topic = {data.topic} imgSrc = {data.cover_src ? `url(${process.env.NEXT_PUBLIC_REACT_AWS_CLOUDFRONT}w1024/${data.cover_src})`:''}>

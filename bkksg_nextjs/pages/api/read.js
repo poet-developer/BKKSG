@@ -1,6 +1,6 @@
 const db = require("../../config/db");
 
-const read = async (req, res) => {
+const read = async (req, res) => { // Admin에서 특정 컨텐츠를 읽어온다.
      const info = req.query;
      try{
        await db.query('SELECT id,title,description,cover_src,type_id,public,link FROM content WHERE content.id = ?',[info.id],(error, content) => {

@@ -12,7 +12,7 @@ function Centre() {
   
   return (
     <>
-      {logined ? (
+      {logined ? ( // 로그인이 되어있는지 확인
         <>
           <button
             onClick={ e => {
@@ -26,9 +26,9 @@ function Centre() {
           </button>
           <Outlet />
         </>
-      ) : (
+      ) : ( // 로그인 안되어있으면 로그인 Comp를 보여줄 것.
         <>
-          <Login
+          <Login 
             login={Auth}
             authenticated={data => {
               sessionStorage.setItem("Admin", true)

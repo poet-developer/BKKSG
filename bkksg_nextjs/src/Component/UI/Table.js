@@ -1,3 +1,8 @@
+/**
+     * For Admin (관리자 한함)
+     * data list table comp
+ */
+
 const TableIndex = ({contentList}) => {
      return(
      <>

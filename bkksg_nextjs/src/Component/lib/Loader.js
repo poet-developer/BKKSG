@@ -1,6 +1,9 @@
 import React from "react"
 import styled from "styled-components"
 import theme from "./theme"
+/**
+ * 인피니트 스크롤, 컨텐츠가 로드될때 나오는 버퍼링 UI
+ */
 
 const Loading = styled.div`
   text-align: center;

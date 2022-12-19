@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
 import TextEditor from "../lib/TextEditor";
+/**
+ * 기존 데이터를 불러와 TextEditor를 통해 Update를 지원한다.
+ * 구조는 Create Comp와 유사하다.
+ */
 
 const Update = props => {
   const { data, types } = props
@@ -25,7 +29,7 @@ const Update = props => {
     setContent(e.target.getContent())
   };
 
-  const submitHandler = async e => {
+  const submitHandler = (e) => {
     const _confrimed = window.confirm("수정 할까요?")
     e.preventDefault()
     let color, coverImg, imgId
@@ -50,10 +54,10 @@ const Update = props => {
       headers: { "Content-Type": 'multipart/form-data', },
       api: { bodyParser: false },
     }
-    if (_confrimed) {
+    if (_confrimed) { // Update Rest API 통신
       try {
-        await axios
-          .post("/api/update_process", formData, config)
+        axios
+          .patch("/api/update_process", formData, config)
           .then(alert("Updated!"))
           .catch(console.log)
       } catch (err) {
@@ -69,7 +73,7 @@ const Update = props => {
       <h4 style = {{margin : '1rem 0', fontSize: '1.5rem'}}>Update Your Content!</h4><br/>
       <a href="/centre/admin">Back to Admin</a>
       <h5 style={{ color: "red", marginTop: "1rem" }}>
-        표지는 수정 할 바에는 삭제하고 다시 만드시오 (aws cloud Front 사용중){" "}
+        표지는 수정 할 바에는 삭제하고 다시 만들기 (aws cloud Front 사용중){" "}
       </h5><br/>
       <TextEditor
         title={title}

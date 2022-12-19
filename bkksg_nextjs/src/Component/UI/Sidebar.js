@@ -4,6 +4,51 @@ import theme from "../lib/theme";
 import IndexList from "./IndexList";
 import { CgChevronRight, CgChevronLeft } from "react-icons/cg";
 
+/**
+     * For Grid ( app 공통 )
+     * mode Changer
+ */
+
+const Sidebar = props => {
+  const [isPullup, setPullup] = useState(false)
+  const { themeMode, isDetail } = props
+  const openSidebarHandler = () => {
+    setPullup(!isPullup) // 사이드바 열림/닫힘 이벤트 
+  };
+  const resizeHandler = () => {
+    setPullup(false) // 일정 화면 너비를 넘어갈 때, 사이드바는 자동으로 열림.
+  };
+  let windowWidth;
+
+  useEffect(()=>{
+    window.addEventListener("resize", resizeHandler)
+    windowWidth = window.innerWidth
+  },[])
+ 
+  return (
+      <SidebarGrid
+        className="grid-item-sidebar"
+        onClick={openSidebarHandler}
+        pullUp={isPullup}
+        isDetail={isDetail}
+      >
+        <IndexList
+          themeMode={themeMode}
+          pullUp={isPullup}
+          style={{ position: "relative" }}
+        ></IndexList>
+        <OpenSideButton className="open-side-button" pullUp={isPullup} isDetail={isDetail}>
+          {isPullup || windowWidth < theme.common.screen.max ? (
+            <CgChevronLeft />
+          ) : (
+            <CgChevronRight /> 
+          )}
+        </OpenSideButton>
+        {/* 사이드바 열고 닫을때 마다 아이콘 바뀜 */}
+      </SidebarGrid>
+  );
+};
+
 const SidebarGrid = styled.div`
   background: ${props => props.theme.gradient.linear};
   -mos-box-shadow: ${props => props.theme.glass.shadow};
@@ -38,44 +83,5 @@ const OpenSideButton = styled.div`
     color: ${theme.common.color};
   }
 `;
-
-const Sidebar = props => {
-  const [isPullup, setPullup] = useState(false)
-  const { themeMode, isDetail } = props
-  const openSidebarHandler = () => {
-    setPullup(!isPullup)
-  };
-  const resizeHandler = () => {
-    setPullup(false)
-  };
-  let windowWidth;
-
-  useEffect(()=>{
-    window.addEventListener("resize", resizeHandler)
-    windowWidth = window.innerWidth
-  },[])
- 
-  return (
-      <SidebarGrid
-        className="grid-item-sidebar"
-        onClick={openSidebarHandler}
-        pullUp={isPullup}
-        isDetail={isDetail}
-      >
-        <IndexList
-          themeMode={themeMode}
-          pullUp={isPullup}
-          style={{ position: "relative" }}
-        ></IndexList>
-        <OpenSideButton className="open-side-button" pullUp={isPullup} isDetail={isDetail}>
-          {isPullup || windowWidth < theme.common.screen.max ? (
-            <CgChevronLeft />
-          ) : (
-            <CgChevronRight />
-          )}
-        </OpenSideButton>
-      </SidebarGrid>
-  );
-};
 
 export default Sidebar

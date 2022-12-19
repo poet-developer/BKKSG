@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+/** admin에 list를 불러올때 10개씩 페이지를 나눈다. */
 const Pagination = ({ total, limit, page, setPage }) => {
   const numPages = Math.ceil(total / limit);
   return (

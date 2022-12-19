@@ -20,10 +20,10 @@ function MyApp(
   { Component, pageProps }
   ) {
   const [themeMode, setThemeMode] = useState(getTheme) //Day;
-  const [isOpen, setIsOpen] = useState(false)
   const [isDetail, setIsDetail] = useState(false)
+  // Content Read 모드인지 확인하는 state
   const [componentMounted, setComponentMounted] = useState(false);
-  const router = useRouter();
+  const router = useRouter(); // 동적 라우팅을 위한 분기
   
   useEffect(() => {  
     setThemeMode(getTheme)
@@ -42,19 +42,15 @@ function MyApp(
     <div className="grid-container">
     <Header
       themeMode={themeMode}
-      themeHandler={themeHandler}
-      isOpen={isOpen}
-      setIsOpen={setIsOpen}
+      themeHandler={themeHandler} // day or night
       isDetail={isDetail}/>
     <Sidebar
         themeMode={themeMode}
-        pullUp={isOpen ? true : false}
-        setIsOpen={setIsOpen}
         isDetail={isDetail}
       />
       <Component theme = {theme} themeMode = {themeMode} themeHandler = {themeHandler} detailHandler = {(detail) => {
         if(detail === true) setIsDetail(true)
-        else setIsDetail(false)
+        else setIsDetail(false) // header와 sidebar는 없어진다.
       }} {...pageProps} />
     <Footer themeMode={themeMode} />
     </div>

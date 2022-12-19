@@ -1,3 +1,8 @@
+
+/** Admin 페이지를 위한 CREATE에서 전달받은 FormData를 가지고 미리보기 view 제작하는 페이지 Preview.
+ * 표지 이미지 미리보기용은 AWS S3 Bucket에 /w330 경로에 저화질로 저장된 것을 불러온다.
+ */
+
 const Preview = props => {
   const _data = props.data;
   let _type = Number(_data.type);

@@ -1,5 +1,11 @@
 import styled from "styled-components"
 
+/**
+     * For SearchMode
+     * 검색 창에 제목과 글종류 보여주는 UI
+     * poem&essay / visual&project 분기
+ */
+
 const ColorSticker= styled.div`
 position: relative;
 flex: 0 0 12rem;
@@ -32,7 +38,7 @@ flex: 0 0 10rem;
 margin-left: 1rem;
 `
 
-const Chapter = props => {
+const SearchChapter = props => {
      const { cover, topic, title } = props;
 
      return(
@@ -50,4 +56,4 @@ const Chapter = props => {
      )
 }
 
-export default Chapter
+export default SearchChapter

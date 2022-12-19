@@ -5,6 +5,12 @@ import { CgChevronLeft } from "react-icons/cg";
 import { useRouter } from 'next/router'
 import getRandomNum from '../lib/getRandomNum'
 
+/**
+ * for Html Canvas 
+ * 애니메이션이 움직일 전체 캔버스 크기를 설정한다.
+ * 뒤로가기 버튼을 적용한다.
+ *  Header, Sidebar는 사라진다.
+ */
 const Bo = styled.div`
   animation: modal-show 0.3s;
   background-image: url('/jogakbo/${getRandomNum(10)}.jpg');
@@ -21,7 +27,7 @@ const BackButton = styled.div`
   }
 `
 
-const checkWidth = () => {
+const checkWidth = () => { // 모바일 환경을 확인해서 그에 맞는 애니메이션을 구성하기 위한 확인.
   const canvas = {
     bigger: { x: 900, y: 900, orbitRatio: 65, planetRatio: 32 },
     big : { x: 750, y: 750, orbitRatio: 53, planetRatio: 25 },
@@ -38,11 +44,9 @@ const checkWidth = () => {
     return canvas.small
 };
 
-const CanvasAni = props => {
-  let canvasRef = useRef();
-  let canvas;
-  let ctx;
-  const { detailHandler } = props;
+const CanvasAni = ({detailHandler, color}) => {
+  let canvasRef = useRef(); // 다시 렌더링되지 않는 Layer.
+  let canvas; let ctx;
   const router = useRouter()
 
   let canvasInfo = checkWidth();
@@ -54,15 +58,15 @@ const CanvasAni = props => {
     }
   }
 
-  const drawLogo = () => {
+  const drawAnimation = () => {
     drawSolarSystemAnimation(canvas, ctx, canvasInfo.orbitRatio, canvasInfo.planetRatio);
-  };
+  }; // 애니메이션 그리는 함수 (../lib/SolarSystem)
 
    useEffect(() => {
     canvas = canvasRef.current;
     ctx = canvas.getContext("2d");
-    requestAnimationFrame(drawLogo)
-    detailHandler(true);
+    requestAnimationFrame(drawAnimation) // 초당 60frame으로 재생 (callback)
+    detailHandler(true); // Header & Sidbar 없애는 이벤트 함수
   }, []);
 
   return (
@@ -70,7 +74,7 @@ const CanvasAni = props => {
         <BackButton className="bo-back-btn" onClick={goBack}><CgChevronLeft /></BackButton>
             <canvas
               style={{zIndex: '3', display: 'relative'}}
-              color={props.color}
+              color={color}
               ref={canvasRef}
               width={canvasInfo.x}
               height={canvasInfo.y}

@@ -1,6 +1,11 @@
 import React, { useState } from "react"
 import TextEditor from "../lib/TextEditor"
 
+/**
+ * Text Editor를 사용해 입력된 데이터들을 new FormData에 저장하는 기능 
+ * FromData는 props.submitHandler를 통해 S3에 저장된다. server:create_process로 전송.
+ */
+
 // Function Component
 const Create = props => {
   const [desc, setDesc] = useState("")
@@ -26,7 +31,6 @@ const Create = props => {
     formData.append("color", color)
     // An img file's to been used to middleware must be at the end.
     formData.append("coverImg", coverImg)
-    console.log('datadata', formData);
     try {
       props.submitHandler(formData)
     } catch (err) {

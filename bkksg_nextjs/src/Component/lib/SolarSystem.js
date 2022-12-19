@@ -1,3 +1,11 @@
+
+/** 기능설명
+* Setting Default Function  For Html Canvas Animation
+* 애니메이션에 필요한 행성에 대한 색상, 크기 ,속도 등의 정보를 기록해 놓았다.
+* 각깍의 정보는 모두 상대값으로 지정해놓아, 추후 미디어쿼리와 크로스 브라우징에서 쉽게 사이즈 비율 조절이 가능하다.
+* 행성과 궤도는 모두 생성자로 만들어 모듈화 시켰다.
+**/
+
 const drawSolarSystemAnimation = (cv, ctx, orbitRatio, planetRatio) => {
 
   const orbitIndex = { first: 1, fin: 11 }
@@ -478,13 +486,13 @@ const drawSolarSystemAnimation = (cv, ctx, orbitRatio, planetRatio) => {
     this.originPosY = originPosY
     this.orbitLength = orbitLength
     this.speed = speed
-  }
+  } // for Mer, Vin, Ear, Mar, Cer, Jup, Sat, Ura, Nep,  Plu
 
   function Satellite(initInfo, parentPlanetPos, speed) {
     this.initInfo = initInfo
     this.parentPlanetPos = parentPlanetPos
     this.speed = speed
-  }
+  } // for Moon
 
   function Comet(initInfo,
     dot,
@@ -499,7 +507,7 @@ const drawSolarSystemAnimation = (cv, ctx, orbitRatio, planetRatio) => {
       this.orbitLength = orbitLength
       this.speed = speed
       this.squareInterval = squareInterval
-    }
+    } // 궤도가 혼자 직사각형이라 다른 생성자가 필요했다.
 
   Satellite.prototype.catchPlanet = function() {
     let _satellitePos = {

@@ -34,7 +34,7 @@ const HeaderLogo = props => {
     cometOrbit(ctx, "azure");
     makeComet(ctx, "azure");
     requestAnimationFrame(drawLogo);
-  };
+  }; // 로고 애니메이션을 위한 html canvas
 
   useEffect(() => {
     canvas = canvasRef.current;

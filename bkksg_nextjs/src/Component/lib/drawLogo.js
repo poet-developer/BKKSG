@@ -6,14 +6,14 @@ let orbit = {
 
 let cometPos = {x: 0, y: 0,}
 
-let sun = 30
+const sun = 30
 
 let info = {
   pos: "left",
   speed: { x: 0.5, y: 0.5, },
-  tail: 9,
+  tail: 9, // for comet
   updateSpeed: 0.5,
-};
+}; // 기본 포맷
 
 const max = {
   x: orbit.pos.x + orbit.width - info.tail / 2,

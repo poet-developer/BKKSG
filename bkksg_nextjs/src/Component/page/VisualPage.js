@@ -2,6 +2,11 @@ import styled from "styled-components"
 import {HiOutlineShoppingCart } from "react-icons/hi"
 import theme from '../lib/theme'
 
+/**
+ * 그림조각(visual)/프로젝트(project) 타입 세부페이지 보기 컴포넌트
+ * S3 bucket에서 w1024/ 경로의 고화질 이미지를 출력해옴 (CloudFront)
+ */
+
 const ImageContainer = styled.div`
       background-image : ${props => props ? `url(${process.env.NEXT_PUBLIC_REACT_AWS_CLOUDFRONT}w1024/${props.src})` : ``};
      `
@@ -85,7 +90,8 @@ return(
         </DetailSection>
       <VisualModal>
         <Cursor isCursor ={data.link ? true : false} onClick={data.link ? goLink : null}/>
-        <ImageContainer className='img-container' src = {data.cover_src ? data.cover_src : ''}/>
+        <ImageContainer className='img-container' src = {data.cover_src ? data.cover_src : ''}/> 
+        {/* 고화질 사진 불러옴 */}
         <div className="visual-logo-sticker"> 비껴서기 | BKKSG</div>
       </VisualModal>
       </div>

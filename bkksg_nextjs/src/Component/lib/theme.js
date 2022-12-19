@@ -1,3 +1,8 @@
+/**
+ * 사이트 전체 테마는 두가지로 분기된다.
+ * day theme, night theme의 스타일을 object형태로 보관한다.
+ */
+
 const theme = {
   day: {
     gradient: {

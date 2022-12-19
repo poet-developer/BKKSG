@@ -1,6 +1,6 @@
 const db = require("../../config/db");
 
-const list =  async(req, res) => {
+const list =  async(req, res) => { // 공개여부에 상관없이 모든 글을 불러온다. (for Admin)
      try{
        await db.query("SELECT * FROM type", (err, types) => {
        if (err) throw err;

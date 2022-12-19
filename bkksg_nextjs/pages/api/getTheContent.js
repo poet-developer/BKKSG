@@ -1,6 +1,6 @@
 const db = require("../../config/db");
 
-const getTypeContent =  async (req, res) => {
+const getTypeContent =  async (req, res) => { // Read를 위한 함수. 보고자 하는 컨텐츠 하나만 DB에서 id를 통해 가져옴(the Content)
      const info = req.query;
      let _query;
      try{

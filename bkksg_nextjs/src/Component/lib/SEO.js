@@ -1,5 +1,5 @@
 import Head from "next/head";
-
+/** FOR SEO */
 const HeadMeta = ({ title, topic, id, cover, url}) => {
   return (
     <Head>

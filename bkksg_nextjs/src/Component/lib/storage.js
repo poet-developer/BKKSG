@@ -2,10 +2,11 @@ import {s3} from "../../../config/aws"
 import mime from "mime-types"
 import multerS3 from "multer-s3"
 import uuid from 'react-uuid'
-import multer from "multer";
 let idTomulterS3;
 
-const storageCover = multerS3({
+/** 이미지 업로드를 AWS에 하기위해 필요한 기능들 */
+
+const storageCover = multerS3({ // multer-s3
      s3,
      bucket: "bkksg-images",
      key: (req, file, cb) => {
@@ -18,28 +19,15 @@ const storageCover = multerS3({
        }
        cb(null, _id); 
      }
-   })
+   }) // to AWS Storage
 
-const storage = multer.diskStorage({
-     destination: function (req, file, cb) {
-       cb(null, "./public/uploads");
-     },
-     filename: function (req, file, cb) {
-      let _id;
-      if(req.body.img_id) _id  = `raw/${req.body.img_id}`;
-      else {
-        _id = `raw/${uuid()}.${mime.extension(file.mimetype)}`;
-      }
-       cb(null, _id);
-     },
-   });
-
-const filterPublic = (data) =>{
+const filterPublic = (data) =>{ // 컨텐츠 공개 여부를 결정하는 함수
 if(data === 'true' || data === '1') return 1
 else return 0
 }
 
-const NextConnextObj = {
+const NextConnextObj = { 
+  // 미들웨어를 만드는 함수 (stackoverflow 참고)
      onError(error, req, res) {
        res
          .status(501)

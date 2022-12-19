@@ -34,9 +34,9 @@ const TextEditor = props => {
     let _coverInput
 
     if (_coverValue === 1 || _coverValue === 2)
-      _coverInput = <input type="color" name="c" />
+      _coverInput = <input type="color" name="c" /> //poem, essay input은 color(string)
     else if (_coverValue === 3 || _coverValue === 4)
-      _coverInput = <input type="file" name="c" />
+      _coverInput = <input type="file" name="c" /> //visual, project input은 file(formdata)
 
     setOpenInput(true)
     setCoverType(_coverInput)
@@ -91,7 +91,7 @@ const TextEditor = props => {
   };
   let selectTypes, _selectedType
   const UPDATE = "update"
-  const apiKey = process.env.NEXT_PUBLIC_REACT_APP_TINY_EDITOR
+  const apiKey = process.env.NEXT_PUBLIC_REACT_APP_TINY_EDITOR //tinyMCE editor API KEY
   // 장르 선택 옵션 
   selectTypes = typeList.map(type => {
     if (mode === UPDATE) {
