@@ -36,7 +36,6 @@ class CustomDocument extends Document {
       <Html lang='ko'>
         <Head>
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta name="theme-color" content="#4B3872"/>
         <meta name="author" content="IROLIM"/>
         <meta httpEquiv="Email" content="bkksg.studio@gmail.com" />
@@ -45,9 +44,9 @@ class CustomDocument extends Document {
         <meta property="og:image:height" content="630"/>
         <meta name="title" content = {
              `비껴서기 | BKKSG`}/>
-        <meta name="description" itemprop="description" content={
+        <meta name="description" itemProp="description" content={
           `이로가 비껴서서 생각하고 설계하고 만드는, 움직이는 화랑 | 시, 수필, 미술, 시각, 기획`}/>
-        <meta name="keywords" itemprop="keywords" content= {
+        <meta name="keywords" itemProp="keywords" content= {
              `비껴서기, bkksg, ㅂㄲㅅㄱ, IROLIM, 이로, 시, 수필, 글, Art, 시각, 설치, 기획, poetdeveopler, 林이로, 움직이는 화랑`}/>
         <meta property="og:url" content={`https://bkksg.com/`} />
         <meta property="og:title" content={`비껴서기 | BKKSG`} />
