@@ -99,7 +99,7 @@ const Admin = ({ detailHandler }) => {
         .slice(offset, offset + contentLimit)
         .map(item => {
           return (
-            <TableContent data = {item} read = {readPreviewProcess} />
+            <TableContent key = {item.id} data = {item} read = {readPreviewProcess} />
           )
      })
     }else{
@@ -149,7 +149,7 @@ const Admin = ({ detailHandler }) => {
   const createProcess = () => {
     try {
       axios
-        .post("/api/create_process", formData).then(setMode("")).then(alert("Uploaded!")).then(window.location.replace("/centre/admin")) // 데이터 생성 후 바로 윈도우를 리로드 시켜 변경된 관리자 페이지를 확인
+        .post("/api/create_process", formData).then(setMode("")).then(alert("Uploaded!")) // 데이터 생성 후 바로 윈도우를 리로드 시켜 변경된 관리자 페이지를 확인
     } catch (err) {
       throw new Error(err)
     }
