@@ -8,10 +8,7 @@ import {storageCover, filterPublic, NextConnextObj} from '../../src/Component/li
                           fileFilter: function (req, file, cb) {
                             if(['image/png', 'image/jpeg', 'image/jpg', 'image/gif'].includes(file.mimetype)) cb(null, true)
                             else cb(new Error("Invalid file type."),false) // 파일 유형 필터링
-                          },
-                          limits:{
-                            fileSize: 1024 * 1024 * 10, // 파일 크기는 10Mb로 제한
-                          } 
+                          }
                           }); // 미들웨어 처럼 사용할 수 있도록 하는 함수 nextConnect 사용
   
    createProcess.post(upload.single("coverImg"), async(req, res) => { 
