@@ -51,7 +51,7 @@ export default TopicMode
 
 export async function getServerSideProps(context){
   const mode = context.params.mode;
-  const res = await axios.get("http://localhost:7272/api/getTypeContents/", {
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_REACT_SERVER}api/getTypeContents/`, {
     params: {mode: mode },
   })
   const data = res.data

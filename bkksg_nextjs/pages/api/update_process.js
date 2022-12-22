@@ -9,7 +9,10 @@ import {storageCover, filterPublic, NextConnextObj} from '../../src/Component/li
     fileFilter: function (req, file, cb) {
       if(['image/png', 'image/jpeg', 'image/jpg', 'image/gif'].includes(file.mimetype)) cb(null, true)
       else cb(new Error("Invalid file type."),false)
-    }
+    },
+    limits:{
+      fileSize: 1024 * 1024 * 10, //파일 용량 제한 5mb 통일
+    } 
     });
   
    updateProcess.patch(upload.single("coverImg"), async(req, res) => {  //patch는 수정할때 쓰는 메소드

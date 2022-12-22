@@ -5,6 +5,9 @@ import {storageCover, filterPublic, NextConnextObj} from '../../src/Component/li
    
    const createProcess = nextConnect(NextConnextObj);
    var upload = multer({ storage: storageCover,
+                          limits:{
+                            fileSize: 1024 * 1024 * 10, // 파일 크기는 10Mb로 제한
+                          },
                           fileFilter: function (req, file, cb) {
                             if(['image/png', 'image/jpeg', 'image/jpg', 'image/gif'].includes(file.mimetype)) cb(null, true)
                             else cb(new Error("Invalid file type."),false) // 파일 유형 필터링
