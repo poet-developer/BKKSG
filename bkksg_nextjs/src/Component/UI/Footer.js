@@ -6,7 +6,7 @@ import { FiInstagram } from "react-icons/fi";
 import { FaPinterest } from "react-icons/fa";
 import { GrTwitter } from "react-icons/gr";
 import Image from 'next/image';
-import opensea from'../../img/opensea.png';
+import brunch from'../../img/brunch.png';
 
 const FooterBtnGrid = styled.footer`
   grid-area: footerBtn;
@@ -123,16 +123,10 @@ const Footer = props => {
             <GrTwitter size={36} />
             </a>
             <a className = "icon-item"
-              href="https://www.pinterest.co.kr/bkksgstudio/bkksg_assets/"
+              href="https://brunch.co.kr/@bkksg"
               target="_blank" rel="noopener noreferrer"
             >
-              <FaPinterest size={35} />
-            </a>
-            <a className = "icon-item"
-              href="https://opensea.io/collection/bkksg"
-              target="_blank" rel="noopener noreferrer"
-            >
-              <Image alt="Opensea" layout="fixed" width={35} height={35} src={opensea}/>
+              <Image alt="Brunch_Story" layout="fixed" width={35} height={35} src={brunch}/>
             </a>
             <div className="contact-email" style = {{ color: theme.common.color}}>
               <h5 style={{ marginBottom: "0.5rem" }}>| CONTACT US</h5>
