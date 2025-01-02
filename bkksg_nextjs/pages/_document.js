@@ -60,6 +60,8 @@ class CustomDocument extends Document {
         <meta name="naver-site-verification" content={process.env.NEXT_PUBLIC_REACT_NAVER_SITE_VERIFICATION} />
         <link rel="canonical" href={`https://bkksg.com/`} />
         <link rel="icon" href="/favicon.ico"/>
+        <script async src={process.env.GOOGLE_ADSENSE}
+     crossorigin="anonymous"></script>
         </Head>
         <body>
           <Main />
