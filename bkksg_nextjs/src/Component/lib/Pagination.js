@@ -26,7 +26,7 @@ const Pagination = ({ total, limit, page, setPage }) => {
       </Nav>
     </>
   );
-}
+};
 
 const Nav = styled.nav`
   display: flex;

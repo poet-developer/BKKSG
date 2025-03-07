@@ -1,16 +1,16 @@
 let orbit = {
-  pos: { x: 5, y: 5,},
+  pos: { x: 5, y: 5 },
   width: 190,
   height: 50,
-}
+};
 
-let cometPos = {x: 0, y: 0,}
+let cometPos = { x: 0, y: 0 };
 
-const sun = 30
+const sun = 30;
 
 let info = {
   pos: "left",
-  speed: { x: 0.5, y: 0.5, },
+  speed: { x: 0.5, y: 0.5 },
   tail: 9, // for comet
   updateSpeed: 0.5,
 }; // 기본 포맷
@@ -72,7 +72,7 @@ const makeComet = (ctx, color) => {
         info.speed.y = 0;
         info.pos = "bottom";
       }
-      break
+      break;
 
     case "bottom":
       cometPos.x = cometPos.x + info.speed.x;
@@ -82,7 +82,7 @@ const makeComet = (ctx, color) => {
         info.speed.y = info.updateSpeed;
         info.pos = "right";
       }
-      break
+      break;
 
     case "right":
       cometPos.y = cometPos.y - info.speed.y;
@@ -92,7 +92,7 @@ const makeComet = (ctx, color) => {
         info.speed.y = 0;
         info.pos = "top";
       }
-      break
+      break;
 
     case "top":
       cometPos.x = cometPos.x - info.speed.x;
@@ -102,10 +102,11 @@ const makeComet = (ctx, color) => {
         info.speed.y = info.updateSpeed;
         info.pos = "left";
       }
-      break
+      break;
 
-      default: info.pos = "left"
-      break
+    default:
+      info.pos = "left";
+      break;
   }
 };
 

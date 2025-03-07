@@ -4,35 +4,36 @@ import Login from "../page/Login";
 import Auth from "../lib/auth";
 
 function Centre() {
-  const [logined, setLogin] = useState(false)
-  useEffect(()=> {
+  const [logined, setLogin] = useState(false);
+  useEffect(() => {
     if (sessionStorage.getItem("Admin") === "true") setLogin(true);
     else setLogin(false);
-  }, [])
-  
+  }, []);
+
   return (
     <>
       {logined ? ( // 로그인이 되어있는지 확인
         <>
           <button
-            onClick={ e => {
-              e.preventDefault()
-              sessionStorage.setItem("Admin", false)
-              window.location.replace("/centre")
+            onClick={(e) => {
+              e.preventDefault();
+              sessionStorage.setItem("Admin", false);
+              window.location.replace("/centre");
             }}
-            style = {{margin: '1rem'}}
+            style={{ margin: "1rem" }}
           >
             Logout
           </button>
           <Outlet />
         </>
-      ) : ( // 로그인 안되어있으면 로그인 Comp를 보여줄 것.
+      ) : (
+        // 로그인 안되어있으면 로그인 Comp를 보여줄 것.
         <>
-          <Login 
+          <Login
             login={Auth}
-            authenticated={data => {
-              sessionStorage.setItem("Admin", true)
-              window.location.replace("/centre/admin")
+            authenticated={(data) => {
+              sessionStorage.setItem("Admin", true);
+              window.location.replace("/centre/admin");
             }}
           ></Login>
         </>
@@ -41,4 +42,4 @@ function Centre() {
   );
 }
 
-export default Centre
+export default Centre;

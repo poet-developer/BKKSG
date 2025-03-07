@@ -2,7 +2,7 @@
 /** Html canvas에서 배경에 나오는 10가지의 이미지는 랜덤으로 나온다 */
 
 const getRandomNum = (num) => {
-     return Math.floor(Math.random() * num + 1);
-   };
+  return Math.floor(Math.random() * num + 1);
+};
 
-export default getRandomNum
+export default getRandomNum;

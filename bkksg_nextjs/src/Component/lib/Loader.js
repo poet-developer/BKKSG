@@ -1,6 +1,6 @@
-import React from "react"
-import styled from "styled-components"
-import theme from "./theme"
+import React from "react";
+import styled from "styled-components";
+import theme from "./theme";
 /**
  * 인피니트 스크롤, 컨텐츠가 로드될때 나오는 버퍼링 UI
  */
@@ -12,7 +12,7 @@ const Loading = styled.div`
     position: relative;
     width: 80px;
     height: 80px;
-    margin-top:3rem;
+    margin-top: 3rem;
   }
   .lds-ellipsis div {
     position: absolute;
@@ -66,7 +66,7 @@ const Loading = styled.div`
 `;
 
 const Loader = (props) => {
-  const { state } = props
+  const { state } = props;
   return (
     <Loading>
       <div className="lds-ellipsis">
@@ -76,7 +76,7 @@ const Loader = (props) => {
         <div></div>
       </div>
     </Loading>
-  )
-}
+  );
+};
 
-export default Loader
+export default Loader;

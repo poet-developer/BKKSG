@@ -1,0 +1,49 @@
+.about_name {
+     padding: 0.7em 0.5em;
+     font-size: 2em;
+}
+
+.about_index {
+     padding: 0.7em 0.5em;
+     font-size: 1.3em;
+}
+
+.about_text {
+     font-weight: 300;
+     padding: 0.3em 0;
+     line-height: 1.3em;
+}
+
+.years {
+     font-weight: 400;
+}
+
+.about_content {
+     margin-top: 1em;
+}
+
+.about_link {
+     color: white;
+     color: inherit;
+}
+
+.about_link:visited {
+     color: inherit;
+}
+
+.about_link:hover,
+.about_link:focus {
+     color: gold;
+     /* 호버 시에도 밑줄 제거 */
+}
+
+.about_etc {
+     font-style: italic;
+     font-weight: 300;
+     padding: 0.3em 0;
+     line-height: 1.3em;
+}
+
+.about_namespace {
+     margin-top: 1em;
+}

@@ -1,9 +1,9 @@
 /**
-     * For Header (app 공통)
-     * color theme changer
+ * For Header (app 공통)
+ * color theme changer
  */
 
-const Switch = props => {
+const Switch = (props) => {
   const { isChecked, toggleHandler } = props;
 
   return (
