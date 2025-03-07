@@ -4,7 +4,7 @@
 ---
 <img alt="comet" src="https://bkksg-images.s3.ap-northeast-2.amazonaws.com/ProjectImages_highquality/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA+2025-03-08+%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB+12.54.08.png" width="100%"/>
 
-### Intro. 비껴서며,
+## Intro. 비껴서며,
 
 한 공간의 가운데는 에너지가 군집하여 그 기세가 강렬하기 마련이다. 
 나는 그로부터 매번 비껴서기를 좋아했다. 첫째는 가운데로 쏠리는 그 열기가 너무 뜨거워 두려웠기 때문이고, 둘째는 그 힘이 무거워 버거웠기 때문이다.
