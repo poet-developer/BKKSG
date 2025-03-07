@@ -128,8 +128,8 @@ const About = ({ detailHandler }) => {
               <span className="years">2023.6</span> 하나은행 H.ART1 프로젝트 전시 "CROSSING ONE" 브랜드 디지인
             </p>
             <p className="about_text">
-              <span className="years">2022.7</span> 웹 갤러리사이트 "비껴서기"
-              풀스텍(Full-Stack) 기획 및 개발
+              <span className="years">2022.7</span> 웹 갤러리사이트 "비껴서기" 
+              풀스텍(Full-Stack) 기획 및 개발 <a className="about_link" target="_blank" href="https://github.com/poet-developer/BKKSG"><CgArrowBottomLeftO/></a>
             </p>
             <p className="about_text">
               <span className="years">2019.2</span> 작품집 "오늘도 꽃은 피어라
