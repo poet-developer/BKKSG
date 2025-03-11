@@ -74,7 +74,7 @@ const About = ({ detailHandler }) => {
           <div className="about_content">
             <h1 className="about_index">Education </h1>
             <p className="about_text">
-              <span className="years">2024</span> 한국학중앙연구원 한국학대학원
+              <span className="years">2024 ~</span> 한국학중앙연구원 한국학대학원
               인문정보학 석사 재학 中
             </p>
             <p className="about_text">
@@ -97,22 +97,25 @@ const About = ({ detailHandler }) => {
               보조연구원 - 디지털 인문학 국제학술행사 웹사이트 구축 中
             </p>
             <p className="about_text">
-              <span className="years">2024.2.13 </span>제2회 한국현대문학자대회 - 
+              <span className="years">2025.2 </span>제2회 한국현대문학자대회 - 
               "한국 근현대시 감정 라벨링 데이터셋 구축: 문학 텍스트의 컴퓨터
               기반 감정 분류와 생성형 AI 활용을 위한 기초 연구" - 포스터발표
               (임이로, 지해인, 김병준) <a className="about_link" target="_blank" href="https://www.kadh.org/%ED%95%99%EC%88%A0%EB%8C%80%ED%9A%8C-%EC%A0%9C2%ED%9A%8C-%ED%95%9C%EA%B5%AD%ED%98%84%EB%8C%80%EB%AC%B8%ED%95%99%EC%9E%90%EB%8C%80%ED%9A%8C250212-13/"><CgArrowBottomLeftO/></a>
             </p>
             <p className="about_text">
-              <span className="years">2024.2</span> "정조명찬 《인물고》 LOD
+              <span className="years">2024.9 ~ 2025.2</span> "정조명찬 《인물고》 LOD
               시스템 구축 <a className="about_link" target="_blank" href="https://wikidocs.net/book/16878"><CgArrowBottomLeftO/></a>" - 디지털인문학 시리즈 (김바로, 임이로 et. al.)
               참여연구원 및 위키독스 발행 
+            </p>
+            <p className="about_text">
+              <span className="years">2025.1</span> "WORLD ART EXPO 2025 - IAA 수상 작가전 /홍익 세화전" 전시 기획 참여 및 디자인
             </p>
             <p className="about_text">
               <span className="years">2024.12</span> 시집 "오늘도 꽃은 피어라 <a className="about_link" target="_blank" href="https://ebook-product.kyobobook.co.kr/dig/epd/ebook/E000010798546"><CgArrowBottomLeftO/></a>"
               전자책 발간
             </p>
             <p className="about_text">
-              <span className="years">2024.9</span> "XML/TEI with 인문학 <a className="about_link" target="_blank" href="https://wikidocs.net/book/14569"><CgArrowBottomLeftO/></a>" -
+              <span className="years">2024.3 ~ 2024.9</span> "XML/TEI with 인문학 <a className="about_link" target="_blank" href="https://wikidocs.net/book/14569"><CgArrowBottomLeftO/></a>" -
               디지털인문학 시리즈 (김바로, 임이로 et. al.) 보조연구원 및
               위키독스 발행
             </p>
@@ -139,6 +142,9 @@ const About = ({ detailHandler }) => {
               <span className="years">2018.11</span> 졸업전시회 ".WAV"
               미디어아트 인스톨레이션 "파란시간" 전시 (홍익대학교
               대학로캠퍼스){" "}
+            </p>
+            <p className="about_text">
+              <span className="years">2018.4</span> 홍익대학교 광고홍보학부 BI "BLANK" 기획 및 디자인 후보 선정
             </p>
             <p className="about_text">
               <span className="years">2017.11</span> 어쿠스틱 공연
