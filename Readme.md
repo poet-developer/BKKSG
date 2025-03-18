@@ -33,7 +33,7 @@
 
 끝으로  <비껴서기> 로고는 태양을 도는 혜성을 소재로 삼아 만들었다. 마찬가지로 태양계를 '비껴서' 횡단하는 혜성을, 나는 사랑하기 때문이다.
 
-
+_이로 글
 
 ### :monocle_face: 미리보기 | Preview
 <img style="display: inline-block" src="https://user-images.githubusercontent.com/90435185/205095485-7677ab50-e8b9-471e-915e-9c1aba6569ad.jpg"  height="500"/> <img style="display: inline-block" src="https://user-images.githubusercontent.com/90435185/205096076-cd7040d1-7702-4664-a161-92662a10910e.png"  height="500"/>
